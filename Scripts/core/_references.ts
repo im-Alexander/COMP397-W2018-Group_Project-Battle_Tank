@@ -1,0 +1,1 @@
+/// <reference path="../../Scripts/objects/player.ts"/>
