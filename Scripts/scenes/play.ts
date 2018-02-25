@@ -3,6 +3,7 @@ module scenes {
     // Private Instance Variables
     private _terrain: objects.Terrain;
     private _tank: objects.Tank;
+    private _enemy: objects.Enemy;
     private _bullets : objects.Bullet[];
     private _labelTankDegree : objects.Label;
     private _labelTankX : objects.Label;
@@ -14,8 +15,6 @@ module scenes {
     public areaLeft:number=0;
     public areaRight:number=0;
     public areaBottom:number=0;
-    
-
 
     // Public Properties
 
@@ -38,6 +37,7 @@ module scenes {
     public Start(): void {
       this._terrain = new objects.Terrain(this.assetManager);
       this._tank = new objects.Tank(this.assetManager, (this.areaLeft+this.areaRight)*0.5, this.areaBottom*0.9);
+      this._enemy = new objects.Enemy(this.assetManager);
       this._bullets = new Array<objects.Bullet>();
       this._labelTankDegree = new objects.Label("Tank Rotation :", "10px","Arial", "#ff0000",1400,10, false );
       this._labelTankX = new objects.Label("Tank X (axis) :", "10px","Arial", "#ff0000",1400,25, false );
@@ -58,6 +58,8 @@ module scenes {
       this._labelTankY.text = "Tank Y (axis) :" + this._tank.y;
       this._labelBulletsQty.text = "Bullets Qty :"+ this._tank.bulletsCounter;
 
+      managers.Collision.Check(this._enemy, this._tank);
+
       this._tank.nextBulletCounter++;
       if(this._tank.nextBulletCounter>20){
         this._tank.bulletsCounter ++;
@@ -76,6 +78,7 @@ module scenes {
         if (!bullet.NoColision){
           colidedBullets[counter]= BulletsArraycounter;
         }
+        managers.Collision.Check(this._enemy, bullet);
       });
 
       // if(colidedBullets.length>0){
@@ -92,6 +95,8 @@ module scenes {
       this.addChild(this._terrain);
       // add the tank to the scene
       this.addChild(this._tank);
+
+      this.addChild(this._enemy);
 
       this.addChild(this._labelTankDegree);
       this.addChild(this._labelTankX);

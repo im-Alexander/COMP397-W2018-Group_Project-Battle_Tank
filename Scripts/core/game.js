@@ -1,4 +1,5 @@
 /// <reference path="_references.ts"/>
+// https://youtu.be/GZY7U4wn4v0?t=46m42s
 // IIFE - Immediately Invoked Function Expression
 (function () {
     // Game Variables
@@ -17,6 +18,7 @@
         { id: "backButton", src: "./Assets/images/backButton.png" },
         { id: "bullet", src: "./Assets/images/blackball.png" },
         { id: "tank", src: "./Assets/images/smalltank.png" },
+        { id: "enemy", src: "./Assets/images/enemy.png" },
         { id: "terrain", src: "./Assets/images/sand_pitch.png" }
     ];
     // preloads assets

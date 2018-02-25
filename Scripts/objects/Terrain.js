@@ -41,4 +41,4 @@ var objects;
     }(objects.GameObject));
     objects.Terrain = Terrain;
 })(objects || (objects = {}));
-//# sourceMappingURL=Terrain.js.map
+//# sourceMappingURL=terrain.js.map

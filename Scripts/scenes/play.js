@@ -33,6 +33,7 @@ var scenes;
         PlayScene.prototype.Start = function () {
             this._terrain = new objects.Terrain(this.assetManager);
             this._tank = new objects.Tank(this.assetManager, (this.areaLeft + this.areaRight) * 0.5, this.areaBottom * 0.9);
+            this._enemy = new objects.Enemy(this.assetManager);
             this._bullets = new Array();
             this._labelTankDegree = new objects.Label("Tank Rotation :", "10px", "Arial", "#ff0000", 1400, 10, false);
             this._labelTankX = new objects.Label("Tank X (axis) :", "10px", "Arial", "#ff0000", 1400, 25, false);
@@ -43,12 +44,14 @@ var scenes;
             this.Main();
         };
         PlayScene.prototype.Update = function () {
+            var _this = this;
             this._terrain.Update();
             this._tank.Update();
             this._labelTankDegree.text = "Tank Rotation : " + this._tank.rotation + "o";
             this._labelTankX.text = "Tank X (axis) :" + this._tank.x;
             this._labelTankY.text = "Tank Y (axis) :" + this._tank.y;
             this._labelBulletsQty.text = "Bullets Qty :" + this._tank.bulletsCounter;
+            managers.Collision.Check(this._enemy, this._tank);
             this._tank.nextBulletCounter++;
             if (this._tank.nextBulletCounter > 20) {
                 this._tank.bulletsCounter++;
@@ -67,6 +70,7 @@ var scenes;
                 if (!bullet.NoColision) {
                     colidedBullets[counter] = BulletsArraycounter;
                 }
+                managers.Collision.Check(_this._enemy, bullet);
             });
             // if(colidedBullets.length>0){
             //   for(counter =0; counter< colidedBullets.length; counter++){  
@@ -79,6 +83,7 @@ var scenes;
             this.addChild(this._terrain);
             // add the tank to the scene
             this.addChild(this._tank);
+            this.addChild(this._enemy);
             this.addChild(this._labelTankDegree);
             this.addChild(this._labelTankX);
             this.addChild(this._labelTankY);
