@@ -4,14 +4,12 @@
         private updateRate : number = 20;
         private angle : number =0;
         private xCartesianActual : number = 0;// register the actual x vector o the line in cartesian plan
-        private yCartesianActual : number = 0 ;// register the actual x vector o the line in cartesian plan
+        private yCartesianActual : number = 0;// register the actual x vector o the line in cartesian plan
 
         private canvasLeft : number;
         private canvasTop : number;
         private canvasWidth : number;
         private canvasHeight :number;
-
-        
 
         // Public Properties
 
@@ -47,9 +45,8 @@
             }
         // Public Methods
 
-        public  updateCache(){
-                this.move();
-           
+        public updateCache(){
+            this.move();
         } 
 
         private move(){

@@ -41,6 +41,9 @@ var scenes;
             this._labelBulletsQty = new objects.Label("Bullets Qty :", "10px", "Arial", "#ff0000", 1400, 55, false);
             this._labelBulletsAnglesList = new objects.Label("Bullets Degree :", "10px", "Arial", "#ff0000", 1400, 70, false);
             this._terrain.setBounds(1, 1, 1230, 830);
+            // create scoreboard UI for scene
+            this._scoreBoard = new managers.ScoreBoard();
+            objects.Game.scoreBoard = this._scoreBoard;
             this.Main();
         };
         PlayScene.prototype.Update = function () {
@@ -54,12 +57,14 @@ var scenes;
             managers.Collision.Check(this._enemy, this._tank);
             this._tank.nextBulletCounter++;
             if (this._tank.nextBulletCounter > 20) {
-                this._tank.bulletsCounter++;
-                console.log(this._tank.rotation);
-                this._bullets[this._tank.bulletsCounter] = new objects.Bullet(this.assetManager, this._tank.x + this._tank.halfWidth, this._tank.y, this._tank.getAngle(), this.areaLeft, this.areaTop, this.areaRight, this.areaBottom);
-                this._labelBulletsAnglesList.text = "Bullets Degree :" + this._tank.getAngle();
-                this._tank.nextBulletCounter = 0;
-                this.addChild(this._bullets[this._tank.bulletsCounter]);
+                if (objects.Game.keyboardManager.shoot) {
+                    this._tank.bulletsCounter++;
+                    console.log(this._tank.rotation);
+                    this._bullets[this._tank.bulletsCounter] = new objects.Bullet(this.assetManager, this._tank.x + this._tank.halfWidth, this._tank.y, this._tank.getAngle(), this.areaLeft, this.areaTop, this.areaRight, this.areaBottom);
+                    this._labelBulletsAnglesList.text = "Bullets Degree :" + this._tank.getAngle();
+                    this._tank.nextBulletCounter = 0;
+                    this.addChild(this._bullets[this._tank.bulletsCounter]);
+                }
             }
             var colidedBullets;
             var BulletsArraycounter = 0;
@@ -77,6 +82,10 @@ var scenes;
             //     this._bullets.slice(colidedBullets[counter],1);
             //   }
             // }
+            // If lives fall below 0 swith to game over scene
+            if (this._scoreBoard.Health <= 0) {
+                objects.Game.currentScene = config.Scene.OVER;
+            }
         };
         // This is where the fun happens
         PlayScene.prototype.Main = function () {
@@ -89,6 +98,10 @@ var scenes;
             this.addChild(this._labelTankY);
             this.addChild(this._labelBulletsQty);
             this.addChild(this._labelBulletsAnglesList);
+            // add scoreboard labels to the scene
+            this.addChild(this._scoreBoard.HealthLabel);
+            this.addChild(this._scoreBoard.ScoreLabel);
+            this.addChild(this._scoreBoard.FuelLabel);
         };
         return PlayScene;
     }(objects.Scene));
