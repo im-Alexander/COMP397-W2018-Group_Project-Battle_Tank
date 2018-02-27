@@ -38,6 +38,8 @@ module objects {
   
       // move the object to some new location
       public Move():void {
+
+        
         
         /* // Mouse Controls
         if(this.x != objects.Game.stage.mouseX){
@@ -65,6 +67,7 @@ module objects {
         if(objects.Game.keyboardManager.moveLeft){
           if(objects.Game.scoreBoard.Fuel > 0){
             objects.Game.scoreBoard.Fuel -= this.fuelConsumeRate;
+            
             this.x-=5;
           }
           this.rotation =270;

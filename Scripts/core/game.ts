@@ -22,7 +22,8 @@
     {id: "bullet", src:"./Assets/images/blackball.png"},
     {id: "tank", src:"./Assets/images/smalltank.png"},
     {id: "enemy", src:"./Assets/images/enemy.png"},
-    {id: "terrain", src:"./Assets/images/sand_pitch.png"}
+    {id: "terrain", src:"./Assets/images/sand_pitchlAltered.jpg"},
+    {id: "barrier", src:"./Assets/images/metal_tile.png"}
   ];
 
   // preloads assets

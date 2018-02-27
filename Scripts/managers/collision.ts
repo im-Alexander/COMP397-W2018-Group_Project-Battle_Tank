@@ -16,9 +16,12 @@ module managers{
                                 objects.Game.scoreBoard.HighScore = objects.Game.scoreBoard.Score;
                                 objects.Game.HighScore = objects.Game.scoreBoard.HighScore;
                             }
+                            if(object1.name=="tank") objects.Game.scoreBoard.Health -= 1;
                         break;
                         case "tank":
-                            objects.Game.scoreBoard.Health -= 1;
+                            if(object1.name=="enemy"){
+                                objects.Game.scoreBoard.Health -= 1;
+                            }
                         break;
                     }
                 }
