@@ -64,35 +64,35 @@ module objects {
         */
 
         // Keyboard Controls
-        if(objects.Game.keyboardManager.moveLeft){
-          if(objects.Game.scoreBoard.Fuel > 0){
-            objects.Game.scoreBoard.Fuel -= this.fuelConsumeRate;
+        // if(objects.Game.keyboardManager.moveLeft){
+        //   if(objects.Game.scoreBoard.Fuel > 0){
+        //     objects.Game.scoreBoard.Fuel -= this.fuelConsumeRate;
             
-            this.x-=5;
-          }
-          this.rotation =270;
-        }
-        if(objects.Game.keyboardManager.moveRight){
-          if(objects.Game.scoreBoard.Fuel > 0){
-            objects.Game.scoreBoard.Fuel -= this.fuelConsumeRate;
-            this.x+=5;
-          }
-          this.rotation =90;
-        }
-        if(objects.Game.keyboardManager.moveBackward){
-          if(objects.Game.scoreBoard.Fuel > 0){
-            objects.Game.scoreBoard.Fuel -= this.fuelConsumeRate;
-            this.y+=5;
-          }
-          this.rotation =180;
-        }
-        if(objects.Game.keyboardManager.moveForward){
-          if(objects.Game.scoreBoard.Fuel > 0){
-            objects.Game.scoreBoard.Fuel -= this.fuelConsumeRate;
-            this.y-=5;
-          }
-          this.rotation =0;
-        }
+        //     this.x-=5;
+        //   }
+        //   this.rotation =270;
+        // }
+        // if(objects.Game.keyboardManager.moveRight){
+        //   if(objects.Game.scoreBoard.Fuel > 0){
+        //     objects.Game.scoreBoard.Fuel -= this.fuelConsumeRate;
+        //     this.x+=5;
+        //   }
+        //   this.rotation =90;
+        // }
+        // if(objects.Game.keyboardManager.moveBackward){
+        //   if(objects.Game.scoreBoard.Fuel > 0){
+        //     objects.Game.scoreBoard.Fuel -= this.fuelConsumeRate;
+        //     this.y+=5;
+        //   }
+        //   this.rotation =180;
+        // }
+        // if(objects.Game.keyboardManager.moveForward){
+        //   if(objects.Game.scoreBoard.Fuel > 0){
+        //     objects.Game.scoreBoard.Fuel -= this.fuelConsumeRate;
+        //     this.y-=5;
+        //   }
+        //   this.rotation =0;
+        // }
         
 
       }

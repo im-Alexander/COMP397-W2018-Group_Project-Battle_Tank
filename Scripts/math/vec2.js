@@ -23,7 +23,8 @@ var math;
         // private methods
         // public methods
         Vec2.Distance = function (P1, P2) {
-            return Math.floor(Math.sqrt(Math.pow(P2.x - P1.x, 2) + Math.pow(P2.y - P1.y, 2)));
+            var ret = Math.floor(Math.sqrt(Math.pow(P2.x - P1.x, 2) + Math.pow(P2.y - P1.y, 2)));
+            return ret;
         };
         return Vec2;
     }(createjs.Point));

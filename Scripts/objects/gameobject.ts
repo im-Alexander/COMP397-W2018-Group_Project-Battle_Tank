@@ -10,11 +10,15 @@ module objects {
     public halfWidth: number;
     public halfHeight: number;
     public isColliding: boolean;
+    public health: number;
+    public fuel: number;
+    public score:number;
 
     // constructors
     constructor(assetManager: createjs.LoadQueue, imageString:string) {
       super(assetManager.getResult(imageString));
       this.name = imageString;
+      
       this._initialize();
   }
     // private methods

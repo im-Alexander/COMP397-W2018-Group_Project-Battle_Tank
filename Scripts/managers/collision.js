@@ -3,28 +3,37 @@ var managers;
     var Collision = /** @class */ (function () {
         function Collision() {
         }
-        Collision.Check = function (object1, object2) {
+        Collision.Check = function (object1, object2, objectOwnerOfObject2) {
             //create 2 Vec2 Objects
             var P1 = new math.Vec2(object1.x, object1.y);
             var P2 = new math.Vec2(object2.x, object2.y);
+            var ref = math.Vec2.Distance(P1, P2);
             if (math.Vec2.Distance(P1, P2) < (object1.halfHeight + object2.halfHeight)) {
+                // if ((object2.name =="tank1" && object1.name=="xuxu")||(object2.name =="xuxu" && object1.name=="tank1")){
+                //     console.log("Obj1.name : " + object1.name + " // Collision : "+ object1.isColliding+" //  X : " + object1.x + " //  Y : " + object1.y);
+                //     console.log("Obj2.name : " + object2.name + " // Collision : "+ object2.isColliding+"  //  X : " + object2.x + " //  Y : " + object2.y);
+                //     console.log( "P1 : " + P1 + " //  P2 : " + P2)
+                //     console.log("ref : " + ref + " < obj.halfheigh : "+ object1.halfHeight + " + obj.halfheigh : "+ object2.halfHeight );
+                // }
+                // if(ref < (object1.halfHeight + object2.halfHeight)){
                 if (!object2.isColliding) {
                     object2.isColliding = true;
-                    switch (object2.name) {
-                        case "bullet":
-                            objects.Game.scoreBoard.Score += 100;
-                            if (objects.Game.HighScore <= objects.Game.scoreBoard.Score) {
-                                objects.Game.scoreBoard.HighScore = objects.Game.scoreBoard.Score;
-                                objects.Game.HighScore = objects.Game.scoreBoard.HighScore;
-                            }
-                            if (object1.name == "tank")
-                                objects.Game.scoreBoard.Health -= 1;
-                            break;
-                        case "tank":
-                            if (object1.name == "enemy") {
-                                objects.Game.scoreBoard.Health -= 1;
-                            }
-                            break;
+                    if (object2.name.toUpperCase() == "BULLET") {
+                        if (object1.name.toUpperCase() == "TANK1" || object1.name.toUpperCase() == "TANK2") {
+                            object1.health--;
+                            objectOwnerOfObject2.score += 100;
+                        }
+                        //objects.Game.scoreBoard.Score += 100;
+                        // if(objects.Game.HighScore <= objects.Game.scoreBoard.Score){
+                        //     objects.Game.scoreBoard.HighScore = objects.Game.scoreBoard.Score;
+                        //     objects.Game.HighScore = objects.Game.scoreBoard.HighScore;
+                        // }
+                    }
+                    else if (object1.name.toUpperCase() == "POWERUP") {
+                        object2.fuel = 100000;
+                        object2.health++;
+                        object1.isColliding = true; // In the next update the powerup will be not visible
+                        object2.isColliding = false;
                     }
                 }
             }

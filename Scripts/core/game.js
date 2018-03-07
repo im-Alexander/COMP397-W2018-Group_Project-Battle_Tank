@@ -20,6 +20,7 @@
         { id: "tank", src: "./Assets/images/smalltank.png" },
         { id: "enemy", src: "./Assets/images/enemy.png" },
         { id: "terrain", src: "./Assets/images/sand_pitchlAltered.jpg" },
+        { id: "powerup", src: "./Assets/images/oil_barrel.png" },
         { id: "barrier", src: "./Assets/images/metal_tile.png" }
     ];
     // preloads assets
@@ -39,8 +40,8 @@
         objects.Game.stage = stage;
         objects.Game.currentScene = config.Scene.START;
         currentState = config.Scene.START;
-        keyboardManager = new managers.Keyboard();
-        objects.Game.keyboardManager = keyboardManager;
+        // keyboardManager = new managers.Keyboard();
+        // objects.Game.keyboardManager = keyboardManager;
         Main();
     }
     function Update() {

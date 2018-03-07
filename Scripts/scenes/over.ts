@@ -44,8 +44,8 @@ module scenes {
       this.addChild(this._backButton);
 
       // add scoreboard to the scene
-      this.addChild(this._scoreboard.HighScoreLabel);
-      this._scoreboard.HighScore = objects.Game.HighScore;
+      // this.addChild(this._scoreboard.HighScoreLabel);
+      // this._scoreboard.HighScore = objects.Game.HighScore;
 
       // event listeners
       this._backButton.on("click", this._backButtonClick);
