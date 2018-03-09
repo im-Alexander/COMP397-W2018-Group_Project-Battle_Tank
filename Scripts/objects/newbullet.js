@@ -33,8 +33,8 @@ var objects;
         // Public Methods
         NewBullet.prototype.fire = function (x, y, angle) {
             //Defining the object position on screen
-            this.x = x - this.getBounds().width * 0.5;
-            this.y = y - this.getBounds().height * 0.5;
+            this.x = x;
+            this.y = y;
             this.setAngle(angle);
             this.xCartesianActual = x;
             this.yCartesianActual = y;
@@ -51,8 +51,8 @@ var objects;
         };
         NewBullet.prototype.bulletMovement = function (tank) {
             if (this.isFired) {
-                this.x = this.nextCartesianX() - this.getBounds().width * 0.5;
-                this.y = this.nextCartesianY() - this.getBounds().height * 0.5;
+                this.x = this.nextCartesianX(); //- this.getBounds().width * 0.5;
+                this.y = this.nextCartesianY(); //- this.getBounds().height * 0.5;           
                 this.CheckBounds();
                 // Checks all the objects registered for collision check 
                 // objects.Game.objectsMap.forEach(obj=>{

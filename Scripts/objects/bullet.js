@@ -25,8 +25,8 @@ var objects;
             // Public Properties
             _this.isFired = false;
             //Difining the object position on screen
-            _this.x = x - _this.getBounds().width * 0.5;
-            _this.y = y - _this.getBounds().height * 0.5;
+            _this.x = x; //- this.getBounds().width * 0.5;
+            _this.y = y; //- this.getBounds().height * 0.5;
             // // The angle of the line  on screen
             _this.angle = -1;
             _this.xCartesianActual = x;

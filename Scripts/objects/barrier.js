@@ -18,6 +18,7 @@ var objects;
             _this.x = x;
             _this.y = y;
             _this.Start();
+            _this.health = 3;
             return _this;
         }
         //Public Methods

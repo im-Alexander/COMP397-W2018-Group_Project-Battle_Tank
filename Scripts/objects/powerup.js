@@ -32,7 +32,7 @@ var objects;
         };
         PowerUp.prototype.Update = function () {
             this.counter++;
-            console.log("Cycle : " + this.cycle + "  // Counter : " + this.counter);
+            //console.log("Cycle : " + this.cycle + "  // Counter : "+ this.counter);
             if (this.counter >= this.cycle) {
                 this.cycle = Math.round(Math.random() * 5400); // Defines how long each one is going to take to show up
                 this.setPosition();

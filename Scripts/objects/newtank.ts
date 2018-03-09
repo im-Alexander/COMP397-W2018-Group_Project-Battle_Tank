@@ -14,7 +14,6 @@ module objects {
         public _bullets : Array<objects.NewBullet> = new Array<objects.NewBullet>();  // all its bullets are already instantiated
         public nextBulletCounter : number =0; // Its a counter to delay the shooting process
         public _NextBullet:number = 30; // Its the delayer, where the nextBulletCounter have to reach before shoot 
-
         // TANK CONTROL
         public control : managers.NewKeyboard;
         public _up: number;
@@ -108,6 +107,12 @@ module objects {
             if(this.fuel <= 0){
                 pace = 0;
             }
+            if((this.control.moveLeft && this.control.moveForward) ||
+                (this.control.moveRight && this.control.moveForward) || 
+                (this.control.moveLeft && this.control.moveBackward) ||
+                (this.control.moveRight && this.control.moveBackward)){
+                    return;
+                }
 
             // Keyboard Controls
             if(this.control.moveLeft){
@@ -180,7 +185,7 @@ module objects {
                     let bullet : NewBullet;
                     for(bullet of this._bullets){
                         if(!bullet.isFired){
-                            bullet.fire(this.x +this.halfWidth, this.y,this.getAngle());
+                            bullet.fire(this.x , this.y,this.getAngle());
                             break;
                         }
                     }

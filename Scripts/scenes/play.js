@@ -208,23 +208,23 @@ var scenes;
             var labyrinth = new Array();
             //                       1         2         3
             //              123456789012345678901234567890
-            labyrinth.push("  11111111111111  1111111111111  ");
+            labyrinth.push("  1111111111111   1111111111111  ");
             labyrinth.push("  1                           1  ");
             labyrinth.push("  1                           1  ");
             labyrinth.push("  1  1  11111111111111111  1  1  ");
             labyrinth.push("  1  1          1          1  1  ");
             labyrinth.push("  1  1          1          1  1  ");
             labyrinth.push("  1  11111      1      11111  1  ");
-            labyrinth.push("  1  1       1111111       1  1  ");
-            labyrinth.push("  1  1          1          1  1  ");
-            labyrinth.push("  1  1          1          1  1  ");
+            labyrinth.push("     1       1111111       1     ");
+            labyrinth.push("     1          1          1     ");
+            labyrinth.push("     1          1          1     ");
             labyrinth.push("  1  1  111111     111111  1  1  ");
             labyrinth.push("  1  1                     1  1  ");
             labyrinth.push("  1  1                     1  1  ");
             labyrinth.push("  1  1  11111111111111111  1  1  ");
             labyrinth.push("  1                           1  ");
             labyrinth.push("  1                           1  ");
-            labyrinth.push("  11111111111111  1111111111111  ");
+            labyrinth.push("  1111111111111   1111111111111  ");
             //              123456789012345678901234567890
             //                       1         2         3
             var line_counter = 1;

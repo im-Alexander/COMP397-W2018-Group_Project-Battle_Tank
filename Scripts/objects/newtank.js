@@ -90,6 +90,12 @@ var objects;
             if (this.fuel <= 0) {
                 pace = 0;
             }
+            if ((this.control.moveLeft && this.control.moveForward) ||
+                (this.control.moveRight && this.control.moveForward) ||
+                (this.control.moveLeft && this.control.moveBackward) ||
+                (this.control.moveRight && this.control.moveBackward)) {
+                return;
+            }
             // Keyboard Controls
             if (this.control.moveLeft) {
                 this.fuel -= this.fuelConsumeRate;
@@ -155,7 +161,7 @@ var objects;
                     for (var _i = 0, _a = this._bullets; _i < _a.length; _i++) {
                         bullet = _a[_i];
                         if (!bullet.isFired) {
-                            bullet.fire(this.x + this.halfWidth, this.y, this.getAngle());
+                            bullet.fire(this.x, this.y, this.getAngle());
                             break;
                         }
                     }

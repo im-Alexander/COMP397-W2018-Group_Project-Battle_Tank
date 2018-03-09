@@ -30,8 +30,8 @@
                 
                 
                 //Difining the object position on screen
-                this.x = x - this.getBounds().width * 0.5;
-                this.y = y - this.getBounds().height * 0.5;
+                this.x = x //- this.getBounds().width * 0.5;
+                this.y = y //- this.getBounds().height * 0.5;
 
 
                 // // The angle of the line  on screen
