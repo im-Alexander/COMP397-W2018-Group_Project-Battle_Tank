@@ -26,5 +26,7 @@
 /// <reference path="../../Scripts/objects/powerup.ts"/>
 
 /// <reference path="../../Scripts/scenes/over.ts"/>
-/// <reference path="../../Scripts/scenes/play.ts"/>
+/// <reference path="../../Scripts/scenes/play1.ts"/>
+/// <reference path="../../Scripts/scenes/play2.ts"/>
+/// <reference path="../../Scripts/scenes/play3.ts"/>
 /// <reference path="../../Scripts/scenes/start.ts"/>

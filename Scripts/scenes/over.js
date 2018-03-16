@@ -21,12 +21,12 @@ var scenes;
         }
         // Private Mathods
         OverScene.prototype._backButtonClick = function () {
-            objects.Game.currentScene = config.Scene.PLAY;
+            objects.Game.currentScene = config.Scene.PLAY1;
         };
         // Public Methods
         // Initialize Game Variables and objects
         OverScene.prototype.Start = function () {
-            this._overLabel = new objects.Label("Game Over", "80px", "Consolas", "#000000", 750, 250, true);
+            this._overLabel = new objects.Label("Game Over", "80px", "Dock51", "#000000", 750, 250, true);
             this._backButton = new objects.Button(this.assetManager, "backButton", 750, 500);
             this._scoreboard = new managers.ScoreBoard();
             this.Main();

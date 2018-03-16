@@ -16,7 +16,7 @@ module scenes {
 
     // Private Mathods
     private _startButtonClick():void {
-      objects.Game.currentScene = config.Scene.PLAY;
+      objects.Game.currentScene = config.Scene.PLAY1;
     }
 
 
@@ -24,8 +24,8 @@ module scenes {
 
     // Initialize Game Variables and objects
     public Start(): void {
-      this._welcomeLabel = new objects.Label("- Tank Game - ", "80px", "Consolas", "#000000", 750, 250, true);
-      this._welcomeLabel2 = new objects.Label("- Basic Movements Presentation -", "40px", "Consolas", "#000000", 750, 350, true);
+      this._welcomeLabel = new objects.Label("- Tank Game - ", "80px", "Dock51", "#000000", 750, 250, true);
+      this._welcomeLabel2 = new objects.Label("- Basic Movements Presentation -", "40px", "Dock51", "#000000", 750, 350, true);
       this._startButton = new objects.Button(this.assetManager, "startButton", 750, 450);
       this.Main();
     }

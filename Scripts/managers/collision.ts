@@ -5,6 +5,8 @@ module managers{
             let P1: math.Vec2 = new math.Vec2(object1.x, object1.y);
             let P2: math.Vec2 = new math.Vec2(object2.x, object2.y);
             let ref : number = math.Vec2.Distance(P1, P2);
+            var tnk = object2.name.substr(0,4).toUpperCase();
+            var bar = object1.name.toUpperCase();
             if(math.Vec2.Distance(P1, P2) < (object1.halfHeight + object2.halfHeight)){
                 if(!object2.isColliding){
                     object2.isColliding = true;
@@ -32,6 +34,7 @@ module managers{
                         object2.health ++;
                         object1.isColliding = true; // In the next update the powerup will be not visible
                         object2.isColliding = false;
+                        
                     } else if (object2.name.substr(0,4).toUpperCase()=="TANK" && object1.name.toUpperCase()=="BARRIER"){
                         var obj1_ini_x = object1.x;
                         var obj1_end_x = object1.x+object1.getBounds().width;

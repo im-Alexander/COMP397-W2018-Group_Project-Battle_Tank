@@ -16,7 +16,7 @@ module scenes {
 
     // Private Mathods
     private _backButtonClick():void {
-      objects.Game.currentScene = config.Scene.PLAY;
+      objects.Game.currentScene = config.Scene.PLAY1;
     }
 
 
@@ -24,7 +24,7 @@ module scenes {
 
     // Initialize Game Variables and objects
     public Start(): void {
-      this._overLabel = new objects.Label("Game Over", "80px", "Consolas", "#000000", 750, 250, true);
+      this._overLabel = new objects.Label("Game Over", "80px", "Dock51", "#000000", 750, 250, true);
       this._backButton = new objects.Button(this.assetManager, "backButton", 750, 500);
       this._scoreboard = new managers.ScoreBoard();
 

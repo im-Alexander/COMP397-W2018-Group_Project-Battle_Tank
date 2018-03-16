@@ -174,11 +174,13 @@ var objects;
             var objectDetected;
             for (var _i = 0, _a = objects.Game.objectsMap; _i < _a.length; _i++) {
                 objectDetected = _a[_i];
-                if (objectDetected.name.toUpperCase() != "BULLET" || (objectDetected.name.toUpperCase() == "POWERUP" &&
-                    objectDetected.visible == true)) {
-                    managers.Collision.Check(objectDetected, this);
-                    if (this.isColliding && objectDetected != this)
-                        break;
+                if (objectDetected != this) {
+                    if (objectDetected.name.toUpperCase() != "BULLET" || (objectDetected.name.toUpperCase() == "POWERUP" &&
+                        objectDetected.visible == true)) {
+                        managers.Collision.Check(objectDetected, this);
+                        if (this.isColliding && objectDetected != this)
+                            break;
+                    }
                 }
             }
             if (this.isColliding) {

@@ -10,26 +10,18 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var scenes;
 (function (scenes) {
-    var PlayScene = /** @class */ (function (_super) {
-        __extends(PlayScene, _super);
-        // public areaTop: number=0;
-        // public areaLeft:number=0;
-        // public areaRight:number=0;
-        // public areaBottom:number=0;
+    var PlayScene1 = /** @class */ (function (_super) {
+        __extends(PlayScene1, _super);
         // Constructor
-        function PlayScene(assetManager) {
+        function PlayScene1(assetManager) {
             var _this = _super.call(this, assetManager) || this;
-            // this.areaTop = 0;
-            // this.areaBottom = 800;
-            // this.areaLeft= 0;
-            // this.areaRight= 1400;
             _this.Start();
             return _this;
         }
         // Private Mathods
         // Public Methods
         // Initialize Game Variables and objects
-        PlayScene.prototype.Start = function () {
+        PlayScene1.prototype.Start = function () {
             // Terrain to cover the canvas (It is temporally)
             this._terrain1 = new objects.Terrain(this.assetManager);
             this._terrain2 = new objects.Terrain(this.assetManager);
@@ -43,29 +35,18 @@ var scenes;
             this._terrain3.y = this._terrain1.getBounds().height;
             this._terrain4.x = this._terrain3.getBounds().width;
             this._terrain4.y = this._terrain1.getBounds().height;
-            // Barries 
-            // this._barrier1 = new objects.Barrier(this.assetManager,750, 450);
-            // this._barrier2 = new objects.Barrier(this.assetManager,350,400);
-            // this._barrier3 = new objects.Barrier(this.assetManager,1000,250);
-            // this._barrier4 = new objects.Barrier(this.assetManager,1000,700);
-            // this._barrier5 = new objects.Barrier(this.assetManager,200,650);
             this._labyrinth = new Array();
             this.setLabyrinth2();
+            // create scoreboard UI for scene
+            this._scoreBoard = new managers.ScoreBoard();
             //Players
             this._newTank1 = new objects.NewTank(this.assetManager, 1, 770, 5, 2);
             this._newTank2 = new objects.NewTank(this.assetManager, 2, 770, 820, 2);
             this._powerup1 = new objects.PowerUp(this.assetManager);
             this._powerup2 = new objects.PowerUp(this.assetManager);
-            // create scoreboard UI for scene
-            this._scoreBoard = new managers.ScoreBoard();
             var objectsMap = new Array();
             objectsMap.push(this._newTank1);
             objectsMap.push(this._newTank2);
-            // objectsMap.push(this._barrier1 );
-            // objectsMap.push(this._barrier2 );
-            // objectsMap.push(this._barrier3 );
-            // objectsMap.push(this._barrier4 );
-            // objectsMap.push(this._barrier5 );
             objectsMap.push(this._powerup1);
             objectsMap.push(this._powerup2);
             this._labyrinth.forEach(function (barrier) {
@@ -77,7 +58,7 @@ var scenes;
             this._scoreBoard.setScore(this._newTank1.score, this._newTank2.score);
             this.Main();
         };
-        PlayScene.prototype.Update = function () {
+        PlayScene1.prototype.Update = function () {
             // this.supportLabels();
             this._newTank1.UpdateTank();
             this._newTank2.UpdateTank();
@@ -89,23 +70,17 @@ var scenes;
             //this.bullets_tank1_update();
             // If lives fall below 0 swith to game over scene
             if (this._newTank1.health <= 0 || this._newTank2.health <= 0) {
-                objects.Game.currentScene = config.Scene.OVER;
+                objects.Game.currentScene = config.Scene.PLAY2;
+                createjs.Sound.stop;
             }
         };
         // This is where the fun happens
-        PlayScene.prototype.Main = function () {
+        PlayScene1.prototype.Main = function () {
             var _this = this;
             this.addChild(this._terrain1);
             this.addChild(this._terrain2);
             this.addChild(this._terrain3);
             this.addChild(this._terrain4);
-            this.addChild(this._barrier1);
-            this.addChild(this._barrier2);
-            this.addChild(this._barrier3);
-            this.addChild(this._barrier4);
-            this.addChild(this._barrier5);
-            this.addChild(this._powerup1);
-            this.addChild(this._powerup2);
             this._labyrinth.forEach(function (barrier) {
                 _this.addChild(barrier);
             });
@@ -128,8 +103,9 @@ var scenes;
             this.addChild(this._scoreBoard._player2_HealthLabel);
             this.addChild(this._scoreBoard._player2_ScoreLabel);
             this.addChild(this._scoreBoard._player2_FuelLabel);
+            createjs.Sound.play("battle", { loop: -1 });
         };
-        PlayScene.prototype.setLabyrinth = function (tp) {
+        PlayScene1.prototype.setLabyrinth = function (tp) {
             if (tp === void 0) { tp = 1; }
             var barrier = new objects.Barrier(this.assetManager, -100, -100);
             var width = barrier.getBounds().width;
@@ -200,7 +176,7 @@ var scenes;
                 this._labyrinth.push(new objects.Barrier(this.assetManager, next_x += width, next_y));
             }
         };
-        PlayScene.prototype.setLabyrinth2 = function (tp) {
+        PlayScene1.prototype.setLabyrinth2 = function (tp) {
             var _this = this;
             if (tp === void 0) { tp = 1; }
             var quadrant_width = 46;
@@ -239,8 +215,8 @@ var scenes;
                 line_counter++;
             });
         };
-        return PlayScene;
+        return PlayScene1;
     }(objects.Scene));
-    scenes.PlayScene = PlayScene;
+    scenes.PlayScene1 = PlayScene1;
 })(scenes || (scenes = {}));
-//# sourceMappingURL=play.js.map
+//# sourceMappingURL=play1.js.map

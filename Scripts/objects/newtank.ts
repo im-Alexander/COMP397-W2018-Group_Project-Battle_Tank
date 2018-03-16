@@ -199,10 +199,12 @@ module objects {
             // Checks all the objects registered for collision check 
             let objectDetected : objects.GameObject;
             for(objectDetected  of objects.Game.objectsMap){
-                if(objectDetected.name.toUpperCase() !="BULLET" || (objectDetected.name.toUpperCase() =="POWERUP" &&
-                    objectDetected.visible==true)){
-                    managers.Collision.Check(objectDetected, this);
-                    if(this.isColliding && objectDetected != this) break;
+                if ( objectDetected != this){
+                    if(objectDetected.name.toUpperCase() !="BULLET" || (objectDetected.name.toUpperCase() =="POWERUP" &&
+                        objectDetected.visible==true)){
+                        managers.Collision.Check(objectDetected, this);
+                        if(this.isColliding && objectDetected != this) break;
+                    }
                 }
             }
             

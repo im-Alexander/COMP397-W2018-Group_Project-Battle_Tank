@@ -8,6 +8,8 @@ var managers;
             var P1 = new math.Vec2(object1.x, object1.y);
             var P2 = new math.Vec2(object2.x, object2.y);
             var ref = math.Vec2.Distance(P1, P2);
+            var tnk = object2.name.substr(0, 4).toUpperCase();
+            var bar = object1.name.toUpperCase();
             if (math.Vec2.Distance(P1, P2) < (object1.halfHeight + object2.halfHeight)) {
                 if (!object2.isColliding) {
                     object2.isColliding = true;

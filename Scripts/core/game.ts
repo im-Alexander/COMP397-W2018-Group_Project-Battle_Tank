@@ -24,7 +24,8 @@
     {id: "enemy", src:"./Assets/images/enemy.png"},
     {id: "terrain", src:"./Assets/images/sand_pitchlAltered.jpg"},
     {id: "powerup", src:"./Assets/images/oil_barrel.png"},
-    {id: "barrier", src:"./Assets/images/metal_tile.png"}
+    {id: "barrier", src:"./Assets/images/metal_tile.png"},
+    {id: "battle", src:"./Assets/audio/battle.ogg"}
   ];
 
   // preloads assets
@@ -72,8 +73,14 @@
       case config.Scene.START:
         currentScene = new scenes.StartScene(assetManager);
       break;
-      case config.Scene.PLAY:
-        currentScene = new scenes.PlayScene(assetManager);
+      case config.Scene.PLAY1:
+        currentScene = new scenes.PlayScene1(assetManager);
+      break;
+      case config.Scene.PLAY2:
+        currentScene = new scenes.PlayScene2(assetManager);
+      break;
+      case config.Scene.PLAY3:
+        currentScene = new scenes.PlayScene3(assetManager);
       break;
       case config.Scene.OVER:
         currentScene = new scenes.OverScene(assetManager);
