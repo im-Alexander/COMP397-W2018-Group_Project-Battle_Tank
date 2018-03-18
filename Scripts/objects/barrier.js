@@ -17,7 +17,6 @@ var objects;
             var _this = _super.call(this, assetManager, "barrier") || this;
             _this.x = x;
             _this.y = y;
-            _this.Start();
             _this.health = 3;
             return _this;
         }

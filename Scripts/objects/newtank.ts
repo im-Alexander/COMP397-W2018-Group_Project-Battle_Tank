@@ -25,12 +25,13 @@ module objects {
 
         // Constructor
         constructor(assetManager: createjs.LoadQueue, tankNumber : number,  x:number , y:number, ammoQty:number ) {
-                    super(assetManager, "tank");
+            
+                    super(assetManager, tankNumber==1?"tank1":"tank2");
             this.assetManager = assetManager;
             this.x=x;
             this.y=y;
-            let counter : number =0;
-            this.name = this.name + tankNumber;
+            let counter : number =0; 
+            // this.name = this.name + tankNumber;
             for(counter=0; counter<ammoQty; counter ++){
                 this._bullets.push(new objects.NewBullet(this.assetManager, this.name));
             }
@@ -103,7 +104,7 @@ module objects {
     
         // move the object to some new location
         public Move():void {
-            let pace = 5;
+            let pace = 2.5;
             if(this.fuel <= 0){
                 pace = 0;
             }
@@ -116,21 +117,25 @@ module objects {
 
             // Keyboard Controls
             if(this.control.moveLeft){
+                createjs.Sound.play("tank_engine");
                 this.fuel -= this.fuelConsumeRate;
                 this.x-=pace;
                 this.rotation =270;
             }
             if(this.control.moveRight){
+                createjs.Sound.play("tank_engine");
                 this.fuel -= this.fuelConsumeRate;
                 this.x+=pace;
                 this.rotation =90;
             }
             if(this.control.moveBackward){
+                createjs.Sound.play("tank_engine");
                 this.fuel -= this.fuelConsumeRate;
                 this.y+=pace;
                 this.rotation =180;
             }
             if(this.control.moveForward){
+                createjs.Sound.play("tank_engine");
                 this.fuel -= this.fuelConsumeRate;
                 this.y-=pace;
                 this.rotation =0;
@@ -186,6 +191,7 @@ module objects {
                     for(bullet of this._bullets){
                         if(!bullet.isFired){
                             bullet.fire(this.x , this.y,this.getAngle());
+                            createjs.Sound.play("tank_fire");
                             break;
                         }
                     }
@@ -200,8 +206,8 @@ module objects {
             let objectDetected : objects.GameObject;
             for(objectDetected  of objects.Game.objectsMap){
                 if ( objectDetected != this){
-                    if(objectDetected.name.toUpperCase() !="BULLET" || (objectDetected.name.toUpperCase() =="POWERUP" &&
-                        objectDetected.visible==true)){
+                    // if(objectDetected.name.toUpperCase() !="BULLET" || (objectDetected.name.toUpperCase() =="POWERUP" &&
+                    if(objectDetected.visible==true){
                         managers.Collision.Check(objectDetected, this);
                         if(this.isColliding && objectDetected != this) break;
                     }

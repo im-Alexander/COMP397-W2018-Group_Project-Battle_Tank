@@ -14,7 +14,7 @@ var objects;
         __extends(NewTank, _super);
         // Constructor
         function NewTank(assetManager, tankNumber, x, y, ammoQty) {
-            var _this = _super.call(this, assetManager, "tank") || this;
+            var _this = _super.call(this, assetManager, tankNumber == 1 ? "tank1" : "tank2") || this;
             _this.fuelConsumeRate = 10; // 10 default
             // BULLETS
             _this._bullets = new Array(); // all its bullets are already instantiated
@@ -24,7 +24,7 @@ var objects;
             _this.x = x;
             _this.y = y;
             var counter = 0;
-            _this.name = _this.name + tankNumber;
+            // this.name = this.name + tankNumber;
             for (counter = 0; counter < ammoQty; counter++) {
                 _this._bullets.push(new objects.NewBullet(_this.assetManager, _this.name));
             }
@@ -86,7 +86,7 @@ var objects;
         };
         // move the object to some new location
         NewTank.prototype.Move = function () {
-            var pace = 5;
+            var pace = 2.5;
             if (this.fuel <= 0) {
                 pace = 0;
             }
@@ -98,21 +98,25 @@ var objects;
             }
             // Keyboard Controls
             if (this.control.moveLeft) {
+                createjs.Sound.play("tank_engine");
                 this.fuel -= this.fuelConsumeRate;
                 this.x -= pace;
                 this.rotation = 270;
             }
             if (this.control.moveRight) {
+                createjs.Sound.play("tank_engine");
                 this.fuel -= this.fuelConsumeRate;
                 this.x += pace;
                 this.rotation = 90;
             }
             if (this.control.moveBackward) {
+                createjs.Sound.play("tank_engine");
                 this.fuel -= this.fuelConsumeRate;
                 this.y += pace;
                 this.rotation = 180;
             }
             if (this.control.moveForward) {
+                createjs.Sound.play("tank_engine");
                 this.fuel -= this.fuelConsumeRate;
                 this.y -= pace;
                 this.rotation = 0;
@@ -162,6 +166,7 @@ var objects;
                         bullet = _a[_i];
                         if (!bullet.isFired) {
                             bullet.fire(this.x, this.y, this.getAngle());
+                            createjs.Sound.play("tank_fire");
                             break;
                         }
                     }
@@ -175,8 +180,8 @@ var objects;
             for (var _i = 0, _a = objects.Game.objectsMap; _i < _a.length; _i++) {
                 objectDetected = _a[_i];
                 if (objectDetected != this) {
-                    if (objectDetected.name.toUpperCase() != "BULLET" || (objectDetected.name.toUpperCase() == "POWERUP" &&
-                        objectDetected.visible == true)) {
+                    // if(objectDetected.name.toUpperCase() !="BULLET" || (objectDetected.name.toUpperCase() =="POWERUP" &&
+                    if (objectDetected.visible == true) {
                         managers.Collision.Check(objectDetected, this);
                         if (this.isColliding && objectDetected != this)
                             break;

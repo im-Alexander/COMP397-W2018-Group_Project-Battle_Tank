@@ -15,6 +15,7 @@ module managers{
                             object1.health --;
                             objectOwnerOfObject2.score +=100;
                         } else if( object1.name.toUpperCase()=="BARRIER"){
+                            createjs.Sound.play("barrier_shot");
                             object1.health --;
                             switch(object1.health){
                                 case 0:

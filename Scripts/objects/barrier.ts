@@ -9,7 +9,6 @@ module objects {
             super(assetManager, "barrier");
             this.x=x;
             this.y=y;
-            this.Start();
             this.health=3;
         }
 

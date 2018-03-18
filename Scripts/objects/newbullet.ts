@@ -66,7 +66,7 @@ module objects {
                 for(objectDetected  of objects.Game.objectsMap){
                     console.log("Looping Obj : "+ objectDetected.name +"  // Obj. cheking : "+ this.name + " //  Owner : "+ tank.name)
                     // if(objectDetected.name != "bullet") managers.Collision.Check(objectDetected, this, tank);
-                    if(objectDetected.name != tank.name && objectDetected.name.toUpperCase() != "POWERUP"){
+                    if(objectDetected.name != tank.name && objectDetected.name.toUpperCase() != "POWERUP" && objectDetected.visible==true){
                         managers.Collision.Check(objectDetected, this, tank);
                         if(this.isColliding && objectDetected.name !=this.shooter){
                             this.destroyBullet();
