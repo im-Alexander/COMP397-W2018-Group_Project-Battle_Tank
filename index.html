@@ -18,7 +18,7 @@
         <label style= "color:dodgerblue;">Score : </label>
         <label id="p1_score" style= "color:dodgerblue;">0.00</label>
     </div>
-
+    <div id="company">WARRIOR EAGLE</div>
     <div id="score_player2">
         <label style= "color:crimson;">Health : </label>
         <label id="p2_health"  style= "color:crimson;">0.00</label> <br>
@@ -31,6 +31,14 @@
   </div>
   <!-- <canvas id="canvasScoreboard" width="1500" height="100"></canvas> -->
   <canvas id="canvas" width="1500" height="800"></canvas>
+
+  <div id="footer">
+      <div id="footer_left"></div>
+      <div id="footer_center">
+        COMP397 - Web Games / Professor : <n>Tom Tsiliopoulos</n>
+      </div>
+      <div id="footer_right"></div>
+    </div>
 
   <!-- JavaScript Section -->
 
@@ -76,10 +84,11 @@
 
   <!-- Scenes -->
   <script src="./Scripts/scenes/over.js"></script>
-  <script src="./Scripts/scenes/score.js"></script>
+  <!-- <script src="./Scripts/scenes/score.js"></script> -->
   <script src="./Scripts/scenes/play1.js"></script>
   <script src="./Scripts/scenes/play2.js"></script>
   <script src="./Scripts/scenes/play3.js"></script>
+  <script src="./Scripts/scenes/roundInform.js"></script>
   <script src="./Scripts/scenes/start.js"></script>
 
   <script src="./Scripts/core/game.js"></script>

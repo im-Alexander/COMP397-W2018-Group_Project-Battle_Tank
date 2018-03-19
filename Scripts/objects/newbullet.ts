@@ -70,6 +70,7 @@ module objects {
                         managers.Collision.Check(objectDetected, this, tank);
                         if(this.isColliding && objectDetected.name !=this.shooter){
                             this.destroyBullet();
+                            if(objectDetected.name.toLocaleUpperCase()=="BARRIER") objectDetected.Update();
                         }
                     }
                 }

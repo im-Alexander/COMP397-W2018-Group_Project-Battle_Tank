@@ -12,13 +12,18 @@ module scenes {
     public _labyrinth: Array<objects.Barrier> ;
     public _powerup1:objects.PowerUp;
     public _powerup2:objects.PowerUp;
-    
-
+    public _key : managers.NewKeyboard;
+    public _gamepaused : boolean;
+    public _pauseButton : objects.Button;
     // Constructor
     constructor(assetManager: createjs.LoadQueue) {
       super(assetManager);
-
+      this._pauseButton = new objects.Button(this.assetManager,"pause_button",-300,-300);
       this.Start();
+    }
+
+    private _pauseButtonClick():void {
+      this.unpause();
     }
 
     // Private Mathods
@@ -27,6 +32,10 @@ module scenes {
 
     // Initialize Game Variables and objects
     public Start(): void {
+
+      this._key = new managers.NewKeyboard();
+      this._gamepaused=false;
+      
 
       // Terrain to cover the canvas (It is temporally)
       this._terrain1 = new objects.Terrain(this.assetManager, "terrain1");
@@ -77,11 +86,18 @@ module scenes {
       objects.Game.scoreBoard.setHealth(this._newTank1.health, this._newTank2.health);
       objects.Game.scoreBoard.setScore(this._newTank1.score, this._newTank2.score);
 
+
+            
+
       this.Main();
     }
 
     public Update(): void {
       
+      if(this._key.paused) this.pause();
+      if( this._key.escape) this.unpause();
+      if(this._gamepaused) return;
+
       this._newTank1.UpdateTank();
       this._newTank2.UpdateTank();
 
@@ -114,9 +130,9 @@ module scenes {
 
 
       // If lives fall below 0 swith to game over scene
-      if(this._newTank1.health <= 0 || this._newTank2.health <= 0){
-        objects.Game.currentScene = config.Scene.PLAY2;
-       
+      if(this._newTank1.health <= 0 || this._newTank2.health <= 0 || (this._newTank1.fuel==0 && this._newTank2.fuel==0) ){
+        objects.Game.currentScene = config.Scene.ROUND2;
+        createjs.Sound.play("round_end_snd");
       }
 
     }
@@ -138,21 +154,6 @@ module scenes {
         this.addChild(barrier);
       });
 
-      // add scoreboard labels to the scene
-      // this.addChild(this._scoreBoard._player1_HealthLabel);
-      // this.addChild(this._scoreBoard._player1_ScoreLabel);
-      // this.addChild(this._scoreBoard._player1_FuelLabel);
-      // this.addChild(this._scoreBoard._player2_HealthLabel);
-      // this.addChild(this._scoreBoard._player2_ScoreLabel);
-      // this.addChild(this._scoreBoard._player2_FuelLabel);
-
-      // this.addChild(objects.Game.scoreBoard._player1_HealthLabel);
-      // this.addChild(objects.Game.scoreBoard._player1_ScoreLabel);
-      // this.addChild(objects.Game.scoreBoard._player1_FuelLabel);
-      // this.addChild(objects.Game.scoreBoard._player2_HealthLabel);
-      // this.addChild(objects.Game.scoreBoard._player2_ScoreLabel);
-      // this.addChild(objects.Game.scoreBoard._player2_FuelLabel);
-
       // Add each bullet on the screen
       this._newTank1._bullets.forEach(bullet=>{
         this.addChild(bullet);
@@ -167,11 +168,23 @@ module scenes {
       // add the tank to the scene
       this.addChild(this._newTank1);
       this.addChild(this._newTank2);
-      
-      
+
+      this.addChild(this._pauseButton );
+      this._pauseButton.on("pause", this._pauseButtonClick);
+      this._pauseButton.on("pause", this._pauseButtonClick);
     }
 
-
+    private pause(){
+      this._gamepaused=true;
+      this._pauseButton.x=750;
+      this._pauseButton.y=400;
+    }
+    private unpause(){
+      this._gamepaused=false;
+      this._pauseButton.x=-300;
+      this._pauseButton.y=-300;
+    }
+    
     private setLabyrinth2(tp :number = 1):void{
       let labirinth_total_horizontal_tiles = 46;
       let labirinth_total_vertica_tiles = 25;

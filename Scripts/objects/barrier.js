@@ -25,7 +25,10 @@ var objects;
         Barrier.prototype.Start = function () {
         };
         Barrier.prototype.Update = function () {
-            this.image.id = "tank1";
+            if (this.health == 2)
+                this.image = new createjs.Bitmap("./assets/images/brick_big_2.png").image;
+            else
+                this.image = new createjs.Bitmap("./assets/images/brick_big_3.png").image;
         };
         return Barrier;
     }(objects.GameObject));

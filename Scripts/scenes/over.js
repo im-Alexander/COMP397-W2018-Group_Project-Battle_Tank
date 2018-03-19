@@ -26,8 +26,20 @@ var scenes;
         // Public Methods 
         // Initialize Game Variables and objects
         OverScene.prototype.Start = function () {
-            this._overLabel = new objects.Label("Game Over", "80px", "Consolas", "#ffffff", 750, 250, true);
-            this._backButton = new objects.Button(this.assetManager, "backButton", 750, 500);
+            var winner;
+            var msg = "The winner is ...";
+            if (objects.Game.scoreBoard.Player1_Score > objects.Game.scoreBoard.Player2_Score)
+                winner = "Player 1";
+            else if (objects.Game.scoreBoard.Player1_Score > objects.Game.scoreBoard.Player2_Score)
+                winner = "Player 2";
+            else {
+                msg = "There is no winner ...";
+                winner = "You are incompetent !!!";
+            }
+            this._winneLabel1 = new objects.Label(msg, "100px", "Consolas", "#f4d942", 750, 90, true);
+            this._winneLabel2 = new objects.Label(winner, "180px", "Consolas", "#f44141", 750, 220, true);
+            this._overLabel = new objects.Label("-  Game Over  -", "80px", "Consolas", "#ffffff", 750, 450, true);
+            this._backButton = new objects.Button(this.assetManager, "backButton", 750, 600);
             this._scoreboard = new managers.ScoreBoard();
             this.Main();
         };
@@ -36,6 +48,8 @@ var scenes;
         // This is where the fun happens
         OverScene.prototype.Main = function () {
             // add the welcome label to the scene
+            this.addChild(this._winneLabel1);
+            this.addChild(this._winneLabel2);
             this.addChild(this._overLabel);
             // add the backButton to the scene
             this.addChild(this._backButton);

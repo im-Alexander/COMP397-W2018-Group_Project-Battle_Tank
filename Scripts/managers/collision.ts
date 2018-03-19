@@ -7,7 +7,7 @@ module managers{
             let ref : number = math.Vec2.Distance(P1, P2);
             var tnk = object2.name.substr(0,4).toUpperCase();
             var bar = object1.name.toUpperCase();
-            if(math.Vec2.Distance(P1, P2) < (object1.halfHeight + object2.halfHeight)){
+            if(math.Vec2.Distance(P1, P2) < (object1.halfHeight + object2.halfHeight)*0.95){
                 if(!object2.isColliding){
                     object2.isColliding = true;
                     if(object2.name.toUpperCase()=="BULLET"){
@@ -17,18 +17,22 @@ module managers{
                         } else if( object1.name.toUpperCase()=="BARRIER"){
                             createjs.Sound.play("barrier_shot");
                             object1.health --;
-                            switch(object1.health){
-                                case 0:
-                                    object1.visible=false;
-                                    object1.x=-100;
-                                    break;
-                                case 1:
-                                    object1.alpha = 0.43;
-                                    break;
-                                case 2 :
-                                    object1.alpha=0.76;
-                                    break;
+                            if(object1.health==0){
+                                object1.visible=false;
+                                object1.x=-100;
                             }
+                            // switch(object1.health){
+                            //     case 0:
+                            //         object1.visible=false;
+                            //         object1.x=-100;
+                            //         break;
+                            //     case 1:
+                            //         object1.alpha = 0.43;
+                            //         break;
+                            //     case 2 :
+                            //         object1.alpha=0.76;
+                            //         break;
+                            // }
                         }
                     } else if( object1.name.toUpperCase()=="POWERUP"){
                         object2.fuel = 100000;
@@ -36,45 +40,46 @@ module managers{
                         object1.isColliding = true; // In the next update the powerup will be not visible
                         object2.isColliding = false;
                         
-                    } else if (object2.name.substr(0,4).toUpperCase()=="TANK" && object1.name.toUpperCase()=="BARRIER"){
-                        var obj1_ini_x = object1.x;
-                        var obj1_end_x = object1.x+object1.getBounds().width;
-                        var obj1_ini_y = object1.y;
-                        var obj1_end_y = object1.y+object1.getBounds().height;
+                    } 
+                    // else if (object2.name.substr(0,4).toUpperCase()=="TANK" && object1.name.toUpperCase()=="BARRIER"){
+                    //     var obj1_ini_x = object1.x;
+                    //     var obj1_end_x = object1.x+object1.getBounds().width;
+                    //     var obj1_ini_y = object1.y;
+                    //     var obj1_end_y = object1.y+object1.getBounds().height;
                         
-                        var obj2_ini_x = object2.x;
-                        var obj2_end_x = object2.x+object2.getBounds().width;
-                        var obj2_ini_y = object2.y;
-                        var obj2_end_y = object2.y+object2.getBounds().height;
+                    //     var obj2_ini_x = object2.x;
+                    //     var obj2_end_x = object2.x+object2.getBounds().width;
+                    //     var obj2_ini_y = object2.y;
+                    //     var obj2_end_y = object2.y+object2.getBounds().height;
         
             
-                        // Tank's HORIZONTAL movement checking : no object between ini_y and end_y
-                        if(object2.rotation==270 || object2.rotation==90){ // check whether it is going toward left or right
-                            // rotation effect over the boundaries
-                            var obj2_end_y = object2.y+object2.getBounds().width;
-                            var obj2_end_x = object2.x+object2.getBounds().height;
-                            //checks whether either the top or the bottom of barrier is in the pathway
-                            if ((obj1_ini_y >= obj2_ini_y && obj1_ini_y <= obj2_end_y) || // checking the barrier's top
-                                (obj1_end_y >= obj2_ini_y && obj1_end_y <= obj2_end_y))   // checking the barrier's bottom
-                            {
-                                object2.isColliding= true;
-                            } else {
-                                object2.isColliding= false;
-                            }
-                        } 
-                        else if(object2.rotation==180 || object2.rotation==0)
-                        {
-                            // Tank's VERTICAL movement checking : no object between ini_y and end_y
-                            //checks whether either the top or the bottom of barrier is in the pathway
-                            if ((obj1_ini_x >= obj2_ini_x && obj1_ini_x <= obj2_end_x) || // checking the barrier's top
-                                (obj1_end_x >= obj2_ini_x && obj1_end_x <= obj2_end_x))   // checking the barrier's bottom
-                            {
-                                object2.isColliding= true;
-                            } else {
-                                object2.isColliding= false;
-                            }
-                        }
-                    }
+                    //     // Tank's HORIZONTAL movement checking : no object between ini_y and end_y
+                    //     if(object2.rotation==270 || object2.rotation==90){ // check whether it is going toward left or right
+                    //         // rotation effect over the boundaries
+                    //         var obj2_end_y = object2.y+object2.getBounds().width;
+                    //         var obj2_end_x = object2.x+object2.getBounds().height;
+                    //         //checks whether either the top or the bottom of barrier is in the pathway
+                    //         if ((obj1_ini_y >= obj2_ini_y && obj1_ini_y <= obj2_end_y) || // checking the barrier's top
+                    //             (obj1_end_y >= obj2_ini_y && obj1_end_y <= obj2_end_y))   // checking the barrier's bottom
+                    //         {
+                    //             object2.isColliding= true;
+                    //         } else {
+                    //             object2.isColliding= false;
+                    //         }
+                    //     } 
+                    //     else if(object2.rotation==180 || object2.rotation==0)
+                    //     {
+                    //         // Tank's VERTICAL movement checking : no object between ini_y and end_y
+                    //         //checks whether either the top or the bottom of barrier is in the pathway
+                    //         if ((obj1_ini_x >= obj2_ini_x && obj1_ini_x <= obj2_end_x) || // checking the barrier's top
+                    //             (obj1_end_x >= obj2_ini_x && obj1_end_x <= obj2_end_x))   // checking the barrier's bottom
+                    //         {
+                    //             object2.isColliding= true;
+                    //         } else {
+                    //             object2.isColliding= false;
+                    //         }
+                    //     }
+                    // }
                 }   
             }else{
                 object2.isColliding = false;

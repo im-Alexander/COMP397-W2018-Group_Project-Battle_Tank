@@ -10,10 +10,12 @@ module managers{
         public shoot: boolean;
         public enabled: boolean;
         public paused: boolean;
+        public escape: boolean;
         public controlSet :config.Movement;
+        public anyKey:boolean;
 
         // constructors
-        constructor(up:number, down: number , left:number, right:number, fire:number){
+        constructor(up:number= config.KeyCode.Up_Arrow, down: number= config.KeyCode.Down_Arrow , left:number= config.KeyCode.Left_Arrow, right:number= config.KeyCode.Right_Arrow, fire:number= config.KeyCode.Space_Bar){
             this.enabled = true;
             document.addEventListener('keydown', this.onKeyDown.bind(this), false);
             document.addEventListener('keyup', this.onKeyUp.bind(this), false);
@@ -40,8 +42,16 @@ module managers{
                     break;
                 case this.controlSet.SHOOT:
                     this.shoot = true;
-                break;
+                    break;
+                case config.KeyCode.Pause_Break:
+                    this.paused=true;
+                    break;
+                case config.KeyCode.Escape:
+                    this.escape = true;
+                    break;
+
             }
+            this.anyKey=true;
         }
 
         public onKeyUp(event:KeyboardEvent): void{
@@ -61,7 +71,14 @@ module managers{
                 case this.controlSet.SHOOT:
                     this.shoot = false;
                 break;
+                case config.KeyCode.Pause_Break:
+                    this.paused=false;
+                    break;
+                case config.KeyCode.Escape:
+                    this.escape = false;
+                    break;
             }
+            this.anyKey=false;
         }
     }
 }

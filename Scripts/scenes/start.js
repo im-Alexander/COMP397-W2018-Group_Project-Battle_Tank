@@ -21,14 +21,16 @@ var scenes;
         }
         // Private Mathods
         StartScene.prototype._startButtonClick = function () {
-            objects.Game.currentScene = config.Scene.PLAY1;
+            objects.Game.currentScene = config.Scene.ROUND1;
         };
         // Public Methods
         // Initialize Game Variables and objects
         StartScene.prototype.Start = function () {
-            this._welcomeLabel = new objects.Label("- Tank Game - ", "80px", "Consolas", "#FFFFFF", 750, 250, true);
-            this._welcomeLabel2 = new objects.Label("- Alpha Version Presentation -", "40px", "Consolas", "#FFFFFF", 750, 350, true);
-            this._startButton = new objects.Button(this.assetManager, "startButton", 750, 450);
+            //this._welcomeLabel = new objects.Label("- Tank Game - ", "80px", "Consolas", "#FFFFFF", 750, 250, true);
+            // this._welcomeLabel2 = new objects.Label("- Alpha Version Presentation -", "40px", "Consolas", "#FFFFFF", 750, 700, true);
+            // this._startButton = new objects.Button(this.assetManager, "startButton", 750, 470);
+            this._welcomeLabel2 = new objects.Label("- Alpha Version Presentation -", "40px", "Consolas", "#248c08", 750, 10, true);
+            this._startButton = new objects.Button(this.assetManager, "startButton", 750, 737);
             this._terrain1 = new objects.Terrain(this.assetManager, "terrain1");
             this._terrain2 = new objects.Terrain(this.assetManager, "terrain1");
             this._terrain3 = new objects.Terrain(this.assetManager, "terrain1");
@@ -90,6 +92,7 @@ var scenes;
             this._startButton.on("click", this._startButtonClick);
         };
         StartScene.prototype.setLabyrinth2 = function (tp) {
+            var _this = this;
             if (tp === void 0) { tp = 1; }
             var labirinth_total_horizontal_tiles = 46;
             var labirinth_total_vertica_tiles = 25;
@@ -98,33 +101,48 @@ var scenes;
             var labyrinth = new Array();
             //                       1         2         3         4
             //              123456789012345678901234567890123456789012345678
-            labyrinth.push(" ");
-            labyrinth.push(" ");
-            labyrinth.push("  11111   11111  11 11  11111  11111  11111  11111");
-            labyrinth.push("  1       1   1  1 1 1  1   1      1  1   1  1     ");
-            labyrinth.push("  1       1   1  1   1  11111  11111  11111  11111");
-            labyrinth.push("  1       1   1  1   1  1          1      1      1");
-            labyrinth.push("  11111   11111  1   1  1      11111  11111  11111");
             labyrinth.push("");
             labyrinth.push("");
-            labyrinth.push("  1     1  111111  11111  11111  1  11111  11111  ");
-            labyrinth.push("  1     1  1    1  1   1  1   1  1  1   1  1   1  ");
-            labyrinth.push("  1  1  1  111111  11111  11111  1  1   1  11111  ");
-            labyrinth.push("  1 111 1  1    1  1  1   1  1   1  1   1  1  1   ");
-            labyrinth.push("  1111111  1    1  1   1  1   1  1  11111  1   1  ");
-            labyrinth.push(" ");
-            labyrinth.push("    1111111  1111111  1111111  1        1111111   ");
-            labyrinth.push("    1        1     1  1        1        1         ");
-            labyrinth.push("    1111111  1111111  1  1111  1        1111111   ");
-            labyrinth.push("    1        1     1  1     1  1        1         ");
-            labyrinth.push("    1111111  1     1  1111111  1111111  1111111   ");
-            labyrinth.push(" ");
-            labyrinth.push("       11111  1   1  1      11111  11111   11  ");
-            labyrinth.push("       1   1  1   1  1      1      1       11  ");
-            labyrinth.push("       11111  1   1  1      11111  11111   11  ");
-            labyrinth.push("       1  1   1   1  1      1          1       ");
-            labyrinth.push("       1   1  11111  11111  11111  11111   11  ");
+            labyrinth.push("            1111111  11  11  111111 ");
+            labyrinth.push("               11    11  11  11     ");
+            labyrinth.push("               11    111111  1111   ");
+            labyrinth.push("               11    11  11  11     ");
+            labyrinth.push("               11    11  11  111111 ");
+            labyrinth.push("");
+            labyrinth.push("");
+            labyrinth.push("");
+            labyrinth.push("          111111  111111  11   11  11  11 ");
+            labyrinth.push("            11    11  11  1111 11  11 11  ");
+            labyrinth.push("            11    111111  11 1111  111    ");
+            labyrinth.push("            11    11  11  11  111  11 11  ");
+            labyrinth.push("            11    11  11  11   11  11  11 ");
+            labyrinth.push("");
+            labyrinth.push("");
+            labyrinth.push("");
+            labyrinth.push("          111111  111111  111  111  111111");
+            labyrinth.push("          11      11  11  11 11 11  11    ");
+            labyrinth.push("          11  111 111111  11    11  11111 ");
+            labyrinth.push("          11   11 11  11  11    11  11    ");
+            labyrinth.push("          1111111 11  11  11    11  111111");
+            labyrinth.push("");
+            labyrinth.push("");
+            labyrinth.push("");
             //              123456789012345678901234567890123456789012345678
+            var line_counter = 1;
+            var pos_y = 0;
+            labyrinth.forEach(function (map) {
+                var pos = 0;
+                var pos_x = 0;
+                for (pos; pos < map.length; pos++) {
+                    if (map.substr(pos, 1) == "1") {
+                        // this._labyrinth.push(new objects.Barrier(this.assetManager, (pos)*tile_width, line_counter*tile_height+64 ))
+                        _this._labyrinth.push(new objects.Barrier(_this.assetManager, pos_x, pos_y));
+                    }
+                    pos_x += tile_width;
+                }
+                line_counter++;
+                pos_y += tile_height;
+            });
         };
         return StartScene;
     }(objects.Scene));

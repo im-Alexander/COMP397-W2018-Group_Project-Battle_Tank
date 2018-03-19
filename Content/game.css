@@ -12,21 +12,48 @@ html{
   width: 1500px;
   height: 65px;
   margin-left: 10%;
-  font-family: 'Courier New', Courier, monospace
+  font-family: 'Courier New', Courier, monospace;
+  display: inline-block;
 }
 
 #score_player1{
   float: left;
-  width: 50%;
+  width: 25%;
   text-decoration-style:double;
   font-size: 20px; 
   font-weight: bolder;
 }
 
+
 #score_player2{
+  /* position: relative;*/
   float: right;
-  width: 49,99%;
-  text-align: left;  
+  width: 25%;
+  text-align: right;  
   font-size: 20px; 
   font-weight: bolder;
+}
+
+#company{
+  /* position: relative;*/
+  float: left;
+  width: 49%;
+  text-align: right;  
+  font-size: 70px; 
+  font-weight: bolder;
+  padding-top: -10;
+  text-align: center;
+  color: #248c08
+}
+
+#footer{
+  border: 1px white dotted;
+  color: darkgoldenrod;
+  width: 1500px;
+  height: 65px;
+  margin-left: 10%;
+  font-family: 'Courier New', Courier, monospace;
+  display: inline-block;
+  text-align: center;
+  font-size: 35px;
 }

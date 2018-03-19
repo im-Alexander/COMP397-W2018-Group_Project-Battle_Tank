@@ -38,8 +38,10 @@ var objects;
                 this.setPosition();
                 this.visible = true;
                 this.counter = 0;
+                createjs.Sound.play("new_powerup_snd");
             }
             if (this.isColliding) {
+                createjs.Sound.play("powerup_snd");
                 this.counter = 0;
                 this.isColliding = false;
                 this.visible = false;

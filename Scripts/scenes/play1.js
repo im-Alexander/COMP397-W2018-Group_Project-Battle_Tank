@@ -15,13 +15,19 @@ var scenes;
         // Constructor
         function PlayScene1(assetManager) {
             var _this = _super.call(this, assetManager) || this;
+            _this._pauseButton = new objects.Button(_this.assetManager, "pause_button", -300, -300);
             _this.Start();
             return _this;
         }
+        PlayScene1.prototype._pauseButtonClick = function () {
+            this.unpause();
+        };
         // Private Mathods
         // Public Methods
         // Initialize Game Variables and objects
         PlayScene1.prototype.Start = function () {
+            this._key = new managers.NewKeyboard();
+            this._gamepaused = false;
             // Terrain to cover the canvas (It is temporally)
             this._terrain1 = new objects.Terrain(this.assetManager, "terrain1");
             this._terrain2 = new objects.Terrain(this.assetManager, "terrain1");
@@ -63,6 +69,12 @@ var scenes;
             this.Main();
         };
         PlayScene1.prototype.Update = function () {
+            if (this._key.paused)
+                this.pause();
+            if (this._key.escape)
+                this.unpause();
+            if (this._gamepaused)
+                return;
             this._newTank1.UpdateTank();
             this._newTank2.UpdateTank();
             this._powerup1.Update();
@@ -88,8 +100,9 @@ var scenes;
             health.innerHTML = this._newTank2.health.toString();
             score.innerHTML = this._newTank2.score.toString();
             // If lives fall below 0 swith to game over scene
-            if (this._newTank1.health <= 0 || this._newTank2.health <= 0) {
-                objects.Game.currentScene = config.Scene.PLAY2;
+            if (this._newTank1.health <= 0 || this._newTank2.health <= 0 || (this._newTank1.fuel == 0 && this._newTank2.fuel == 0)) {
+                objects.Game.currentScene = config.Scene.ROUND2;
+                createjs.Sound.play("round_end_snd");
             }
         };
         // This is where the fun happens
@@ -106,19 +119,6 @@ var scenes;
             this._labyrinth.forEach(function (barrier) {
                 _this.addChild(barrier);
             });
-            // add scoreboard labels to the scene
-            // this.addChild(this._scoreBoard._player1_HealthLabel);
-            // this.addChild(this._scoreBoard._player1_ScoreLabel);
-            // this.addChild(this._scoreBoard._player1_FuelLabel);
-            // this.addChild(this._scoreBoard._player2_HealthLabel);
-            // this.addChild(this._scoreBoard._player2_ScoreLabel);
-            // this.addChild(this._scoreBoard._player2_FuelLabel);
-            // this.addChild(objects.Game.scoreBoard._player1_HealthLabel);
-            // this.addChild(objects.Game.scoreBoard._player1_ScoreLabel);
-            // this.addChild(objects.Game.scoreBoard._player1_FuelLabel);
-            // this.addChild(objects.Game.scoreBoard._player2_HealthLabel);
-            // this.addChild(objects.Game.scoreBoard._player2_ScoreLabel);
-            // this.addChild(objects.Game.scoreBoard._player2_FuelLabel);
             // Add each bullet on the screen
             this._newTank1._bullets.forEach(function (bullet) {
                 _this.addChild(bullet);
@@ -131,6 +131,19 @@ var scenes;
             // add the tank to the scene
             this.addChild(this._newTank1);
             this.addChild(this._newTank2);
+            this.addChild(this._pauseButton);
+            this._pauseButton.on("pause", this._pauseButtonClick);
+            this._pauseButton.on("pause", this._pauseButtonClick);
+        };
+        PlayScene1.prototype.pause = function () {
+            this._gamepaused = true;
+            this._pauseButton.x = 750;
+            this._pauseButton.y = 400;
+        };
+        PlayScene1.prototype.unpause = function () {
+            this._gamepaused = false;
+            this._pauseButton.x = -300;
+            this._pauseButton.y = -300;
         };
         PlayScene1.prototype.setLabyrinth2 = function (tp) {
             var _this = this;
