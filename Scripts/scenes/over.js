@@ -36,9 +36,9 @@ var scenes;
                 msg = "There is no winner ...";
                 winner = "You are incompetent !!!";
             }
-            this._winneLabel1 = new objects.Label(msg, "100px", "Consolas", "#f4d942", 750, 90, true);
-            this._winneLabel2 = new objects.Label(winner, "180px", "Consolas", "#f44141", 750, 220, true);
-            this._overLabel = new objects.Label("-  Game Over  -", "80px", "Consolas", "#ffffff", 750, 450, true);
+            this._winneLabel1 = new objects.Label(msg, "100px", "Dock51", "#f4d942", 750, 90, true);
+            this._winneLabel2 = new objects.Label(winner, "180px", "Dock51", "#f44141", 750, 220, true);
+            this._overLabel = new objects.Label("-  Game Over  -", "80px", "Dock51", "#ffffff", 750, 450, true);
             this._backButton = new objects.Button(this.assetManager, "backButton", 750, 600);
             this._scoreboard = new managers.ScoreBoard();
             this.Main();

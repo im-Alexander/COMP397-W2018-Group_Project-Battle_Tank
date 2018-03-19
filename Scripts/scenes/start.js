@@ -26,10 +26,10 @@ var scenes;
         // Public Methods
         // Initialize Game Variables and objects
         StartScene.prototype.Start = function () {
-            //this._welcomeLabel = new objects.Label("- Tank Game - ", "80px", "Consolas", "#FFFFFF", 750, 250, true);
-            // this._welcomeLabel2 = new objects.Label("- Alpha Version Presentation -", "40px", "Consolas", "#FFFFFF", 750, 700, true);
+            //this._welcomeLabel = new objects.Label("- Tank Game - ", "80px", "Dock51", "#FFFFFF", 750, 250, true);
+            // this._welcomeLabel2 = new objects.Label("- Alpha Version Presentation -", "40px", "Dock51", "#FFFFFF", 750, 700, true);
             // this._startButton = new objects.Button(this.assetManager, "startButton", 750, 470);
-            this._welcomeLabel2 = new objects.Label("- Alpha Version Presentation -", "40px", "Consolas", "#248c08", 750, 10, true);
+            this._welcomeLabel2 = new objects.Label("- Alpha Version Presentation -", "40px", "Dock51", "#248c08", 750, 20, true);
             this._startButton = new objects.Button(this.assetManager, "startButton", 750, 737);
             this._terrain1 = new objects.Terrain(this.assetManager, "terrain1");
             this._terrain2 = new objects.Terrain(this.assetManager, "terrain1");

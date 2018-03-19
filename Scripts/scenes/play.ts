@@ -45,10 +45,10 @@ module scenes {
     public Start(): void {
 
       // Terrain to cover the canvas (It is temporally)
-      this._terrain1 = new objects.Terrain(this.assetManager);
-      this._terrain2 = new objects.Terrain(this.assetManager);
-      this._terrain3 = new objects.Terrain(this.assetManager);
-      this._terrain4 = new objects.Terrain(this.assetManager);
+      this._terrain1 = new objects.Terrain(this.assetManager, "");
+      this._terrain2 = new objects.Terrain(this.assetManager, "");
+      this._terrain3 = new objects.Terrain(this.assetManager, "");
+      this._terrain4 = new objects.Terrain(this.assetManager, "");
 
       this._terrain1.x=0;
       this._terrain1.y=0;

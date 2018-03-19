@@ -16,13 +16,13 @@ var managers;
         }
         // private methods
         ScoreBoard.prototype._initalize = function () {
-            this._player1_HealthLabel = new objects.Label("Health: 0/10", "20px", "Consolas", "#00FF00", 10, 10, false);
-            this._player1_FuelLabel = new objects.Label("Fuel: 0/100", "20px", "Consolas", "#0000FF", 10, 40, false);
-            this._player1_ScoreLabel = new objects.Label("Score: 99999", "20px", "Consolas", "#c60303", 10, 70 /* use 10 here for final build*/, false);
-            // this._player1_HighScoreLabel = new objects.Label("High Score: 99999", "40px", "Consolas", "#00FF00", 800, 380, true);
-            this._player2_HealthLabel = new objects.Label("Health: 0/10", "20px", "Consolas", "#00FF00", 1300, 10, false);
-            this._player2_FuelLabel = new objects.Label("Fuel: 0/100", "20px", "Consolas", "#0000FF", 1300, 40, false);
-            this._player2_ScoreLabel = new objects.Label("Score: 99999", "20px", "Consolas", "#c60303", 1300, 70 /* use 10 here for final build*/, false);
+            this._player1_HealthLabel = new objects.Label("Health: 0/10", "20px", "Dock51", "#00FF00", 10, 10, false);
+            this._player1_FuelLabel = new objects.Label("Fuel: 0/100", "20px", "Dock51", "#0000FF", 10, 40, false);
+            this._player1_ScoreLabel = new objects.Label("Score: 99999", "20px", "Dock51", "#c60303", 10, 70 /* use 10 here for final build*/, false);
+            // this._player1_HighScoreLabel = new objects.Label("High Score: 99999", "40px", "Dock51", "#00FF00", 800, 380, true);
+            this._player2_HealthLabel = new objects.Label("Health: 0/10", "20px", "Dock51", "#00FF00", 1300, 10, false);
+            this._player2_FuelLabel = new objects.Label("Fuel: 0/100", "20px", "Dock51", "#0000FF", 1300, 40, false);
+            this._player2_ScoreLabel = new objects.Label("Score: 99999", "20px", "Dock51", "#c60303", 1300, 70 /* use 10 here for final build*/, false);
         };
         Object.defineProperty(ScoreBoard.prototype, "Player1_Health", {
             get: function () {
