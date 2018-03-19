@@ -58,6 +58,19 @@ var objects;
                     _this._fire = config.KeyCode.Space_Bar;
             }
             _this.control = new managers.NewKeyboard(_this._up, _this._down, _this._left, _this._right, _this._fire);
+            // Checks the starting position on screen and applies the right rotation on the tank
+            if (_this.y <= 100) {
+                _this.rotation = 180;
+            }
+            else if (_this.x <= 750 && _this.y > 100 && _this.y < 700) {
+                _this.rotation = 90;
+            }
+            else if (_this.x > 750 && _this.y > 100 && _this.y < 700) {
+                _this.rotation = 270;
+            }
+            else {
+                _this.rotation = 0;
+            }
             _this.Start();
             return _this;
         }
@@ -122,23 +135,89 @@ var objects;
                 this.rotation = 0;
             }
         };
+        NewTank.prototype.MoveAutomatically = function () {
+            var pace = 8;
+            if (this.x <= 750 && this.y <= 400) {
+                if (this._automaticDirection == "up") {
+                    this.rotation = 0;
+                    this.y -= pace;
+                }
+                else if (this._automaticDirection == "right") {
+                    this.rotation = 90;
+                    this.x += pace;
+                }
+                else {
+                    this.rotation = 0;
+                    this.y -= pace;
+                }
+            }
+            else if (this.x > 750 && this.y <= 400) {
+                if (this._automaticDirection == "down") {
+                    this.rotation = 180;
+                    this.y += pace;
+                }
+                else if (this._automaticDirection == "right") {
+                    this.rotation = 90;
+                    this.x += pace;
+                }
+                else {
+                    this.rotation = 0;
+                    this.y -= pace;
+                }
+            }
+            else if (this.x > 750 && this.y > 400) {
+                if (this._automaticDirection == "down") {
+                    this.rotation = 180;
+                    this.y += pace;
+                }
+                else if (this._automaticDirection == "left") {
+                    this.rotation = 270;
+                    this.x -= pace;
+                }
+                else {
+                    this.rotation = 180;
+                    this.y += pace;
+                }
+            }
+            else {
+                if (this._automaticDirection == "up") {
+                    this.rotation = 0;
+                    this.y -= pace;
+                }
+                else if (this._automaticDirection == "left") {
+                    this.rotation = 270;
+                    this.x -= pace;
+                }
+                else {
+                    this.rotation = 180;
+                    this.y += pace;
+                }
+            }
+            this.CheckBounds(true);
+            // Keyboard Controls
+        };
         // check to see if some boundary has been passed
-        NewTank.prototype.CheckBounds = function () {
+        NewTank.prototype.CheckBounds = function (automatic) {
+            if (automatic === void 0) { automatic = false; }
             // right boundary
-            if (this.x >= 1500 - this.halfWidth) {
+            if (this.x > 1500 - this.halfWidth) {
                 this.x = 1500 - this.halfWidth;
+                this._automaticDirection = "down";
             }
             // left boundary
             if (this.x <= this.halfWidth) {
                 this.x = this.halfWidth;
+                this._automaticDirection = "up";
             }
             // bottom boundary
-            if (this.y >= 800 - this.halfHeight) {
+            if (this.y > 800 - this.halfHeight) {
                 this.y = 800 - this.halfHeight;
+                this._automaticDirection = "left";
             }
             // top boundary
-            if (this.y <= this.halfHeight) {
+            if (this.y < this.halfHeight) {
                 this.y = this.halfHeight;
+                this._automaticDirection = "right";
             }
         };
         NewTank.prototype.getAngle = function () {

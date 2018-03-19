@@ -9,6 +9,27 @@
   <link rel="stylesheet" href="./Content/game.css">
 </head>
 <body>
+  <div id="score">
+    <div id="score_player1">
+        <label style= "color:crimson;">Health : </label>
+        <label id="p1_health"  style= "color:crimson;">0.00</label> <br>
+        <label style= "color:greenyellow;">Fuel    :  </label>
+        <label id="p1_fuel"  style= "color:greenyellow;">0.00</label> <br>
+        <label style= "color:dodgerblue;">Score : </label>
+        <label id="p1_score" style= "color:dodgerblue;">0.00</label>
+    </div>
+
+    <div id="score_player2">
+        <label style= "color:crimson;">Health : </label>
+        <label id="p2_health"  style= "color:crimson;">0.00</label> <br>
+        <label style= "color:greenyellow;">Fuel    : </label>
+        <label id="p2_fuel"  style= "color:greenyellow;">0.00</label> <br>
+        <label style= "color:dodgerblue;">Score   : </label>
+        <label id="p2_score" style= "color:dodgerblue;">0.00</label>
+    </div>
+
+  </div>
+  <!-- <canvas id="canvasScoreboard" width="1500" height="100"></canvas> -->
   <canvas id="canvas" width="1500" height="800"></canvas>
 
   <!-- JavaScript Section -->
@@ -55,6 +76,7 @@
 
   <!-- Scenes -->
   <script src="./Scripts/scenes/over.js"></script>
+  <script src="./Scripts/scenes/score.js"></script>
   <script src="./Scripts/scenes/play1.js"></script>
   <script src="./Scripts/scenes/play2.js"></script>
   <script src="./Scripts/scenes/play3.js"></script>

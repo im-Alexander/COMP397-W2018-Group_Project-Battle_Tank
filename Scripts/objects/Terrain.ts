@@ -6,8 +6,8 @@ module objects {
       // public properties
   
       // Constructor
-      constructor(assetManager: createjs.LoadQueue) {
-        super(assetManager,"terrain");
+      constructor(assetManager: createjs.LoadQueue, terrain_type: string) {
+        super(assetManager,terrain_type);
         this.Start();
       }
   

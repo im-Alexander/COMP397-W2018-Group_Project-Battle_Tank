@@ -13,8 +13,9 @@ var objects;
     var Barrier = /** @class */ (function (_super) {
         __extends(Barrier, _super);
         // Constructor
-        function Barrier(assetManager, x, y) {
-            var _this = _super.call(this, assetManager, "barrier") || this;
+        function Barrier(assetManager, x, y, hit) {
+            if (hit === void 0) { hit = false; }
+            var _this = _super.call(this, assetManager, hit ? "barrier_hitted" : "barrier") || this;
             _this.x = x;
             _this.y = y;
             _this.health = 3;
@@ -24,6 +25,7 @@ var objects;
         Barrier.prototype.Start = function () {
         };
         Barrier.prototype.Update = function () {
+            this.image.id = "tank1";
         };
         return Barrier;
     }(objects.GameObject));

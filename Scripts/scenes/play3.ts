@@ -28,11 +28,11 @@ module scenes {
       public Start(): void {
   
         // Terrain to cover the canvas (It is temporally)
-        this._terrain1 = new objects.Terrain(this.assetManager);
-        this._terrain2 = new objects.Terrain(this.assetManager);
-        this._terrain3 = new objects.Terrain(this.assetManager);
-        this._terrain4 = new objects.Terrain(this.assetManager);
-  
+        this._terrain1 = new objects.Terrain(this.assetManager, "terrain3");
+        this._terrain2 = new objects.Terrain(this.assetManager, "terrain3");
+        this._terrain3 = new objects.Terrain(this.assetManager, "terrain3");
+        this._terrain4 = new objects.Terrain(this.assetManager, "terrain3");
+    
         this._terrain1.x=0;
         this._terrain1.y=0;
         this._terrain2.x=this._terrain1.getBounds().width;
@@ -63,10 +63,15 @@ module scenes {
         objectsMap.push(this._powerup1 );
         objectsMap.push(this._powerup2 );
         this._labyrinth.forEach(barrier=>{
-          objectsMap.push(barrier);
+          objectsMap.push(barrier); 
         })
         objects.Game.objectsMap= objectsMap;
   
+        // Ajust the global scoreboard and updating the players score based on the global scoreboard
+        this._newTank1.score = objects.Game.scoreBoard.Player1_Score;
+        this._newTank2.score = objects.Game.scoreBoard.Player2_Score;
+        objects.Game.scoreBoard.setFuel(this._newTank1.fuel, this._newTank2.fuel);      
+        objects.Game.scoreBoard.setHealth(this._newTank1.health, this._newTank2.health);
   
         this._scoreBoard.setFuel(this._newTank1.fuel, this._newTank2.fuel);
         this._scoreBoard.setHealth(this._newTank1.health, this._newTank2.health);
@@ -87,6 +92,23 @@ module scenes {
         this._scoreBoard.setHealth(this._newTank1.health, this._newTank2.health);
         this._scoreBoard.setScore(this._newTank1.score, this._newTank2.score);
         
+ 
+        // Scoreboard Player 1
+        let fuel = document.getElementById("p1_fuel");
+        let score = document.getElementById("p1_score");
+        let health = document.getElementById("p1_health");
+        fuel.innerHTML = (this._newTank1.fuel/1000).toString() + "%";
+        health.innerHTML = this._newTank1.health.toString();
+        score.innerHTML = this._newTank1.score.toString() ;
+
+        // Scoreboard Player 2
+        fuel = document.getElementById("p2_fuel");
+        score = document.getElementById("p2_score");
+        health = document.getElementById("p2_health");
+        fuel.innerHTML = (this._newTank2.fuel/1000).toString() + "%";
+        health.innerHTML = this._newTank2.health.toString();
+        score.innerHTML = this._newTank2.score.toString() ;
+
         // If lives fall below 0 swith to game over scene
         if(this._newTank1.health <= 0 || this._newTank2.health <= 0){
           objects.Game.currentScene = config.Scene.OVER;
@@ -110,13 +132,21 @@ module scenes {
         });
   
         // add scoreboard labels to the scene
-        this.addChild(this._scoreBoard._player1_HealthLabel);
-        this.addChild(this._scoreBoard._player1_ScoreLabel);
-        this.addChild(this._scoreBoard._player1_FuelLabel);
-        this.addChild(this._scoreBoard._player2_HealthLabel);
-        this.addChild(this._scoreBoard._player2_ScoreLabel);
-        this.addChild(this._scoreBoard._player2_FuelLabel);
+        // this.addChild(this._scoreBoard._player1_HealthLabel);
+        // this.addChild(this._scoreBoard._player1_ScoreLabel);
+        // this.addChild(this._scoreBoard._player1_FuelLabel);
+        // this.addChild(this._scoreBoard._player2_HealthLabel);
+        // this.addChild(this._scoreBoard._player2_ScoreLabel);
+        // this.addChild(this._scoreBoard._player2_FuelLabel);
+
+        // this.addChild(objects.Game.scoreBoard._player1_HealthLabel);
+        // this.addChild(objects.Game.scoreBoard._player1_ScoreLabel);
+        // this.addChild(objects.Game.scoreBoard._player1_FuelLabel);
+        // this.addChild(objects.Game.scoreBoard._player2_HealthLabel);
+        // this.addChild(objects.Game.scoreBoard._player2_ScoreLabel);
+        // this.addChild(objects.Game.scoreBoard._player2_FuelLabel);
   
+
         // Add each bullet on the screen
         this._newTank1._bullets.forEach(bullet=>{
           this.addChild(bullet);

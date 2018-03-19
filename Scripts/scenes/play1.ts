@@ -12,8 +12,9 @@ module scenes {
     public _labyrinth: Array<objects.Barrier> ;
     public _powerup1:objects.PowerUp;
     public _powerup2:objects.PowerUp;
+    
 
-        // Constructor
+    // Constructor
     constructor(assetManager: createjs.LoadQueue) {
       super(assetManager);
 
@@ -28,10 +29,10 @@ module scenes {
     public Start(): void {
 
       // Terrain to cover the canvas (It is temporally)
-      this._terrain1 = new objects.Terrain(this.assetManager);
-      this._terrain2 = new objects.Terrain(this.assetManager);
-      this._terrain3 = new objects.Terrain(this.assetManager);
-      this._terrain4 = new objects.Terrain(this.assetManager);
+      this._terrain1 = new objects.Terrain(this.assetManager, "terrain1");
+      this._terrain2 = new objects.Terrain(this.assetManager, "terrain1");
+      this._terrain3 = new objects.Terrain(this.assetManager, "terrain1");
+      this._terrain4 = new objects.Terrain(this.assetManager, "terrain1");
 
       this._terrain1.x=0;
       this._terrain1.y=0;
@@ -71,22 +72,47 @@ module scenes {
       this._scoreBoard.setFuel(this._newTank1.fuel, this._newTank2.fuel);
       this._scoreBoard.setHealth(this._newTank1.health, this._newTank2.health);
       this._scoreBoard.setScore(this._newTank1.score, this._newTank2.score);
+      objects.Game.scoreBoard = new managers.ScoreBoard();
+      objects.Game.scoreBoard.setFuel(this._newTank1.fuel, this._newTank2.fuel);      
+      objects.Game.scoreBoard.setHealth(this._newTank1.health, this._newTank2.health);
+      objects.Game.scoreBoard.setScore(this._newTank1.score, this._newTank2.score);
 
       this.Main();
     }
 
     public Update(): void {
-
+      
       this._newTank1.UpdateTank();
       this._newTank2.UpdateTank();
 
       this._powerup1.Update();
       this._powerup2.Update();
 
+      objects.Game.scoreBoard.setFuel(this._newTank1.fuel, this._newTank2.fuel);      
+      objects.Game.scoreBoard.setHealth(this._newTank1.health, this._newTank2.health);
+      objects.Game.scoreBoard.setScore(this._newTank1.score, this._newTank2.score);
+
       this._scoreBoard.setFuel(this._newTank1.fuel, this._newTank2.fuel);
       this._scoreBoard.setHealth(this._newTank1.health, this._newTank2.health);
       this._scoreBoard.setScore(this._newTank1.score, this._newTank2.score);
-      
+
+      // Scoreboard Player 1
+      let fuel = document.getElementById("p1_fuel");
+      let score = document.getElementById("p1_score");
+      let health = document.getElementById("p1_health");
+      fuel.innerHTML = (this._newTank1.fuel/1000).toString() + "%";
+      health.innerHTML = this._newTank1.health.toString();
+      score.innerHTML = this._newTank1.score.toString() ;
+
+      // Scoreboard Player 2
+      fuel = document.getElementById("p2_fuel");
+      score = document.getElementById("p2_score");
+      health = document.getElementById("p2_health");
+      fuel.innerHTML = (this._newTank2.fuel/1000).toString() + "%";
+      health.innerHTML = this._newTank2.health.toString();
+      score.innerHTML = this._newTank2.score.toString() ;
+
+
       // If lives fall below 0 swith to game over scene
       if(this._newTank1.health <= 0 || this._newTank2.health <= 0){
         objects.Game.currentScene = config.Scene.PLAY2;
@@ -97,9 +123,12 @@ module scenes {
 
     // This is where the fun happens
     public Main(): void {
+      if (objects.Game.playMusic){
+        createjs.Sound.play("battle",{loop:-1});
+        objects.Game.playMusic = false;
+      }
 
-      createjs.Sound.play("battle",{loop:-1});
-      
+ 
       this.addChild(this._terrain1);
       this.addChild(this._terrain2);
       this.addChild(this._terrain3);
@@ -110,12 +139,19 @@ module scenes {
       });
 
       // add scoreboard labels to the scene
-      this.addChild(this._scoreBoard._player1_HealthLabel);
-      this.addChild(this._scoreBoard._player1_ScoreLabel);
-      this.addChild(this._scoreBoard._player1_FuelLabel);
-      this.addChild(this._scoreBoard._player2_HealthLabel);
-      this.addChild(this._scoreBoard._player2_ScoreLabel);
-      this.addChild(this._scoreBoard._player2_FuelLabel);
+      // this.addChild(this._scoreBoard._player1_HealthLabel);
+      // this.addChild(this._scoreBoard._player1_ScoreLabel);
+      // this.addChild(this._scoreBoard._player1_FuelLabel);
+      // this.addChild(this._scoreBoard._player2_HealthLabel);
+      // this.addChild(this._scoreBoard._player2_ScoreLabel);
+      // this.addChild(this._scoreBoard._player2_FuelLabel);
+
+      // this.addChild(objects.Game.scoreBoard._player1_HealthLabel);
+      // this.addChild(objects.Game.scoreBoard._player1_ScoreLabel);
+      // this.addChild(objects.Game.scoreBoard._player1_FuelLabel);
+      // this.addChild(objects.Game.scoreBoard._player2_HealthLabel);
+      // this.addChild(objects.Game.scoreBoard._player2_ScoreLabel);
+      // this.addChild(objects.Game.scoreBoard._player2_FuelLabel);
 
       // Add each bullet on the screen
       this._newTank1._bullets.forEach(bullet=>{
@@ -135,80 +171,7 @@ module scenes {
       
     }
 
-    private setLabyrinth(tp :number = 1):void{
-      let barrier  = new objects.Barrier(this.assetManager,-100,-100);
-      let width = barrier.getBounds().width;
-      let height = barrier.getBounds().height;
-      let next_x = width;
-      let next_y = 90;
-      this._labyrinth.push(new objects.Barrier(this.assetManager,80, next_y));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
 
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += (width*3),next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-
-      let c :number =0;
-      for(c=1;c<10; c++){
-        next_y += 120;
-        next_x = 70;
-        this._labyrinth.push(new objects.Barrier(this.assetManager,80, next_y));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += (width*3),next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      }
-
-    }
     private setLabyrinth2(tp :number = 1):void{
       let labirinth_total_horizontal_tiles = 46;
       let labirinth_total_vertica_tiles = 25;
@@ -294,14 +257,6 @@ module scenes {
             labyrinth.push("          1111   111   1111   1111               ")
             labyrinth.push("            1111111111111     1111111111         ")
             labyrinth.push(" ")
-            // labyrinth.push("                111111111111111111              ")
-            // labyrinth.push("                111111111111111111              ")
-            // labyrinth.push("                      111111                    ")
-            // labyrinth.push("                      111111                    ")
-            // labyrinth.push("                      111111                    ")
-            // labyrinth.push("                111111111111111111              ")
-            // labyrinth.push("                111111111111111111              ")
-            // labyrinth.push("")
             labyrinth.push("") 
             labyrinth.push("                  11111    11111                ")
             labyrinth.push("                111111111111111111              ")
@@ -344,29 +299,3 @@ module scenes {
 }
 }
 
-// labyrinth.push("                                              ")  
-// labyrinth.push("                                              ")  
-// labyrinth.push("  1111111111111   1111111111111  11111111111  ")  
-// labyrinth.push("  1                           1  1         1  ")
-// labyrinth.push("  1                           1  1  11111  1  ")
-// labyrinth.push("  1  1  11111111111111111     1  1  1   1  1  ")
-// labyrinth.push("  1  1          1             1  1  1      1  ")
-// labyrinth.push("  1  1          1             1  1  1   1  1  ")
-// labyrinth.push("  1  11111      1      11111  1  1  1   1  1  ")
-// labyrinth.push("     1       1111111                1   1     ")
-// labyrinth.push("     1          1                   1   1     ")
-// labyrinth.push("     1          1             1  1  1   1  1  ")
-// labyrinth.push("  1  1  111111     111111     1  1  1   1  1  ")
-// labyrinth.push("  1  1                        1  1  1   1  1  ")
-// labyrinth.push("  1  1                        1  1  1   1  1  ")
-// labyrinth.push("  1  1  11111111111111111     1  1      1  1  ")
-// labyrinth.push("  1                           1  1  11111  1  ")
-// labyrinth.push("  1                           1  1         1  ")
-// labyrinth.push("  1111111111111   1111111111111  11111111111  ")  
-// labyrinth.push("  1111111111111   1111111111111  11111111111  ")  
-// labyrinth.push("  1111111111111   1111111111111  11111111111  ")  
-// labyrinth.push("  1111111111111   1111111111111  11111111111  ")  
-// labyrinth.push("  1111111111111   1111111111111  11111111111  ")  
-// labyrinth.push("  1111111111111   1111111111111  11111111111  ")  
-// labyrinth.push("                                              ")  
-// labyrinth.push("  1111111111111   1111111111111  11111111111  ")  

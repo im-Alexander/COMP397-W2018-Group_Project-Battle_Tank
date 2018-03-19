@@ -15,8 +15,8 @@ var objects;
         // private instance variables
         // public properties
         // Constructor
-        function Terrain(assetManager) {
-            var _this = _super.call(this, assetManager, "terrain") || this;
+        function Terrain(assetManager, terrain_type) {
+            var _this = _super.call(this, assetManager, terrain_type) || this;
             _this.Start();
             return _this;
         }

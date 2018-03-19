@@ -5,8 +5,8 @@ module objects {
         
 
         // Constructor
-        constructor(assetManager: createjs.LoadQueue, x:number , y:number) {
-            super(assetManager, "barrier");
+        constructor(assetManager: createjs.LoadQueue, x:number , y:number, hit: boolean=false) {
+            super(assetManager, hit?"barrier_hitted":"barrier");
             this.x=x;
             this.y=y;
             this.health=3;
@@ -17,6 +17,7 @@ module objects {
         }
 
         public Update():void {
+            this.image.id ="tank1";
         }
     }
 }

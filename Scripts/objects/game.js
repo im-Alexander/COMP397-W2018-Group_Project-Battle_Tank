@@ -3,6 +3,7 @@ var objects;
     var Game = /** @class */ (function () {
         function Game() {
         }
+        Game.playMusic = true;
         return Game;
     }());
     objects.Game = Game;

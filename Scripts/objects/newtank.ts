@@ -21,7 +21,7 @@ module objects {
         public _left: number;
         public _right: number;
         public _fire: number;
-                
+        public _automaticDirection : string;                        
 
         // Constructor
         constructor(assetManager: createjs.LoadQueue, tankNumber : number,  x:number , y:number, ammoQty:number ) {
@@ -68,6 +68,17 @@ module objects {
     
             this.control = new managers.NewKeyboard(this._up, this._down, this._left, this._right, this._fire);
 
+
+            // Checks the starting position on screen and applies the right rotation on the tank
+            if(  this.y <= 100 ){  // screen upper-left side check
+                    this.rotation =180;
+            } else if( this.x <=750 && this.y >100 && this.y <700 ){   // Screen upper-right side check
+                    this.rotation =90;
+            } else if( this.x > 750 && this.y >100 && this.y <700){   // Screen down-right side check
+                    this.rotation =270;
+            } else {   // Screen down-left side check
+                    this.rotation =0;
+            }
             this.Start();
 
         }
@@ -142,26 +153,82 @@ module objects {
             }
         }
     
+        public MoveAutomatically():void {
+            let pace = 8;
+            if( this.x <= 750 && this.y <= 400 ){  // screen upper-left side check
+                if(this._automaticDirection=="up"){
+                    this.rotation =0;
+                    this.y-=pace;
+                }else if(this._automaticDirection=="right"){
+                    this.rotation =90;
+                    this.x+=pace;
+                }else {
+                    this.rotation =0;
+                    this.y-=pace;
+                }
+
+            } else if( this.x > 750 && this.y <= 400 ){   // Screen upper-right side check
+                if(this._automaticDirection=="down"){
+                    this.rotation =180;
+                    this.y+=pace;
+                }else if(this._automaticDirection=="right"){
+                    this.rotation =90;
+                    this.x+=pace;
+                }else {
+                    this.rotation =0;
+                    this.y-=pace;
+                }
+            } else if( this.x > 750 && this.y > 400 ){   // Screen down-right side check
+                if(this._automaticDirection=="down"){
+                    this.rotation =180;
+                    this.y+=pace;
+                }else if(this._automaticDirection=="left"){
+                    this.rotation =270;
+                    this.x-=pace;
+                }else {
+                    this.rotation =180;
+                    this.y+=pace;
+                }
+            } else {   // Screen down-left side check
+                if(this._automaticDirection=="up"){
+                    this.rotation =0;
+                    this.y-=pace;
+                }else if(this._automaticDirection=="left"){
+                    this.rotation =270;
+                    this.x-=pace;
+                }else {
+                    this.rotation =180;
+                    this.y+=pace;
+                }
+            }
+            this.CheckBounds(true);    
+            // Keyboard Controls
+        }
         // check to see if some boundary has been passed
-        public CheckBounds():void {
+        public CheckBounds(automatic:boolean=false):void {
 
             // right boundary
-            if(this.x >= 1500 -  this.halfWidth) {
-            this.x = 1500 - this.halfWidth;
+            if(this.x > 1500 -  this.halfWidth) {
+                this.x = 1500 - this.halfWidth;
+                this._automaticDirection = "down";
             }
             // left boundary
             if(this.x <= this.halfWidth) {
-            this.x = this.halfWidth;
+                this.x = this.halfWidth;
+                this._automaticDirection = "up";
             }
             
             // bottom boundary
-            if(this.y >= 800 -  this.halfHeight) {
-            this.y = 800 - this.halfHeight;
+            if(this.y > 800 -  this.halfHeight) {
+                this.y = 800 - this.halfHeight;
+                this._automaticDirection = "left";
             }
     
             // top boundary
-            if(this.y <= this.halfHeight) {
-            this.y = this.halfHeight;
+            if(this.y < this.halfHeight) {
+                this.y = this.halfHeight;
+                this._automaticDirection = "right";
+
             }
         }
 

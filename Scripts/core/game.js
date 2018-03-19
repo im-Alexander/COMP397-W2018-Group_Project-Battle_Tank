@@ -19,13 +19,15 @@
         { id: "bullet", src: "./Assets/images/bullet_small.png" },
         { id: "tank1", src: "./Assets/images/tank_green_1.png" },
         { id: "tank2", src: "./Assets/images/tank_blue_1.png" },
-        { id: "terrain", src: "./Assets/images/sand_pitchlAltered.jpg" },
+        { id: "terrain1", src: "./Assets/images/sand_pitchlAltered.jpg" },
+        { id: "terrain2", src: "./Assets/images/grass_extended.png" },
+        { id: "terrain3", src: "./Assets/images/gray_extended.png" },
         { id: "powerup", src: "./Assets/images/oil_barrel_small.png" },
         { id: "barrier", src: "./Assets/images/brick_big_1.png" },
         { id: "battle", src: "./Assets/audio/Battle_music_theme.ogg" },
         { id: "barrier_shot", src: "./Assets/audio/barrier_shot.ogg" },
         { id: "tank_engine", src: "./Assets/audio/tank_engine_short.ogg" },
-        { id: "tank_fire", src: "./Assets/audio/tank_fire_2.ogg" }
+        { id: "tank_fire", src: "./Assets/audio/tank_fire_1.ogg" }
     ];
     // preloads assets
     function Init() {
