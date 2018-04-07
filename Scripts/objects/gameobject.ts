@@ -13,6 +13,7 @@ module objects {
     public health: number;
     public fuel: number;
     public score:number;
+    public movementPace:number;
 
     // constructors
     constructor(assetManager: createjs.LoadQueue, imageString:string) {
@@ -52,5 +53,7 @@ module objects {
     public Move():void {
       
     }
+
+    public decreaseHealth(decrementer:number):void{}
   }
 }

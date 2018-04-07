@@ -20,28 +20,43 @@ var managers;
                         }
                         else if (object1.name.toUpperCase() == "BARRIER") {
                             createjs.Sound.play("barrier_shot");
-                            object1.health--;
-                            if (object1.health == 0) {
-                                object1.visible = false;
-                                object1.x = -100;
-                            }
-                            // switch(object1.health){
-                            //     case 0:
-                            //         object1.visible=false;
-                            //         object1.x=-100;
-                            //         break;
-                            //     case 1:
-                            //         object1.alpha = 0.43;
-                            //         break;
-                            //     case 2 :
-                            //         object1.alpha=0.76;
-                            //         break;
+                            object1.decreaseHealth(1);
+                            // if(object1.health==0){
+                            //     object1.visible=false;
+                            //     object1.x=-100;
+                            // }
+                        }
+                        else if (object1.name.toUpperCase() == "POPUPLANDMINE") {
+                            createjs.Sound.play("barrier_shot");
+                            object1.decreaseHealth(1);
+                            // if(object1.health==0){
+                            //     object1.visible=false;
+                            //     object1.x=-100;
                             // }
                         }
                     }
-                    else if (object1.name.toUpperCase() == "POWERUP") {
-                        object2.fuel = 100000;
-                        object2.health++;
+                    else if (object1.name.toUpperCase() == "POPUPOIL") {
+                        object2.fuel += 40000;
+                        if (object2.fuel > 100000)
+                            object2.fuel = 100000;
+                        object1.isColliding = true; // In the next update the powerup will be not visible
+                        object2.isColliding = false;
+                    }
+                    else if (object1.name.toUpperCase() == "POPUPLIFE") {
+                        if (object2.fuel < 40000)
+                            object2.fuel += 40000;
+                        else
+                            object2.health++;
+                        object1.isColliding = true; // In the next update the powerup will be not visible
+                        object2.isColliding = false;
+                    }
+                    else if (object1.name.toUpperCase() == "POPUPLANDMINE") {
+                        object2.health -= 3;
+                        object1.isColliding = true; // In the next update the powerup will be not visible
+                        object2.isColliding = false;
+                    }
+                    else if (object1.name.toUpperCase() == "POPUPSPEED") {
+                        object2.health -= 3;
                         object1.isColliding = true; // In the next update the powerup will be not visible
                         object2.isColliding = false;
                     }

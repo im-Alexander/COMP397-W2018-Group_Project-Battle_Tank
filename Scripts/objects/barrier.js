@@ -13,22 +13,37 @@ var objects;
     var Barrier = /** @class */ (function (_super) {
         __extends(Barrier, _super);
         // Constructor
-        function Barrier(assetManager, x, y, hit) {
-            if (hit === void 0) { hit = false; }
-            var _this = _super.call(this, assetManager, hit ? "barrier_hitted" : "barrier") || this;
+        function Barrier(assetManager, barrier_type, x, y, destructiblet) {
+            if (destructiblet === void 0) { destructiblet = true; }
+            var _this = _super.call(this, assetManager, barrier_type) || this;
             _this.x = x;
             _this.y = y;
             _this.health = 3;
+            _this.barrier_type = barrier_type;
+            _this.name = "barrier";
+            _this.destructible = destructiblet;
             return _this;
         }
         //Public Methods
         Barrier.prototype.Start = function () {
         };
         Barrier.prototype.Update = function () {
-            if (this.health == 2)
-                this.image = new createjs.Bitmap("./assets/images/brick_big_2.png").image;
-            else
-                this.image = new createjs.Bitmap("./assets/images/brick_big_3.png").image;
+            if (this.health == 2) {
+                this.image = new createjs.Bitmap("./assets/images/barriers/brick_big_2.png").image;
+            }
+            else if (this.health == 1) {
+                this.image = new createjs.Bitmap("./assets/images/barriers/brick_big_3.png").image;
+            }
+            else if (this.health <= 0) {
+                this.x = -100;
+                this.y = -100;
+                this.visible = false;
+            }
+        };
+        Barrier.prototype.decreaseHealth = function (damage) {
+            if (damage === void 0) { damage = 1; }
+            if (this.destructible)
+                this.health -= damage;
         };
         return Barrier;
     }(objects.GameObject));

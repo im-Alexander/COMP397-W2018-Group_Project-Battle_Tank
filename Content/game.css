@@ -3,7 +3,9 @@ html{
 }
 
 #canvas {
-  margin-left: 10%;
+  display:block;
+  margin-left: auto;
+  margin-right: auto;
   border: 1px white dotted;
 }
 #score{
@@ -11,9 +13,9 @@ html{
   color: white;
   width: 1500px;
   height: 65px;
-  margin-left: 10%;
+  margin-left: auto;
+  margin-right: auto;
   font-family: 'Courier New', Courier, monospace;
-  display: inline-block;
 }
 
 #score_player1{
@@ -28,8 +30,8 @@ html{
 #score_player2{
   /* position: relative;*/
   float: right;
-  width: 25%;
-  text-align: right;  
+  width: 10%;
+  text-align: left;  
   font-size: 20px; 
   font-weight: bolder;
 }
@@ -43,7 +45,10 @@ html{
   font-weight: bolder;
   padding-top: -10;
   text-align: center;
-  color: #248c08
+  color: #248c08;
+  line-height: 100%;
+  vertical-align: middle;
+  
 }
 
 #footer{
@@ -51,9 +56,9 @@ html{
   color: darkgoldenrod;
   width: 1500px;
   height: 65px;
-  margin-left: 10%;
+  margin-left: auto;
+  margin-right: auto;
   font-family: 'Courier New', Courier, monospace;
-  display: inline-block;
   text-align: center;
   font-size: 35px;
 }

@@ -23,7 +23,11 @@
 /// <reference path="../../Scripts/objects/enemy.ts"/>
 /// <reference path="../../Scripts/objects/terrain.ts"/>
 /// <reference path="../../Scripts/objects/barrier.ts"/>
+/// <reference path="../../Scripts/objects/rock_barrier.ts"/>
+/// <reference path="../../Scripts/objects/metal_barrier.ts"/>
 /// <reference path="../../Scripts/objects/powerup.ts"/>
+/// <reference path="../../Scripts/objects/popup.ts"/>
+
 
 /// <reference path="../../Scripts/scenes/over.ts"/>
 /// <reference path="../../Scripts/scenes/roundInform.ts"/>

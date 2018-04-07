@@ -8,11 +8,11 @@ module objects {
         private limit_x:number;
         private limit_y:number;
         private cycle:number;
-       
+        private powerupType:string;
 
         // Constructor
-        constructor(assetManager: createjs.LoadQueue) {
-            super(assetManager, "powerup");
+        constructor(assetManager: createjs.LoadQueue, imageName:string="powerupOil", powerupType:string = "powerupOil") {
+            super(assetManager, imageName);
             this.x=-100;
             this.y=-100;
             // this.limit_x = limit_x;
@@ -22,6 +22,8 @@ module objects {
             this.cycle = Math.round(Math.random()*5400); // Defines how long each one is going to take to show up
             this.visible = false;
             this.counter =0;
+            this.name = powerupType;
+            this.health = 7;
             this.Start();
         }
 
@@ -58,6 +60,11 @@ module objects {
                 this.x = Math.round(Math.random()*this.limit_x);
                 this.y = Math.round(Math.random()*this.limit_y);
 
+                if(this.x- this.getBounds().width*0.5<1 || this.x- this.getBounds().width*0.5>1500 ||  // checks horizontal boundaries
+                this.y- this.getBounds().height*0.5<1 || this.y- this.getBounds().height*0.5>800  ) {   // checks vertical boundaries
+                    this.isColliding = true;
+                }
+
                 //Checks if the new position is already occupied
                 let objectDetected : objects.GameObject;
                 for(objectDetected  of objects.Game.objectsMap){
@@ -70,6 +77,11 @@ module objects {
                 }
             }while(this.isColliding)
 
+        }
+
+        public decreaseHealth(damage:number=1){
+            this.health--;
+            if(this.health<=0) this.isColliding=true;
         }
     }
 }

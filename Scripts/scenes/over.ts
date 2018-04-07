@@ -33,7 +33,7 @@ module scenes {
         winner = "Player 2";
       else{
         msg= "There is no winner ..."
-        winner = "You are incompetent !!!";
+        winner = "You Both Failed !";
       }
 
       this._winneLabel1 = new objects.Label(msg, "100px", "Dock51", "#f4d942", 750, 90, true);

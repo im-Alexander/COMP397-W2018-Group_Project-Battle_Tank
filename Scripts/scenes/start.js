@@ -12,6 +12,8 @@ var scenes;
 (function (scenes) {
     var StartScene = /** @class */ (function (_super) {
         __extends(StartScene, _super);
+        // public _powerup1:objects.PowerUp;
+        // public _powerup2:objects.PowerUp;
         // Public Properties
         // Constructor
         function StartScene(assetManager) {
@@ -29,7 +31,7 @@ var scenes;
             //this._welcomeLabel = new objects.Label("- Tank Game - ", "80px", "Dock51", "#FFFFFF", 750, 250, true);
             // this._welcomeLabel2 = new objects.Label("- Alpha Version Presentation -", "40px", "Dock51", "#FFFFFF", 750, 700, true);
             // this._startButton = new objects.Button(this.assetManager, "startButton", 750, 470);
-            this._welcomeLabel2 = new objects.Label("- Alpha Version Presentation -", "40px", "Dock51", "#248c08", 750, 20, true);
+            this._welcomeLabel2 = new objects.Label("- Beta Version Presentation -", "40px", "Dock51", "#248c08", 750, 20, true);
             this._startButton = new objects.Button(this.assetManager, "startButton", 750, 737);
             this._terrain1 = new objects.Terrain(this.assetManager, "terrain1");
             this._terrain2 = new objects.Terrain(this.assetManager, "terrain1");
@@ -46,12 +48,16 @@ var scenes;
             this._labyrinth = new Array();
             this.setLabyrinth2();
             //Players
-            this._newTank1 = new objects.NewTank(this.assetManager, 1, 750, 5, 2);
-            this._newTank2 = new objects.NewTank(this.assetManager, 1, 750, 820, 2);
-            this._newTank3 = new objects.NewTank(this.assetManager, 2, 1, 399, 2);
-            this._newTank4 = new objects.NewTank(this.assetManager, 2, 1470, 401, 2);
-            this._powerup1 = new objects.PowerUp(this.assetManager);
-            this._powerup2 = new objects.PowerUp(this.assetManager);
+            this._newTank1 = new objects.NewTank(this.assetManager, 1, 1, 5, 2);
+            this._newTank2 = new objects.NewTank(this.assetManager, 2, 576, 5, 2);
+            this._newTank3 = new objects.NewTank(this.assetManager, 1, 1151, 5, 2);
+            this._newTank4 = new objects.NewTank(this.assetManager, 2, 1500, 226, 2);
+            this._newTank5 = new objects.NewTank(this.assetManager, 1, 1499, 800, 2);
+            this._newTank6 = new objects.NewTank(this.assetManager, 2, 925, 800, 2);
+            this._newTank7 = new objects.NewTank(this.assetManager, 1, 350, 800, 2);
+            this._newTank8 = new objects.NewTank(this.assetManager, 2, 1, 575, 2);
+            // this._powerup1 = new objects.PowerUp(this.assetManager);
+            // this._powerup2 = new objects.PowerUp(this.assetManager);
             this.Main();
         };
         StartScene.prototype.Update = function () {
@@ -59,6 +65,10 @@ var scenes;
             this._newTank2.MoveAutomatically();
             this._newTank3.MoveAutomatically();
             this._newTank4.MoveAutomatically();
+            this._newTank5.MoveAutomatically();
+            this._newTank6.MoveAutomatically();
+            this._newTank7.MoveAutomatically();
+            this._newTank8.MoveAutomatically();
         };
         // This is where the fun happens
         StartScene.prototype.Main = function () {
@@ -77,13 +87,17 @@ var scenes;
             this._newTank2._bullets.forEach(function (bullet) {
                 _this.addChild(bullet);
             });
-            this.addChild(this._powerup1);
-            this.addChild(this._powerup2);
+            // this.addChild(this._powerup1);
+            // this.addChild(this._powerup2);
             // add the tank to the scene
             this.addChild(this._newTank1);
             this.addChild(this._newTank2);
             this.addChild(this._newTank3);
             this.addChild(this._newTank4);
+            this.addChild(this._newTank5);
+            this.addChild(this._newTank6);
+            this.addChild(this._newTank7);
+            this.addChild(this._newTank8);
             // add the welcome label to the scene
             this.addChild(this._welcomeLabel);
             this.addChild(this._welcomeLabel2);
@@ -103,15 +117,15 @@ var scenes;
             //              123456789012345678901234567890123456789012345678
             labyrinth.push("");
             labyrinth.push("");
-            labyrinth.push("            1111111  11  11  111111 ");
+            labyrinth.push("             111111  11  11   11111 ");
             labyrinth.push("               11    11  11  11     ");
             labyrinth.push("               11    111111  1111   ");
             labyrinth.push("               11    11  11  11     ");
-            labyrinth.push("               11    11  11  111111 ");
+            labyrinth.push("               11    11  11   11111 ");
             labyrinth.push("");
             labyrinth.push("");
             labyrinth.push("");
-            labyrinth.push("          111111  111111  11   11  11  11 ");
+            labyrinth.push("          111111   1111   11   11  11  11 ");
             labyrinth.push("            11    11  11  1111 11  11 11  ");
             labyrinth.push("            11    111111  11 1111  111    ");
             labyrinth.push("            11    11  11  11  111  11 11  ");
@@ -119,11 +133,11 @@ var scenes;
             labyrinth.push("");
             labyrinth.push("");
             labyrinth.push("");
-            labyrinth.push("          111111  111111  111  111  111111");
+            labyrinth.push("           11111   1111   111  111   11111");
             labyrinth.push("          11      11  11  11 11 11  11    ");
-            labyrinth.push("          11  111 111111  11    11  11111 ");
+            labyrinth.push("          11  11  111111  11    11  11111 ");
             labyrinth.push("          11   11 11  11  11    11  11    ");
-            labyrinth.push("          1111111 11  11  11    11  111111");
+            labyrinth.push("           111111 11  11  11    11   11111");
             labyrinth.push("");
             labyrinth.push("");
             labyrinth.push("");
@@ -136,7 +150,7 @@ var scenes;
                 for (pos; pos < map.length; pos++) {
                     if (map.substr(pos, 1) == "1") {
                         // this._labyrinth.push(new objects.Barrier(this.assetManager, (pos)*tile_width, line_counter*tile_height+64 ))
-                        _this._labyrinth.push(new objects.Barrier(_this.assetManager, pos_x, pos_y));
+                        _this._labyrinth.push(new objects.Barrier(_this.assetManager, "barrier", pos_x, pos_y, false));
                     }
                     pos_x += tile_width;
                 }

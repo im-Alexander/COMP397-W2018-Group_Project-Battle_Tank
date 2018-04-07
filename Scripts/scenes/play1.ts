@@ -10,8 +10,14 @@ module scenes {
     public _newTank2: objects.NewTank;
     public _scoreBoard : managers.ScoreBoard;
     public _labyrinth: Array<objects.Barrier> ;
-    public _powerup1:objects.PowerUp;
-    public _powerup2:objects.PowerUp;
+    public _popUpOil1:objects.PopUp;
+    public _popUpOil2:objects.PopUp;
+    public _popUpLife1:objects.PopUp;
+    public _popUpLife2:objects.PopUp;
+    // public _popUpSpeed1:objects.PopUp;
+    // public _popUpSpeed2:objects.PopUp;
+    public _popUpLandMines:Array<objects.PopUp> = new Array<objects.PopUp>();
+    public LandMinesQty:number =15;
     public _key : managers.NewKeyboard;
     public _gamepaused : boolean;
     public _pauseButton : objects.Button;
@@ -55,11 +61,20 @@ module scenes {
       this._labyrinth = new Array<objects.Barrier>();
       this.setLabyrinth2();
       //Players
-      this._newTank1 = new objects.NewTank(this.assetManager,1,770,5,2);
-      this._newTank2 = new objects.NewTank(this.assetManager,2,770, 820,2);
+      this._newTank1 = new objects.NewTank(this.assetManager,1,770,5,6);
+      this._newTank2 = new objects.NewTank(this.assetManager,2,770, 820,6);
 
-      this._powerup1 = new objects.PowerUp(this.assetManager);
-      this._powerup2 = new objects.PowerUp(this.assetManager);
+      this._popUpOil1 = new objects.PopUp(this.assetManager, "popUpOil","popUpOil");
+      this._popUpOil2 = new objects.PopUp(this.assetManager, "popUpOil","popUpOil");
+      this._popUpLife1 = new objects.PopUp(this.assetManager, "popUpLife","popUpLife");
+      this._popUpLife2 = new objects.PopUp(this.assetManager, "popUpLife","popUpLife");
+      this._popUpLife1 = new objects.PopUp(this.assetManager, "popUpSpeed","popUpSpeed");
+      this._popUpLife2 = new objects.PopUp(this.assetManager, "popUpSpeed","popUpSpeed");
+      var i=0
+      for(i; i< this.LandMinesQty; i++){
+        this._popUpLandMines.push(new objects.PopUp(this.assetManager, "popUpLandMine","popUpLandMine"))
+      }
+     
 
 
       // create scoreboard UI for scene
@@ -70,8 +85,16 @@ module scenes {
       
       objectsMap.push(this._newTank1 );
       objectsMap.push(this._newTank2 );
-      objectsMap.push(this._powerup1 );
-      objectsMap.push(this._powerup2 );
+      objectsMap.push(this._popUpOil1 );
+      objectsMap.push(this._popUpOil2 );
+      objectsMap.push(this._popUpLife1 );
+      objectsMap.push(this._popUpLife2 );
+
+      this._popUpLandMines.forEach(landMine => {
+        objectsMap.push(landMine);
+      });
+
+
       this._labyrinth.forEach(barrier=>{
         objectsMap.push(barrier);
       })
@@ -101,8 +124,14 @@ module scenes {
       this._newTank1.UpdateTank();
       this._newTank2.UpdateTank();
 
-      this._powerup1.Update();
-      this._powerup2.Update();
+      this._popUpOil1.Update();
+      this._popUpOil2.Update();
+      this._popUpLife1.Update();
+      this._popUpLife2.Update();
+
+      this._popUpLandMines.forEach(landMine => {
+        landMine.Update();
+      });
 
       objects.Game.scoreBoard.setFuel(this._newTank1.fuel, this._newTank2.fuel);      
       objects.Game.scoreBoard.setHealth(this._newTank1.health, this._newTank2.health);
@@ -162,8 +191,15 @@ module scenes {
         this.addChild(bullet);
       });
 
-      this.addChild(this._powerup1);
-      this.addChild(this._powerup2);
+      this.addChild(this._popUpOil1);
+      this.addChild(this._popUpOil2);
+      this.addChild(this._popUpLife1);
+      this.addChild(this._popUpLife2);
+      // this.addChild(this._popUpSpeed1);
+      // this.addChild(this._popUpSpeed2);
+      this._popUpLandMines.forEach(landMine => {
+        this.addChild(landMine);
+      });
 
       // add the tank to the scene
       this.addChild(this._newTank1);
@@ -199,10 +235,10 @@ module scenes {
           labyrinth.push(" ")  
           labyrinth.push(" ")  
           labyrinth.push("  11111   11111  11 11  11111  11111  11111  11111")  
-          labyrinth.push("  1       1   1  1 1 1  1   1      1  1   1  1     ")
-          labyrinth.push("  1       1   1  1   1  11111  11111  11111  11111")
+          labyrinth.push("  1       1   1  1 1 1  1   1      1  1   1      1")
+          labyrinth.push("  1       1   1  1   1  11111  11111  11111      1")
           labyrinth.push("  1       1   1  1   1  1          1      1      1")
-          labyrinth.push("  11111   11111  1   1  1      11111  11111  11111")
+          labyrinth.push("  11111   11111  1   1  1      11111  11111      1")
           labyrinth.push("")
           labyrinth.push("")
           labyrinth.push("  1     1  111111  11111  11111  1  11111  11111  ")
@@ -292,14 +328,19 @@ module scenes {
       }
       let line_counter : number =1
       let pos_y =0;
+      let barrierImageSequence:Array<string>;
+
+
       labyrinth.forEach(map =>{
         let pos : number =0;
         let pos_x : number =0;
 
         for(pos; pos<map.length; pos++){
           if(map.substr(pos,1)=="1"){
-            // this._labyrinth.push(new objects.Barrier(this.assetManager, (pos)*tile_width, line_counter*tile_height+64 ))
-            this._labyrinth.push(new objects.Barrier(this.assetManager, pos_x, pos_y ));
+            if(Math.random()<=0.8)
+                this._labyrinth.push(new objects.Barrier(this.assetManager,"barrier", pos_x, pos_y ,true));
+              else
+                this._labyrinth.push(new objects.Barrier(this.assetManager,"barrier_undestructible", pos_x, pos_y ,false));
           }
           pos_x +=tile_width; 
         }

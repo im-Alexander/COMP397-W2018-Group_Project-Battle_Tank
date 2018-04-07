@@ -40,6 +40,7 @@ var objects;
         };
         GameObject.prototype.Move = function () {
         };
+        GameObject.prototype.decreaseHealth = function (decrementer) { };
         return GameObject;
     }(createjs.Bitmap));
     objects.GameObject = GameObject;

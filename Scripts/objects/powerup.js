@@ -13,8 +13,10 @@ var objects;
     var PowerUp = /** @class */ (function (_super) {
         __extends(PowerUp, _super);
         // Constructor
-        function PowerUp(assetManager) {
-            var _this = _super.call(this, assetManager, "powerup") || this;
+        function PowerUp(assetManager, imageName, powerupType) {
+            if (imageName === void 0) { imageName = "powerupOil"; }
+            if (powerupType === void 0) { powerupType = "powerupOil"; }
+            var _this = _super.call(this, assetManager, imageName) || this;
             _this.x = -100;
             _this.y = -100;
             // this.limit_x = limit_x;
@@ -24,6 +26,8 @@ var objects;
             _this.cycle = Math.round(Math.random() * 5400); // Defines how long each one is going to take to show up
             _this.visible = false;
             _this.counter = 0;
+            _this.name = powerupType;
+            _this.health = 7;
             _this.Start();
             return _this;
         }
@@ -53,6 +57,10 @@ var objects;
             do {
                 this.x = Math.round(Math.random() * this.limit_x);
                 this.y = Math.round(Math.random() * this.limit_y);
+                if (this.x - this.getBounds().width * 0.5 < 1 || this.x - this.getBounds().width * 0.5 > 1500 || // checks horizontal boundaries
+                    this.y - this.getBounds().height * 0.5 < 1 || this.y - this.getBounds().height * 0.5 > 800) {
+                    this.isColliding = true;
+                }
                 //Checks if the new position is already occupied
                 var objectDetected = void 0;
                 for (var _i = 0, _a = objects.Game.objectsMap; _i < _a.length; _i++) {
@@ -65,6 +73,12 @@ var objects;
                     }
                 }
             } while (this.isColliding);
+        };
+        PowerUp.prototype.decreaseHealth = function (damage) {
+            if (damage === void 0) { damage = 1; }
+            this.health--;
+            if (this.health <= 0)
+                this.isColliding = true;
         };
         return PowerUp;
     }(objects.GameObject));
