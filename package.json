@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-	"dev": "lite-server"
+    "dev": "lite-server"
   },
   "repository": {
     "type": "git",
@@ -28,8 +28,7 @@
     "latest-createjs": "^1.0.24",
     "preloadjs": "^1.0.1",
     "soundjs": "^1.0.1",
-    "tweenjs": "^1.0.2",
-    "yarn": "^1.5.1"
+    "tweenjs": "^1.0.2"
   },
   "description": ""
 }

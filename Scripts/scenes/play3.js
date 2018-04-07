@@ -31,10 +31,10 @@ var scenes;
             this._key = new managers.NewKeyboard();
             this._gamepaused = false;
             // Terrain to cover the canvas (It is temporally)
-            this._terrain1 = new objects.Terrain(this.assetManager, "terrain1");
-            this._terrain2 = new objects.Terrain(this.assetManager, "terrain1");
-            this._terrain3 = new objects.Terrain(this.assetManager, "terrain1");
-            this._terrain4 = new objects.Terrain(this.assetManager, "terrain1");
+            this._terrain1 = new objects.Terrain(this.assetManager, "terrain3");
+            this._terrain2 = new objects.Terrain(this.assetManager, "terrain3");
+            this._terrain3 = new objects.Terrain(this.assetManager, "terrain3");
+            this._terrain4 = new objects.Terrain(this.assetManager, "terrain3");
             this._terrain1.x = 0;
             this._terrain1.y = 0;
             this._terrain2.x = this._terrain1.getBounds().width;
