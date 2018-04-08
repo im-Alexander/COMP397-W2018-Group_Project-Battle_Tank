@@ -180,32 +180,32 @@ var scenes;
                 case 1:
                     //                       1         2         3         4
                     //              123456789012345678901234567890123456789012345678
-                    labyrinth.push(" ");
-                    labyrinth.push(" ");
-                    labyrinth.push("  11111   11111  11 11  11111  11111  11111  11111");
-                    labyrinth.push("  1       1   1  1 1 1  1   1      1  1   1  1     ");
-                    labyrinth.push("  1       1   1  1   1  11111  11111  11111  11111");
-                    labyrinth.push("  1       1   1  1   1  1          1      1      1");
-                    labyrinth.push("  11111   11111  1   1  1      11111  11111  11111");
-                    labyrinth.push("");
-                    labyrinth.push("");
-                    labyrinth.push("  1     1  111111  11111  11111  1  11111  11111  ");
-                    labyrinth.push("  1     1  1    1  1   1  1   1  1  1   1  1   1  ");
-                    labyrinth.push("  1  1  1  111111  11111  11111  1  1   1  11111  ");
-                    labyrinth.push("  1 111 1  1    1  1  1   1  1   1  1   1  1  1   ");
-                    labyrinth.push("  1111111  1    1  1   1  1   1  1  11111  1   1  ");
-                    labyrinth.push(" ");
-                    labyrinth.push("    1111111  1111111  1111111  1        1111111   ");
-                    labyrinth.push("    1        1     1  1        1        1         ");
-                    labyrinth.push("    1111111  1111111  1  1111  1        1111111   ");
-                    labyrinth.push("    1        1     1  1     1  1        1         ");
-                    labyrinth.push("    1111111  1     1  1111111  1111111  1111111   ");
-                    labyrinth.push(" ");
-                    labyrinth.push("       11111  1   1  1      11111  11111   11  ");
-                    labyrinth.push("       1   1  1   1  1      1      1       11  ");
-                    labyrinth.push("       11111  1   1  1      11111  11111   11  ");
-                    labyrinth.push("       1  1   1   1  1      1          1       ");
-                    labyrinth.push("       1   1  11111  11111  11111  11111   11  ");
+                    labyrinth.push("1111111111111111111111        11111111111111111111")  
+                    labyrinth.push("1     11      11                          11     1")  
+                    labyrinth.push("1     11      11                          11     1")  
+                    labyrinth.push("1     11      11                 11       11     1")
+                    labyrinth.push("1     11      11                 11       11     1")
+                    labyrinth.push("1     11      111111             11              1")
+                    labyrinth.push("1     11                         11              1")
+                    labyrinth.push("1     11              1111111111111              1")
+                    labyrinth.push("1     11      11                                 1")
+                    labyrinth.push("1             11                                 1")
+                    labyrinth.push("1             11             111111111111111111111")
+                    labyrinth.push("1      111111111                       11        1")
+                    labyrinth.push("1      11                              11        1")  
+                    labyrinth.push("1      11                              11        1")  
+                    labyrinth.push("1      11                              11        1")
+                    labyrinth.push("1                    11111111111111111111        1")
+                    labyrinth.push("1           11                11       11        1")
+                    labyrinth.push("1           11                11               1")
+                    labyrinth.push("1           11                11                 1")
+                    labyrinth.push("11111111111111                                   1")
+                    labyrinth.push("1                                                1")
+                    labyrinth.push("1                      111111111111111111111111111")  
+                    labyrinth.push("1                                     11         1")  
+                    labyrinth.push("111111111111111                                  1")  
+                    labyrinth.push("1                                                1")  
+                    labyrinth.push("1111111111111111111111        11111111111111111111")  
                     //              123456789012345678901234567890123456789012345678
                     //                       1         2         3         4
                     break;
