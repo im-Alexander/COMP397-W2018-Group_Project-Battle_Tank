@@ -19,9 +19,13 @@
 /// <reference path="../../Scripts/objects/newbullet.ts"/>
 /// <reference path="../../Scripts/objects/bullet.ts"/>
 /// <reference path="../../Scripts/objects/newtank.ts"/>
+/// <reference path="../../Scripts/objects/statusbackground.ts"/>
+/// <reference path="../../Scripts/objects/statushealth.ts"/>
+/// <reference path="../../Scripts/objects/statusfuel.ts"/>
 /// <reference path="../../Scripts/objects/tank.ts"/>
 /// <reference path="../../Scripts/objects/enemy.ts"/>
 /// <reference path="../../Scripts/objects/terrain.ts"/>
+/// <reference path="../../Scripts/objects/transition.ts"/>
 /// <reference path="../../Scripts/objects/barrier.ts"/>
 /// <reference path="../../Scripts/objects/rock_barrier.ts"/>
 /// <reference path="../../Scripts/objects/metal_barrier.ts"/>
@@ -34,4 +38,6 @@
 /// <reference path="../../Scripts/scenes/play1.ts"/>
 /// <reference path="../../Scripts/scenes/play2.ts"/>
 /// <reference path="../../Scripts/scenes/play3.ts"/>
+/// <reference path="../../Scripts/scenes/playscene
+.ts"/>
 /// <reference path="../../Scripts/scenes/start.ts"/>

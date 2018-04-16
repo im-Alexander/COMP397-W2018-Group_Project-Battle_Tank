@@ -170,7 +170,7 @@ var scenes;
         };
         PlayScene3.prototype.setLabyrinth2 = function (tp) {
             var _this = this;
-            if (tp === void 0) { tp = 1; }
+            if (tp === void 0) { tp = 3; }
             var labirinth_total_horizontal_tiles = 46;
             var labirinth_total_vertica_tiles = 25;
             var tile_width = 30;

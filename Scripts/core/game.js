@@ -20,9 +20,13 @@
         { id: "bullet", src: "./Assets/images/bullets/bullet_small.png" },
         { id: "tank1", src: "./Assets/images/tanks/tank_green_1.png" },
         { id: "tank2", src: "./Assets/images/tanks/tank_blue_1.png" },
+        { id: "status_background", src: "./Assets/images/status/status_background.png" },
+        { id: "status_health", src: "./Assets/images/status/status_health.png" },
+        { id: "status_fuel", src: "./Assets/images/status/status_fuel.png" },
         { id: "terrain1", src: "./Assets/images/terrains/sand_pitchlAltered.jpg" },
         { id: "terrain2", src: "./Assets/images/terrains/macrograss.png" },
         { id: "terrain3", src: "./Assets/images/terrains/gray_extended.png" },
+        { id: "transition", src: "./Assets/images/terrains/transition.png" },
         { id: "powerupOil", src: "./Assets/images/powerups/oil_barrel_small.png" },
         { id: "powerupLife", src: "./Assets/images/powerups/life_power_up.png" },
         { id: "powerupLandMine", src: "./Assets/images/powerups/bomb_power_up.png" },
@@ -83,13 +87,13 @@
                 currentScene = new scenes.StartScene(assetManager);
                 break;
             case config.Scene.PLAY1:
-                currentScene = new scenes.PlayScene1(assetManager);
+                currentScene = new scenes.PlayScene(assetManager, 1);
                 break;
             case config.Scene.PLAY2:
-                currentScene = new scenes.PlayScene2(assetManager);
+                currentScene = new scenes.PlayScene(assetManager, 2);
                 break;
             case config.Scene.PLAY3:
-                currentScene = new scenes.PlayScene3(assetManager);
+                currentScene = new scenes.PlayScene(assetManager, 3);
                 break;
             case config.Scene.OVER:
                 currentScene = new scenes.OverScene(assetManager);

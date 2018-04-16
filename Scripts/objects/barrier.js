@@ -40,10 +40,10 @@ var objects;
                 this.visible = false;
             }
         };
-        Barrier.prototype.decreaseHealth = function (damage) {
-            if (damage === void 0) { damage = 1; }
+        Barrier.prototype.setHealth = function (value) {
+            if (value === void 0) { value = -1; }
             if (this.destructible)
-                this.health -= damage;
+                this.health += value;
         };
         return Barrier;
     }(objects.GameObject));

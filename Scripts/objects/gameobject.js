@@ -30,17 +30,35 @@ var objects;
             this.isColliding = false;
         };
         // public methods
-        GameObject.prototype.Start = function () {
+        GameObject.prototype.Start = function () { };
+        GameObject.prototype.Update = function () { };
+        GameObject.prototype.Reset = function () { };
+        GameObject.prototype.CheckBounds = function () { };
+        GameObject.prototype.Move = function () { };
+        GameObject.prototype.setHealth = function (value) {
+            if (value === void 0) { value = -1; }
+            this.health += value;
+            this.healthStatusUpdate(this.fuel);
         };
-        GameObject.prototype.Update = function () {
+        GameObject.prototype.setScore = function (value) {
+            if (value === void 0) { value = 100; }
+            this.score += value;
+            this.scoreStatusUpdate(this.fuel);
         };
-        GameObject.prototype.Reset = function () {
+        GameObject.prototype.setFuel = function (value) {
+            if (value === void 0) { value = 5; }
+            this.fuel += value;
+            if (this.fuel > 100000)
+                this.fuel = 100000;
+            this.fuelStatusUpdate(this.fuel);
         };
-        GameObject.prototype.CheckBounds = function () {
-        };
-        GameObject.prototype.Move = function () {
-        };
-        GameObject.prototype.decreaseHealth = function (decrementer) { };
+        ///////////////////////////////////////////////////
+        // these methods implementation are for a 
+        // child tank class can update the statusbars
+        ///////////////////////////////////////////////////
+        GameObject.prototype.fuelStatusUpdate = function (value) { };
+        GameObject.prototype.healthStatusUpdate = function (value) { };
+        GameObject.prototype.scoreStatusUpdate = function (value) { };
         return GameObject;
     }(createjs.Bitmap));
     objects.GameObject = GameObject;

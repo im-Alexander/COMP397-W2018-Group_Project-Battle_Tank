@@ -15,7 +15,9 @@ var objects;
         // Constructor
         function NewTank(assetManager, tankNumber, x, y, ammoQty) {
             var _this = _super.call(this, assetManager, tankNumber == 1 ? "tank1" : "tank2") || this;
-            _this.fuelConsumeRate = 10; // 10 default
+            _this.fuelConsumeRate = -10; // 10 default
+            _this.fuel_ini = 100000;
+            _this.health_ini = 10;
             // BULLETS
             _this._bullets = new Array(); // all its bullets are already instantiated
             _this.nextBulletCounter = 0; // Its a counter to delay the shooting process
@@ -58,6 +60,8 @@ var objects;
                     _this._fire = config.KeyCode.Space_Bar;
             }
             _this.control = new managers.NewKeyboard(_this._up, _this._down, _this._left, _this._right, _this._fire);
+            _this.statusBackgroud = new objects.StatusBackground(_this.assetManager, _this.x, _this.y);
+            _this.scoreStatus = new objects.Label("Score : " + _this.score, "14px", "Consolas", "#0000FF", _this.x + 20, _this.y - 20, false);
             // Checks the starting position on screen and applies the right rotation on the tank
             if (_this.y <= 100) {
                 _this.rotation = 180;
@@ -78,9 +82,9 @@ var objects;
         // public methods
         // Initializes variables and creates new objects
         NewTank.prototype.Start = function () {
-            this.fuelConsumeRate = 10;
-            this.fuel = 100000;
-            this.health = 10;
+            this.fuelConsumeRate = -10;
+            this.fuel = this.fuel_ini;
+            this.health = this.health_ini;
             this.score = 0;
         };
         // updates the game object every frame
@@ -112,37 +116,43 @@ var objects;
             // Keyboard Controls
             if (this.control.moveLeft) {
                 createjs.Sound.play("tank_engine");
-                this.fuel -= this.fuelConsumeRate;
+                this.setFuel(this.fuelConsumeRate);
                 this.x -= pace;
                 this.rotation = 270;
+                this._direction = "left";
             }
             if (this.control.moveRight) {
                 createjs.Sound.play("tank_engine");
-                this.fuel -= this.fuelConsumeRate;
+                this.setFuel(this.fuelConsumeRate);
                 this.x += pace;
                 this.rotation = 90;
+                this._direction = "right";
             }
             if (this.control.moveBackward) {
                 createjs.Sound.play("tank_engine");
-                this.fuel -= this.fuelConsumeRate;
+                this.setFuel(this.fuelConsumeRate);
                 this.y += pace;
                 this.rotation = 180;
+                this._direction = "down";
             }
             if (this.control.moveForward) {
                 createjs.Sound.play("tank_engine");
-                this.fuel -= this.fuelConsumeRate;
+                this.setFuel(this.fuelConsumeRate);
                 this.y -= pace;
                 this.rotation = 0;
+                this._direction = "up";
             }
+            this.statusBackgroud.positioning(this.x, this.y, this._direction);
+            this.scoreStatus.updateCache("Score : " + this.score, this.x + 20, this.y - 20);
         };
         NewTank.prototype.MoveAutomatically = function () {
             var pace = 8;
             if (this.x <= 750 && this.y <= 400) {
-                if (this._automaticDirection == "up") {
+                if (this._direction == "up") {
                     this.rotation = 0;
                     this.y -= pace;
                 }
-                else if (this._automaticDirection == "right") {
+                else if (this._direction == "right") {
                     this.rotation = 90;
                     this.x += pace;
                 }
@@ -152,11 +162,11 @@ var objects;
                 }
             }
             else if (this.x > 750 && this.y <= 400) {
-                if (this._automaticDirection == "down") {
+                if (this._direction == "down") {
                     this.rotation = 180;
                     this.y += pace;
                 }
-                else if (this._automaticDirection == "right") {
+                else if (this._direction == "right") {
                     this.rotation = 90;
                     this.x += pace;
                 }
@@ -166,11 +176,11 @@ var objects;
                 }
             }
             else if (this.x > 750 && this.y > 400) {
-                if (this._automaticDirection == "down") {
+                if (this._direction == "down") {
                     this.rotation = 180;
                     this.y += pace;
                 }
-                else if (this._automaticDirection == "left") {
+                else if (this._direction == "left") {
                     this.rotation = 270;
                     this.x -= pace;
                 }
@@ -180,11 +190,11 @@ var objects;
                 }
             }
             else {
-                if (this._automaticDirection == "up") {
+                if (this._direction == "up") {
                     this.rotation = 0;
                     this.y -= pace;
                 }
-                else if (this._automaticDirection == "left") {
+                else if (this._direction == "left") {
                     this.rotation = 270;
                     this.x -= pace;
                 }
@@ -196,28 +206,55 @@ var objects;
             this.CheckBounds(true);
             // Keyboard Controls
         };
+        NewTank.prototype.setFuel = function (value) {
+            if (value === void 0) { value = 5; }
+            _super.prototype.setFuel.call(this, value);
+            this.fuelStatusUpdate(this.fuel);
+        };
+        NewTank.prototype.fuelStatusUpdate = function (value) {
+            var percent = this.fuel / this.fuel_ini;
+            if (percent > 1)
+                percent = 1;
+            if (percent < 0)
+                percent = 0;
+            this.statusBackgroud.statusFuel.scaleX = percent;
+        };
+        NewTank.prototype.setHealth = function (value) {
+            if (value === void 0) { value = 5; }
+            _super.prototype.setHealth.call(this, value);
+            this.healthStatusUpdate(this.fuel);
+        };
+        NewTank.prototype.healthStatusUpdate = function (value) {
+            var percent = this.health - 1 / this.health_ini;
+            if (percent > 1)
+                percent = 1;
+            if (percent < 0)
+                percent = 0;
+            this.statusBackgroud.statusHealth.scaleX = percent;
+        };
+        //public scoreStatusUpdate(value:number):void{}
         // check to see if some boundary has been passed
         NewTank.prototype.CheckBounds = function (automatic) {
             if (automatic === void 0) { automatic = false; }
             // right boundary
             if (this.x > 1500 - this.halfWidth) {
                 this.x = 1500 - this.halfWidth;
-                this._automaticDirection = "down";
+                this._direction = "down";
             }
             // left boundary
             if (this.x <= this.halfWidth) {
                 this.x = this.halfWidth;
-                this._automaticDirection = "up";
+                this._direction = "up";
             }
             // bottom boundary
             if (this.y > 800 - this.halfHeight) {
                 this.y = 800 - this.halfHeight;
-                this._automaticDirection = "left";
+                this._direction = "left";
             }
             // top boundary
             if (this.y < this.halfHeight) {
                 this.y = this.halfHeight;
-                this._automaticDirection = "right";
+                this._direction = "right";
             }
         };
         NewTank.prototype.getAngle = function () {

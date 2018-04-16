@@ -31,17 +31,7 @@ module scenes {
   
       public Update(): void {
         if(this.enter.anyKey){
-            switch(this.roundNumber){
-                case 1:
-                    objects.Game.currentScene = config.Scene.PLAY1;
-                break;
-                case 2:
-                    objects.Game.currentScene = config.Scene.PLAY2;
-                break;
-                case 3:
-                    objects.Game.currentScene = config.Scene.PLAY3;
-                break;
-            }
+            objects.Game.currentScene ++;
         }
 
       }

@@ -217,7 +217,7 @@ module scenes {
       }
       
        
-      private setLabyrinth2(tp :number = 1):void{
+      private setLabyrinth2(tp :number = 2):void{
         let labirinth_total_horizontal_tiles = 46;
         let labirinth_total_vertica_tiles = 25;
         let tile_width : number = 30; 

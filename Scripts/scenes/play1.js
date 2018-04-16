@@ -48,6 +48,8 @@ var scenes;
             this._labyrinth = new Array();
             this.setLabyrinth2();
             //Players
+            this._tankUI1 = new objects.Tank_UI(this.assetManager, "UI_Health", 760, 0);
+            this._tankUI2 = new objects.Tank_UI(this.assetManager, "UI_Health", 760, 815);
             this._newTank1 = new objects.NewTank(this.assetManager, 1, 770, 5, 6);
             this._newTank2 = new objects.NewTank(this.assetManager, 2, 770, 820, 6);
             this._popUpOil1 = new objects.PopUp(this.assetManager, "popUpOil", "popUpOil");
@@ -160,6 +162,8 @@ var scenes;
             // add the tank to the scene
             this.addChild(this._newTank1);
             this.addChild(this._newTank2);
+            this.addChild(this._tankUI1);
+            this.addChild(this._tankUI2);
             this.addChild(this._pauseButton);
             this._pauseButton.on("pause", this._pauseButtonClick);
             this._pauseButton.on("pause", this._pauseButtonClick);

@@ -169,80 +169,6 @@ module scenes {
       this.addChild(this._scoreBoard._player2_FuelLabel);
     }
 
-    private setLabyrinth(tp :number = 1):void{
-      let barrier  = new objects.Barrier(this.assetManager,-100,-100);
-      let width = barrier.getBounds().width;
-      let height = barrier.getBounds().height;
-      let next_x = width;
-      let next_y = 90;
-      this._labyrinth.push(new objects.Barrier(this.assetManager,80, next_y));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += (width*3),next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-
-      let c :number =0;
-      for(c=1;c<10; c++){
-        next_y += 120;
-        next_x = 70;
-        this._labyrinth.push(new objects.Barrier(this.assetManager,80, next_y));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += (width*3),next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-        this._labyrinth.push(new objects.Barrier(this.assetManager,next_x += width,next_y ));
-      }
-
-    }
     private setLabyrinth2(tp :number = 1):void{
       let quadrant_width : number = 46; 
       let quadrant_height : number = 36;
@@ -275,7 +201,7 @@ module scenes {
         let pos_x : number =1;
         for(pos; pos<map.length; pos++){
           if(map.substr(pos,1)=="1"){
-            this._labyrinth.push(new objects.Barrier(this.assetManager, (pos)*quadrant_width+10, line_counter*quadrant_height+64 ))
+            this._labyrinth.push(new objects.Barrier(this.assetManager,"barrier", (pos)*quadrant_width+10, line_counter*quadrant_height+64 ))
           }
         }
         line_counter++;

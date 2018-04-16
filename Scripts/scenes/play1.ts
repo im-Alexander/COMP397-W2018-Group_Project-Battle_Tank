@@ -8,6 +8,8 @@ module scenes {
     public _terrain4: objects.Terrain;
     public _newTank1: objects.NewTank;
     public _newTank2: objects.NewTank;
+    public _tankUI1: objects.Tank_UI;
+    public _tankUI2: objects.Tank_UI;
     public _scoreBoard : managers.ScoreBoard;
     public _labyrinth: Array<objects.Barrier> ;
     public _popUpOil1:objects.PopUp;
@@ -61,6 +63,8 @@ module scenes {
       this._labyrinth = new Array<objects.Barrier>();
       this.setLabyrinth2();
       //Players
+      this._tankUI1 = new objects.Tank_UI(this.assetManager, "ui_health",760,0);
+      this._tankUI2 = new objects.Tank_UI(this.assetManager, "ui_health",760,815);
       this._newTank1 = new objects.NewTank(this.assetManager,1,770,5,6);
       this._newTank2 = new objects.NewTank(this.assetManager,2,770, 820,6);
 
@@ -204,6 +208,9 @@ module scenes {
       // add the tank to the scene
       this.addChild(this._newTank1);
       this.addChild(this._newTank2);
+
+      this.addChild(this._tankUI1);
+      this.addChild(this._tankUI2);
 
       this.addChild(this._pauseButton );
       this._pauseButton.on("pause", this._pauseButtonClick);

@@ -28,6 +28,13 @@ var objects;
             _this.y = y;
             return _this;
         }
+        Label.prototype.updateCache = function (labelString, x, y) {
+            if (x === void 0) { x = 0; }
+            if (y === void 0) { y = 0; }
+            this.text = labelString;
+            this.x = x;
+            this.y = y;
+        };
         return Label;
     }(createjs.Text));
     objects.Label = Label;

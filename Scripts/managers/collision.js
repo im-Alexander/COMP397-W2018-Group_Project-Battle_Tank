@@ -15,12 +15,12 @@ var managers;
                     object2.isColliding = true;
                     if (object2.name.toUpperCase() == "BULLET") {
                         if (object1.name.toUpperCase() == "TANK1" || object1.name.toUpperCase() == "TANK2") {
-                            object1.health--;
-                            objectOwnerOfObject2.score += 100;
+                            object1.setHealth(-1);
+                            objectOwnerOfObject2.setScore(100);
                         }
                         else if (object1.name.toUpperCase() == "BARRIER") {
                             createjs.Sound.play("barrier_shot");
-                            object1.decreaseHealth(1);
+                            object1.setHealth(-1);
                             // if(object1.health==0){
                             //     object1.visible=false;
                             //     object1.x=-100;
@@ -28,7 +28,7 @@ var managers;
                         }
                         else if (object1.name.toUpperCase() == "POPUPLANDMINE") {
                             createjs.Sound.play("barrier_shot");
-                            object1.decreaseHealth(1);
+                            object1.setHealth(-1);
                             // if(object1.health==0){
                             //     object1.visible=false;
                             //     object1.x=-100;
@@ -36,9 +36,7 @@ var managers;
                         }
                     }
                     else if (object1.name.toUpperCase() == "POPUPOIL") {
-                        object2.fuel += 40000;
-                        if (object2.fuel > 100000)
-                            object2.fuel = 100000;
+                        object2.setFuel(40000);
                         object1.isColliding = true; // In the next update the powerup will be not visible
                         object2.isColliding = false;
                     }

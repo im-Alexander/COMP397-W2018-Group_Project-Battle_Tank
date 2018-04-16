@@ -40,10 +40,10 @@ var objects;
                 this.visible = false;
             }
         };
-        RockBarrier.prototype.decreaseHealth = function (damage) {
-            if (damage === void 0) { damage = 1; }
+        RockBarrier.prototype.setHealth = function (value) {
+            if (value === void 0) { value = -1; }
             if (this.destructible)
-                this.health -= damage;
+                this.health += value;
         };
         return RockBarrier;
     }(objects.GameObject));

@@ -24,6 +24,12 @@ module objects {
             this.y = y;
         }
 
+        public updateCache( labelString: string, x: number = 0, y: number = 0):void{
+            this.text = labelString;
+            this.x = x;
+            this.y = y;
+        }
+
         // Private Methods
 
         // Public Methods

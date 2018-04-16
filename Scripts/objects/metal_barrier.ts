@@ -34,8 +34,8 @@ module objects {
            }
         }
 
-        public decreaseHealth(damage:number=1){
-            if(this.destructible) this.health -= damage;
+        public setHealth(value:number=-1){
+            if(this.destructible) this.health += value;
 
         }
     }
