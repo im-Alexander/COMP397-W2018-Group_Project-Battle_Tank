@@ -61,7 +61,7 @@ var objects;
                 var objectDetected = void 0;
                 for (var _i = 0, _a = objects.Game.objectsMap; _i < _a.length; _i++) {
                     objectDetected = _a[_i];
-                    console.log("Looping Obj : " + objectDetected.name + "  // Obj. cheking : " + this.name + " //  Owner : " + tank.name);
+                    //console.log("Looping Obj : "+ objectDetected.name +"  // Obj. cheking : "+ this.name + " //  Owner : "+ tank.name)
                     // if(objectDetected.name != "bullet") managers.Collision.Check(objectDetected, this, tank);
                     if (objectDetected.name != tank.name && objectDetected.name.toUpperCase() != "POWERUP" && objectDetected.visible == true) {
                         managers.Collision.Check(objectDetected, this, tank);

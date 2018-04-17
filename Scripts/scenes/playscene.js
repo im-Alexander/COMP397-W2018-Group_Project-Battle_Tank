@@ -10,10 +10,10 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var scenes;
 (function (scenes) {
-    var PlayScene = /** @class */ (function (_super) {
-        __extends(PlayScene, _super);
+    var PlaySceneScene = /** @class */ (function (_super) {
+        __extends(PlaySceneScene, _super);
         // Constructor
-        function PlayScene(assetManager, sceneNumber) {
+        function PlaySceneScene(assetManager, sceneNumber) {
             var _this = _super.call(this, assetManager) || this;
             // public _popUpSpeed1:objects.PopUp;
             // public _popUpSpeed2:objects.PopUp;
@@ -44,13 +44,13 @@ var scenes;
             _this.Start();
             return _this;
         }
-        PlayScene.prototype._pauseButtonClick = function () {
+        PlaySceneScene.prototype._pauseButtonClick = function () {
             this.unpause();
         };
         // Private Mathods
         // Public Methods
         // Initialize Game Variables and objects
-        PlayScene.prototype.Start = function () {
+        PlaySceneScene.prototype.Start = function () {
             this._key = new managers.NewKeyboard();
             this._gamepaused = false;
             this._terrain1.x = 0;
@@ -101,7 +101,7 @@ var scenes;
             objects.Game.scoreBoard.setScore(this._newTank1.score, this._newTank2.score);
             this.Main();
         };
-        PlayScene.prototype.Update = function () {
+        PlaySceneScene.prototype.Update = function () {
             if (this._key.paused)
                 this.pause();
             if (this._key.escape)
@@ -147,7 +147,7 @@ var scenes;
             }
         };
         // This is where the fun happens
-        PlayScene.prototype.Main = function () {
+        PlaySceneScene.prototype.Main = function () {
             var _this = this;
             if (objects.Game.playMusic) {
                 createjs.Sound.play("battle", { loop: -1 });
@@ -187,17 +187,17 @@ var scenes;
             this._pauseButton.on("pause", this._pauseButtonClick);
             this._pauseButton.on("pause", this._pauseButtonClick);
         };
-        PlayScene.prototype.pause = function () {
+        PlaySceneScene.prototype.pause = function () {
             this._gamepaused = true;
             this._pauseButton.x = 750;
             this._pauseButton.y = 400;
         };
-        PlayScene.prototype.unpause = function () {
+        PlaySceneScene.prototype.unpause = function () {
             this._gamepaused = false;
             this._pauseButton.x = -300;
             this._pauseButton.y = -300;
         };
-        PlayScene.prototype.setLabyrinth2 = function (tp) {
+        PlaySceneScene.prototype.setLabyrinth2 = function (tp) {
             var _this = this;
             if (tp === void 0) { tp = Math.round(Math.random() * 4); }
             var labirinth_total_horizontal_tiles = 46;
@@ -352,8 +352,8 @@ var scenes;
                 pos_y += tile_height;
             });
         };
-        return PlayScene;
+        return PlaySceneScene;
     }(objects.Scene));
-    scenes.PlayScene = PlayScene;
+    scenes.PlaySceneScene = PlaySceneScene;
 })(scenes || (scenes = {}));
 //# sourceMappingURL=playscene.js.map

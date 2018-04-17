@@ -14,6 +14,7 @@ module objects {
     public fuel: number;
     public score:number;
     public movementPace:number;
+    public newTank: objects.NewTank;
 
     // constructors
     constructor(assetManager: createjs.LoadQueue, imageString:string) {
@@ -46,7 +47,8 @@ module objects {
 
     public setHealth(value:number=-1){
       this.health += value;
-      this.healthStatusUpdate(this.fuel);
+      this.newTank.setHealth(this.health);
+      this.scoreStatusUpdate(this.health);
     }
 
     public setScore(value :number =100){

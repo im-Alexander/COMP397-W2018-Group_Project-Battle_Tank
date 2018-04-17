@@ -7,7 +7,7 @@ module objects {
         // PUBLIC PROPERTIES
         /////////////////////////////////////////////////////////////////////////////
         public fuel : number ;
-        public health : number ;
+        public health : number;
         public fuel_ini : number = 100000;
         public health_ini : number = 10;
         public score : number ;
@@ -220,11 +220,11 @@ module objects {
             this.CheckBounds(true);    
             // Keyboard Controls
         }
+
         public setFuel(value :number =5){
             super.setFuel(value);
             this.fuelStatusUpdate(this.fuel);
-          }
-      
+        }
         public fuelStatusUpdate(value:number):void{
             let percent = this.fuel /this.fuel_ini;
 
@@ -232,16 +232,18 @@ module objects {
             if(percent<0) percent=0;
             this.statusBackgroud.statusFuel.scaleX =percent;
         }
-        public setHealth(value :number =5){
+
+        public setHealth(value :number = 10){
             super.setHealth(value);
-            this.healthStatusUpdate(this.fuel);
-          }
+            this.healthStatusUpdate(this.health);
+        }
         public healthStatusUpdate(value:number):void{
-            let percent = this.health-1 /this.health_ini;
+            let percent = this.health /this.health_ini;
             if(percent >1) percent=1;
             if(percent<0) percent=0;
             this.statusBackgroud.statusHealth.scaleX =percent;
         }
+
         //public scoreStatusUpdate(value:number):void{}
    
         // check to see if some boundary has been passed

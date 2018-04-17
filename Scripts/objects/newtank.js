@@ -63,16 +63,16 @@ var objects;
             _this.statusBackgroud = new objects.StatusBackground(_this.assetManager, _this.x, _this.y);
             _this.scoreStatus = new objects.Label("Score : " + _this.score, "14px", "Consolas", "#0000FF", _this.x + 20, _this.y - 20, false);
             // Checks the starting position on screen and applies the right rotation on the tank
-            if (_this.y <= 100) {
+            if (_this.y <= 100) { // screen upper-left side check
                 _this.rotation = 180;
             }
-            else if (_this.x <= 750 && _this.y > 100 && _this.y < 700) {
+            else if (_this.x <= 750 && _this.y > 100 && _this.y < 700) { // Screen upper-right side check
                 _this.rotation = 90;
             }
-            else if (_this.x > 750 && _this.y > 100 && _this.y < 700) {
+            else if (_this.x > 750 && _this.y > 100 && _this.y < 700) { // Screen down-right side check
                 _this.rotation = 270;
             }
-            else {
+            else { // Screen down-left side check
                 _this.rotation = 0;
             }
             _this.Start();
@@ -147,7 +147,7 @@ var objects;
         };
         NewTank.prototype.MoveAutomatically = function () {
             var pace = 8;
-            if (this.x <= 750 && this.y <= 400) {
+            if (this.x <= 750 && this.y <= 400) { // screen upper-left side check
                 if (this._direction == "up") {
                     this.rotation = 0;
                     this.y -= pace;
@@ -161,7 +161,7 @@ var objects;
                     this.y -= pace;
                 }
             }
-            else if (this.x > 750 && this.y <= 400) {
+            else if (this.x > 750 && this.y <= 400) { // Screen upper-right side check
                 if (this._direction == "down") {
                     this.rotation = 180;
                     this.y += pace;
@@ -175,7 +175,7 @@ var objects;
                     this.y -= pace;
                 }
             }
-            else if (this.x > 750 && this.y > 400) {
+            else if (this.x > 750 && this.y > 400) { // Screen down-right side check
                 if (this._direction == "down") {
                     this.rotation = 180;
                     this.y += pace;
@@ -189,7 +189,7 @@ var objects;
                     this.y += pace;
                 }
             }
-            else {
+            else { // Screen down-left side check
                 if (this._direction == "up") {
                     this.rotation = 0;
                     this.y -= pace;
@@ -220,12 +220,12 @@ var objects;
             this.statusBackgroud.statusFuel.scaleX = percent;
         };
         NewTank.prototype.setHealth = function (value) {
-            if (value === void 0) { value = 5; }
+            if (value === void 0) { value = 10; }
             _super.prototype.setHealth.call(this, value);
-            this.healthStatusUpdate(this.fuel);
+            this.healthStatusUpdate(this.health);
         };
         NewTank.prototype.healthStatusUpdate = function (value) {
-            var percent = this.health - 1 / this.health_ini;
+            var percent = this.health / this.health_ini;
             if (percent > 1)
                 percent = 1;
             if (percent < 0)

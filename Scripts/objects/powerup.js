@@ -58,7 +58,7 @@ var objects;
                 this.x = Math.round(Math.random() * this.limit_x);
                 this.y = Math.round(Math.random() * this.limit_y);
                 if (this.x - this.getBounds().width * 0.5 < 1 || this.x - this.getBounds().width * 0.5 > 1500 || // checks horizontal boundaries
-                    this.y - this.getBounds().height * 0.5 < 1 || this.y - this.getBounds().height * 0.5 > 800) {
+                    this.y - this.getBounds().height * 0.5 < 1 || this.y - this.getBounds().height * 0.5 > 800) { // checks vertical boundaries
                     this.isColliding = true;
                 }
                 //Checks if the new position is already occupied

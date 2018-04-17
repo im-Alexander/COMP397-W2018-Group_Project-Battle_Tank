@@ -87,13 +87,13 @@
                 currentScene = new scenes.StartScene(assetManager);
                 break;
             case config.Scene.PLAY1:
-                currentScene = new scenes.PlayScene(assetManager, 1);
+                currentScene = new scenes.PlaySceneScene(assetManager, 1);
                 break;
             case config.Scene.PLAY2:
-                currentScene = new scenes.PlayScene(assetManager, 2);
+                currentScene = new scenes.PlaySceneScene(assetManager, 2);
                 break;
             case config.Scene.PLAY3:
-                currentScene = new scenes.PlayScene(assetManager, 3);
+                currentScene = new scenes.PlaySceneScene(assetManager, 3);
                 break;
             case config.Scene.OVER:
                 currentScene = new scenes.OverScene(assetManager);

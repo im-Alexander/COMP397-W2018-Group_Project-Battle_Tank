@@ -38,7 +38,8 @@ var objects;
         GameObject.prototype.setHealth = function (value) {
             if (value === void 0) { value = -1; }
             this.health += value;
-            this.healthStatusUpdate(this.fuel);
+            this.newTank.setHealth(this.health);
+            this.scoreStatusUpdate(this.health);
         };
         GameObject.prototype.setScore = function (value) {
             if (value === void 0) { value = 100; }

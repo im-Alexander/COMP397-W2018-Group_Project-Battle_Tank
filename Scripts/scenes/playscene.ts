@@ -1,5 +1,5 @@
 module scenes {
-    export class PlayScene extends objects.Scene {
+    export class PlaySceneScene extends objects.Scene {
       // Private Instance Variables
       // Public Properties
       public _terrain1: objects.Terrain;

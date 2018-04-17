@@ -1,6 +1,8 @@
 module managers{
     export class Collision{
+        public newTank: objects.NewTank;
         public static Check(object1:objects.GameObject, object2: objects.GameObject, objectOwnerOfObject2?: objects.GameObject){
+
             //create 2 Vec2 Objects
             let P1: math.Vec2 = new math.Vec2(object1.x, object1.y);
             let P2: math.Vec2 = new math.Vec2(object2.x, object2.y);
@@ -12,7 +14,9 @@ module managers{
                     object2.isColliding = true;
                     if(object2.name.toUpperCase()=="BULLET"){
                         if(object1.name.toUpperCase()=="TANK1" || object1.name.toUpperCase()=="TANK2"){
-                            object1.setHealth(-1);
+                            object1.health -=1;
+
+                            object1.healthStatusUpdate(-1);
                             objectOwnerOfObject2.setScore(100);
                         } else if( object1.name.toUpperCase()=="BARRIER"){
                             createjs.Sound.play("barrier_shot");
@@ -49,13 +53,15 @@ module managers{
                         
                     } else if( object1.name.toUpperCase()=="POPUPLANDMINE"){
                         object2.health -=3;
-                        
+
+                        object2.healthStatusUpdate(-3);
                         object1.isColliding = true; // In the next update the powerup will be not visible
                         object2.isColliding = false;
                         
                     }  else if( object1.name.toUpperCase()=="POPUPSPEED"){
                         object2.health -=3;
                         
+                        object2.healthStatusUpdate(-3);
                         object1.isColliding = true; // In the next update the powerup will be not visible
                         object2.isColliding = false;
                         
