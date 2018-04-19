@@ -10,6 +10,7 @@ module managers{
         public shoot: boolean;
         public enabled: boolean;
         public paused: boolean;
+        public home: boolean;
 
         // constructors
         constructor(){

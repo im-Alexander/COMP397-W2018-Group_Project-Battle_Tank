@@ -33,6 +33,8 @@ module scenes {
     // Private Mathods
     private _startButtonClick():void {
       objects.Game.currentScene ++;
+      createjs.Sound.play("start");
+
 
     }
 
@@ -44,7 +46,7 @@ module scenes {
       //this._welcomeLabel = new objects.Label("- Tank Game - ", "80px", "Dock51", "#FFFFFF", 750, 250, true);
       // this._welcomeLabel2 = new objects.Label("- Alpha Version Presentation -", "40px", "Dock51", "#FFFFFF", 750, 700, true);
       // this._startButton = new objects.Button(this.assetManager, "startButton", 750, 470);
-      this._welcomeLabel2 = new objects.Label("- Beta Version Presentation -", "40px", "Dock51", "#248c08", 750, 20, true);
+      this._welcomeLabel2 = new objects.Label("- PRESENTS -", "40px", "Dock51", "#248c08", 750, 20, true);
       this._startButton = new objects.Button(this.assetManager, "startButton", 750, 737);
 
       this._terrain1 = new objects.Terrain(this.assetManager, "terrain1");
@@ -73,6 +75,7 @@ module scenes {
       this._newTank7 = new objects.NewTank(this.assetManager,1,350,800,2);
       this._newTank8 = new objects.NewTank(this.assetManager,2,1,575,2);
 
+      
       // this._powerup1 = new objects.PowerUp(this.assetManager);
       // this._powerup2 = new objects.PowerUp(this.assetManager);
 
@@ -183,7 +186,7 @@ module scenes {
             for(pos; pos<map.length; pos++){
               if(map.substr(pos,1)=="1"){
                 // this._labyrinth.push(new objects.Barrier(this.assetManager, (pos)*tile_width, line_counter*tile_height+64 ))
-                this._labyrinth.push(new objects.Barrier(this.assetManager,"barrier", pos_x, pos_y, false ));
+                this._labyrinth.push(new objects.Barrier(this.assetManager,1, pos_x, pos_y, false ));
               }
               pos_x +=tile_width; 
             }

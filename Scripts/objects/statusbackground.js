@@ -48,7 +48,7 @@ var objects;
                 this.x = x;
                 this.y = y - 25;
             }
-            else { // right
+            else {
                 this.x = x;
                 this.y = y - 25;
             }

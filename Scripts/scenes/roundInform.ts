@@ -24,13 +24,13 @@ module scenes {
       // Initialize Game Variables and objects
       public Start(): void {
         this.roundLabel = new objects.Label("ROUND " + this.roundNumber,"300px", "Dock51", "#68f442", 780, 150, true);
-        this.roundLabel2 = new objects.Label("press any key ..." ,"100px", "Dock51", "#68f442", 780, 500, true);
+        this.roundLabel2 = new objects.Label("press <ENTER> ..." ,"100px", "Dock51", "#68f442", 780, 500, true);
         this.enter = new managers.NewKeyboard();
         this.Main();
       }
   
       public Update(): void {
-        if(this.enter.anyKey){
+        if(this.enter.enter){
             objects.Game.currentScene ++;
         }
 

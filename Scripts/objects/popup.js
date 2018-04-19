@@ -40,7 +40,7 @@ var objects;
         PopUp.prototype.Update = function () {
             var d = new Date();
             var end = d.getTime();
-            //console.log( end - this.start )
+            console.log(end - this.start);
             this.counter++;
             //console.log("Cycle : " + this.cycle + "  // Counter : "+ this.counter);
             // if(this.counter >= this.cycle){
@@ -70,7 +70,7 @@ var objects;
                 this.x = Math.round(Math.random() * this.limit_x);
                 this.y = Math.round(Math.random() * this.limit_y);
                 if (this.x - this.getBounds().width * 0.5 < 1 || this.x - this.getBounds().width * 0.5 > 1500 || this.x < 15 || this.x > 1485 || // checks horizontal boundaries
-                    this.y - this.getBounds().height * 0.5 < 1 || this.y - this.getBounds().height * 0.5 > 800 || this.y < 5 || this.y > 780) { // checks vertical boundaries
+                    this.y - this.getBounds().height * 0.5 < 1 || this.y - this.getBounds().height * 0.5 > 800 || this.y < 5 || this.y > 780) {
                     this.isColliding = true;
                 }
                 //Checks if the new position is already occupied
@@ -88,13 +88,14 @@ var objects;
                 }
             } while (this.isColliding);
         };
-        PopUp.prototype.decreaseHealth = function (damage) {
-            if (damage === void 0) { damage = 3; }
-            this.health -= damage;
-            //console.log("this.health : "+this.health);
-            if (this.health <= 0)
+        PopUp.prototype.setHealth = function (value) {
+            if (value === void 0) { value = -1; }
+            this.health += value;
+            if (this.health <= 0) {
                 this.isColliding = true;
-            this.Objects.healthStatusUpdate(this.health);
+                this.x = -100;
+                this.y = -100;
+            }
         };
         return PopUp;
     }(objects.GameObject));

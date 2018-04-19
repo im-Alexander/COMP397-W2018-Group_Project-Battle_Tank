@@ -39,6 +39,15 @@ var managers;
                 case config.KeyCode.Escape:
                     this.escape = true;
                     break;
+                case config.KeyCode.Enter:
+                    this.enter = true;
+                    break;
+                case config.KeyCode.Home:
+                    this.home = true;
+                    break;
+                case config.KeyCode.Page_Up:
+                    this.pgUp = true;
+                    break;
             }
             this.anyKey = true;
         };
@@ -64,6 +73,15 @@ var managers;
                     break;
                 case config.KeyCode.Escape:
                     this.escape = false;
+                    break;
+                case config.KeyCode.Enter:
+                    this.enter = false;
+                    break;
+                case config.KeyCode.Home:
+                    this.home = false;
+                    break;
+                case config.KeyCode.Page_Up:
+                    this.pgUp = false;
                     break;
             }
             this.anyKey = false;

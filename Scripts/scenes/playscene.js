@@ -10,16 +10,16 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var scenes;
 (function (scenes) {
-    var PlaySceneScene = /** @class */ (function (_super) {
-        __extends(PlaySceneScene, _super);
+    var PlayScene = /** @class */ (function (_super) {
+        __extends(PlayScene, _super);
         // Constructor
-        function PlaySceneScene(assetManager, sceneNumber) {
+        function PlayScene(assetManager, sceneNumber) {
             var _this = _super.call(this, assetManager) || this;
-            // public _popUpSpeed1:objects.PopUp;
-            // public _popUpSpeed2:objects.PopUp;
             _this._popUpLandMines = new Array();
             _this.LandMinesQty = 15;
             _this._pauseButton = new objects.Button(_this.assetManager, "pause_button", -300, -300);
+            _this._creditButton = new objects.Button(_this.assetManager, "credit_button", -300, -300);
+            _this._helpButton = new objects.Button(_this.assetManager, "help_button", -300, -300);
             // Terrain to cover the canvas (It is temporally)
             switch (sceneNumber) {
                 case 1:
@@ -44,13 +44,19 @@ var scenes;
             _this.Start();
             return _this;
         }
-        PlaySceneScene.prototype._pauseButtonClick = function () {
-            this.unpause();
-        };
+        // private _pauseButtonClick():void {
+        //   this.pause(this._pauseButton);
+        // }
+        // private _creditButtonClick():void {
+        //   this.pause(this._creditButton);
+        // }
+        // private _helpButtonClick():void {
+        //   this.pause(this._helpButton);
+        // }
         // Private Mathods
         // Public Methods
         // Initialize Game Variables and objects
-        PlaySceneScene.prototype.Start = function () {
+        PlayScene.prototype.Start = function () {
             this._key = new managers.NewKeyboard();
             this._gamepaused = false;
             this._terrain1.x = 0;
@@ -70,8 +76,6 @@ var scenes;
             this._popUpOil2 = new objects.PopUp(this.assetManager, "popUpOil", "popUpOil");
             this._popUpLife1 = new objects.PopUp(this.assetManager, "popUpLife", "popUpLife");
             this._popUpLife2 = new objects.PopUp(this.assetManager, "popUpLife", "popUpLife");
-            this._popUpLife1 = new objects.PopUp(this.assetManager, "popUpSpeed", "popUpSpeed");
-            this._popUpLife2 = new objects.PopUp(this.assetManager, "popUpSpeed", "popUpSpeed");
             var i = 0;
             for (i; i < this.LandMinesQty; i++) {
                 this._popUpLandMines.push(new objects.PopUp(this.assetManager, "popUpLandMine", "popUpLandMine"));
@@ -95,15 +99,23 @@ var scenes;
             this._scoreBoard.setFuel(this._newTank1.fuel, this._newTank2.fuel);
             this._scoreBoard.setHealth(this._newTank1.health, this._newTank2.health);
             this._scoreBoard.setScore(this._newTank1.score, this._newTank2.score);
-            objects.Game.scoreBoard = new managers.ScoreBoard();
             objects.Game.scoreBoard.setFuel(this._newTank1.fuel, this._newTank2.fuel);
             objects.Game.scoreBoard.setHealth(this._newTank1.health, this._newTank2.health);
-            objects.Game.scoreBoard.setScore(this._newTank1.score, this._newTank2.score);
+            // if(objects.Game.scoreBoard.Player1_Score==0 && objects.Game.scoreBoard.Player2_Score==0)
+            //   objects.Game.scoreBoard.setScore(this._newTank1.score, this._newTank2.score);
+            this._newTank1.score = objects.Game.scoreBoard.Player1_Score;
+            this._newTank2.score = objects.Game.scoreBoard.Player2_Score;
+            var title = document.getElementById("title_center");
+            title.innerHTML = ("THE TANK GAME").toString();
             this.Main();
         };
-        PlaySceneScene.prototype.Update = function () {
+        PlayScene.prototype.Update = function () {
             if (this._key.paused)
-                this.pause();
+                this.pause(this._pauseButton);
+            if (this._key.home)
+                this.pause(this._helpButton);
+            if (this._key.pgUp)
+                this.pause(this._creditButton);
             if (this._key.escape)
                 this.unpause();
             if (this._gamepaused)
@@ -129,14 +141,14 @@ var scenes;
             var health = document.getElementById("p1_health");
             fuel.innerHTML = (this._newTank1.fuel / 1000).toString() + "%";
             health.innerHTML = this._newTank1.health.toString();
-            score.innerHTML = this._newTank1.score.toString();
+            score.innerHTML = objects.Game.scoreBoard.Player1_Score.toString();
             // Scoreboard Player 2
             fuel = document.getElementById("p2_fuel");
             score = document.getElementById("p2_score");
             health = document.getElementById("p2_health");
             fuel.innerHTML = (this._newTank2.fuel / 1000).toString() + "%";
             health.innerHTML = this._newTank2.health.toString();
-            score.innerHTML = this._newTank2.score.toString();
+            score.innerHTML = objects.Game.scoreBoard.Player2_Score.toString();
             // If lives fall below 0 swith to game over scene
             if (this._newTank1.health <= 0 || this._newTank2.health <= 0 || (this._newTank1.fuel == 0 && this._newTank2.fuel == 0)) {
                 var transition = new objects.Transition(this.assetManager);
@@ -147,7 +159,7 @@ var scenes;
             }
         };
         // This is where the fun happens
-        PlaySceneScene.prototype.Main = function () {
+        PlayScene.prototype.Main = function () {
             var _this = this;
             if (objects.Game.playMusic) {
                 createjs.Sound.play("battle", { loop: -1 });
@@ -171,12 +183,14 @@ var scenes;
             this.addChild(this._newTank1.statusBackgroud.statusHealth);
             this.addChild(this._newTank1.statusBackgroud.statusFuel);
             this.addChild(this._newTank1.scoreStatus);
+            this.addChild(this._newTank2.statusBackgroud);
+            this.addChild(this._newTank2.statusBackgroud.statusHealth);
+            this.addChild(this._newTank2.statusBackgroud.statusFuel);
+            this.addChild(this._newTank2.scoreStatus);
             this.addChild(this._popUpOil1);
             this.addChild(this._popUpOil2);
             this.addChild(this._popUpLife1);
             this.addChild(this._popUpLife2);
-            // this.addChild(this._popUpSpeed1);
-            // this.addChild(this._popUpSpeed2);
             this._popUpLandMines.forEach(function (landMine) {
                 _this.addChild(landMine);
             });
@@ -184,28 +198,36 @@ var scenes;
             this.addChild(this._newTank1);
             this.addChild(this._newTank2);
             this.addChild(this._pauseButton);
-            this._pauseButton.on("pause", this._pauseButtonClick);
-            this._pauseButton.on("pause", this._pauseButtonClick);
+            this.addChild(this._creditButton);
+            this.addChild(this._helpButton);
         };
-        PlaySceneScene.prototype.pause = function () {
+        PlayScene.prototype.pause = function (button) {
+            if (button === void 0) { button = this._pauseButton; }
             this._gamepaused = true;
-            this._pauseButton.x = 750;
-            this._pauseButton.y = 400;
+            button.x = 750;
+            button.y = 400;
         };
-        PlaySceneScene.prototype.unpause = function () {
+        PlayScene.prototype.unpause = function () {
             this._gamepaused = false;
+            this._creditButton.x = -300;
+            this._creditButton.y = -300;
             this._pauseButton.x = -300;
             this._pauseButton.y = -300;
+            this._helpButton.x = -300;
+            this._helpButton.y = -300;
         };
-        PlaySceneScene.prototype.setLabyrinth2 = function (tp) {
+        PlayScene.prototype.setLabyrinth2 = function (LabirynthNumber) {
             var _this = this;
-            if (tp === void 0) { tp = Math.round(Math.random() * 4); }
+            if (LabirynthNumber === void 0) { LabirynthNumber = 1; }
+            LabirynthNumber = Math.round(Math.random() * 10);
+            if (LabirynthNumber == 0)
+                LabirynthNumber = 1;
             var labirinth_total_horizontal_tiles = 46;
             var labirinth_total_vertica_tiles = 25;
             var tile_width = 30;
             var tile_height = 30;
             var labyrinth = new Array();
-            switch (tp) {
+            switch (LabirynthNumber) {
                 case 1:
                     //                       1         2         3         4
                     //              123456789012345678901234567890123456789012345678
@@ -241,63 +263,64 @@ var scenes;
                 case 2:
                     //                       1         2         3         4
                     //              123456789012345678901234567890123456789012345678
-                    labyrinth.push(" ");
-                    labyrinth.push(" ");
-                    labyrinth.push("        111111111  111111111  1111 1111           ");
-                    labyrinth.push("            11     11     11  11 111 11           ");
-                    labyrinth.push("  111111    11     11     11  11  1  11  1111111  ");
-                    labyrinth.push("  111111    11     11     11  11     11  1111111  ");
-                    labyrinth.push("            11     111111111  11     11           ");
-                    labyrinth.push("");
-                    labyrinth.push("");
-                    labyrinth.push("     111111  111111    111111  11  11  111111     ");
-                    labyrinth.push("       11    11          11    11  11  1          ");
-                    labyrinth.push("       11    111111      11    111111  111111     ");
-                    labyrinth.push("       11        11      11    11  11  1          ");
-                    labyrinth.push("     111111  111111      11    11  11  111111     ");
-                    labyrinth.push("");
-                    labyrinth.push(" ");
-                    labyrinth.push("    1111111111   11       11  111       111   111 ");
-                    labyrinth.push("    11           11       11   11       11    111 ");
-                    labyrinth.push("    11  1111111  11       11   11111111111    111 ");
-                    labyrinth.push("    11       11  11       11        11            ");
-                    labyrinth.push("    11111111111  11111111111        11        111 ");
-                    labyrinth.push(" ");
-                    labyrinth.push("  1111111111111111111111111111111111111111111111  ");
-                    labyrinth.push(" ");
-                    labyrinth.push(" ");
-                    labyrinth.push("111111111111111111111      11111111111111111111111");
+                    labyrinth.push("                                                  ");
+                    labyrinth.push(" 11111111111111111111111         11111111111111111");
+                    labyrinth.push(" 1     11      11                 11       11    1");
+                    labyrinth.push(" 1     11      11                 11       11    1");
+                    labyrinth.push(" 1     11      11                 11       11    1");
+                    labyrinth.push(" 1     11      111111             11       11    1");
+                    labyrinth.push(" 1     11                         11       11    1");
+                    labyrinth.push(" 1     11      111111111111111111111       11    1");
+                    labyrinth.push(" 1     11      11                          11    1");
+                    labyrinth.push(" 1             11                          11    1");
+                    labyrinth.push(" 1             11             1111111111111111   1");
+                    labyrinth.push(" 1      111111111                       11       1");
+                    labyrinth.push(" 1      11                                       1");
+                    labyrinth.push(" 1      11                                       1");
+                    labyrinth.push(" 1      11                              11       1");
+                    labyrinth.push(" 1           11111111111111111111111111111       1");
+                    labyrinth.push(" 1           11                11       11       1");
+                    labyrinth.push(" 1           11                11                1");
+                    labyrinth.push(" 1           11    1           11                1");
+                    labyrinth.push(" 11111111111111    1                             1");
+                    labyrinth.push(" 1                 1                             1");
+                    labyrinth.push(" 1                 1    11111111111111111111111111");
+                    labyrinth.push(" 1                 1                   11        1");
+                    labyrinth.push(" 1111111111111111111                             1");
+                    labyrinth.push(" 1                                               1");
+                    labyrinth.push(" 1111111111111111111111        1111111111111111111");
                     //              123456789012345678901234567890123456789012345678
                     //                       1         2         3         4
                     break;
                 case 3:
                     //                       1         2         3         4
                     //              123456789012345678901234567890123456789012345678
-                    labyrinth.push(" ");
-                    labyrinth.push(" ");
-                    labyrinth.push("         1111           1111  1111111111         ");
-                    labyrinth.push("         1111           1111  1111               ");
-                    labyrinth.push("  1111   1111           1111  1111111111  1111   ");
-                    labyrinth.push("         1111    111    1111  1111               ");
-                    labyrinth.push("          1111   111   1111   1111               ");
-                    labyrinth.push("            1111111111111     1111111111         ");
-                    labyrinth.push(" ");
-                    labyrinth.push("");
-                    labyrinth.push("                  11111    11111                ");
-                    labyrinth.push("                111111111111111111              ");
-                    labyrinth.push("                 1111111111111111               ");
-                    labyrinth.push("                   111111111111                 ");
-                    labyrinth.push("                     11111111                   ");
-                    labyrinth.push("                      111111                    ");
-                    labyrinth.push("                        11                      ");
-                    labyrinth.push(" ");
-                    labyrinth.push("             1111111111  11111111111            ");
-                    labyrinth.push("             1111        111     111            ");
-                    labyrinth.push("   1111111   1111        11111111111   1111111  ");
-                    labyrinth.push("             1111        111     111            ");
-                    labyrinth.push("             11111111111 111     111            ");
-                    labyrinth.push(" ");
-                    labyrinth.push(" ");
+                    labyrinth.push("                                                  ");
+                    labyrinth.push(" 11111111111111111111111         11111111111111111");
+                    labyrinth.push(" 1                                               1");
+                    labyrinth.push(" 1         11           11            11         1");
+                    labyrinth.push(" 1          11           11           11         1");
+                    labyrinth.push(" 1           11           11         11111       1");
+                    labyrinth.push(" 1     11111              11            11       1");
+                    labyrinth.push(" 1       11               111111         11      1");
+                    labyrinth.push(" 1     11    111           11          11        1");
+                    labyrinth.push(" 1      111111           11             11       1");
+                    labyrinth.push(" 1       11             11            11         1");
+                    labyrinth.push(" 1     1111           1111111        11          1");
+                    labyrinth.push(" 1        111           11          11           1");
+                    labyrinth.push(" 1         11            11          11          1");
+                    labyrinth.push(" 1       11                11      11111111      1");
+                    labyrinth.push(" 1    1111111          1111           11  111    1");
+                    labyrinth.push(" 1          11           11          11          1");
+                    labyrinth.push(" 1           11          11          1111        1");
+                    labyrinth.push(" 1         11              11         11         1");
+                    labyrinth.push(" 1       11           1111111         11         1");
+                    labyrinth.push(" 1        11              11        11           1");
+                    labyrinth.push(" 1          11              11        11         1");
+                    labyrinth.push(" 1           11         11111111        11       1");
+                    labyrinth.push(" 1       1111111           11           11       1");
+                    labyrinth.push(" 1                                               1");
+                    labyrinth.push(" 1111111111111111111111        1111111111111111111");
                     //              123456789012345678901234567890123456789012345678
                     //                       1         2         3         4
                     break;
@@ -332,6 +355,198 @@ var scenes;
                     //              123456789012345678901234567890123456789012345678
                     //                       1         2         3         4
                     break;
+                case 5:
+                    //                       1         2         3         4
+                    //              123456789012345678901234567890123456789012345678
+                    labyrinth.push("                                                  ");
+                    labyrinth.push(" 11111111111111111111         11111111111111111111");
+                    labyrinth.push(" 1                                               1");
+                    labyrinth.push(" 1                                               1");
+                    labyrinth.push(" 1                                               1");
+                    labyrinth.push(" 1               11111111111111111               1");
+                    labyrinth.push(" 1              11               11              1");
+                    labyrinth.push(" 1              11               11              1");
+                    labyrinth.push(" 1              11               11              1");
+                    labyrinth.push(" 1              11               11              1");
+                    labyrinth.push(" 1              11               11              1");
+                    labyrinth.push(" 1              11               11              1");
+                    labyrinth.push(" 1      1       11               11       1      1");
+                    labyrinth.push(" 1       1       1               1       1       1");
+                    labyrinth.push(" 1         1      1             1      1         1");
+                    labyrinth.push(" 1          1      1           1      1          1");
+                    labyrinth.push(" 1            1     1         1     1            1");
+                    labyrinth.push(" 1             1     1       1     1             1");
+                    labyrinth.push(" 1               1    1     1    1               1");
+                    labyrinth.push(" 1                1     111     1                1");
+                    labyrinth.push(" 1                  1         1                  1");
+                    labyrinth.push(" 1                   1       1                   1");
+                    labyrinth.push(" 1                                               1");
+                    labyrinth.push(" 1                                               1");
+                    labyrinth.push(" 1                                               1");
+                    labyrinth.push(" 11111111111111111111         11111111111111111111");
+                    //              123456789012345678901234567890123456789012345678
+                    //                       1         2         3         4
+                    break;
+                case 6:
+                    //                       1         2         3         4
+                    //              123456789012345678901234567890123456789012345678
+                    labyrinth.push("                                                  ");
+                    labyrinth.push(" 11111111111111111111         11111111111111111111");
+                    labyrinth.push(" 1                                               1");
+                    labyrinth.push(" 1      11                    11                 1");
+                    labyrinth.push(" 1           11         11                11     1");
+                    labyrinth.push(" 1                  11                  11       1");
+                    labyrinth.push(" 1                            11                 1");
+                    labyrinth.push(" 1             11                        11      1");
+                    labyrinth.push(" 1     11                  11                    1");
+                    labyrinth.push(" 1                                   11          1");
+                    labyrinth.push(" 1                 11     11                     1");
+                    labyrinth.push(" 1    11                                   11    1");
+                    labyrinth.push(" 1             11                 11             1");
+                    labyrinth.push(" 1         11           11                       1");
+                    labyrinth.push(" 1                                        11     1");
+                    labyrinth.push(" 1    11                       11                1");
+                    labyrinth.push(" 1               11                              1");
+                    labyrinth.push(" 1                   11                11        1");
+                    labyrinth.push(" 1             11            11                  1");
+                    labyrinth.push(" 1                                         11    1");
+                    labyrinth.push(" 1                       11                      1");
+                    labyrinth.push(" 1     11      11                  11            1");
+                    labyrinth.push(" 1    11                       11      11        1");
+                    labyrinth.push(" 1             11                                1");
+                    labyrinth.push(" 1                                               1");
+                    labyrinth.push(" 1111111111111111111111        1111111111111111111");
+                    //              123456789012345678901234567890123456789012345678
+                    //                       1         2         3         4
+                    break;
+                case 7:
+                    //                       1         2         3         4
+                    //              123456789012345678901234567890123456789012345678
+                    labyrinth.push("                                                  ");
+                    labyrinth.push(" 111111111111111111111           11111111111111111");
+                    labyrinth.push(" 1                                               1");
+                    labyrinth.push(" 1                                               1");
+                    labyrinth.push(" 1                    111111                     1");
+                    labyrinth.push(" 1                      111111          111      1");
+                    labyrinth.push(" 1      1111            1111                     1");
+                    labyrinth.push(" 1   1111             11111        111111        1");
+                    labyrinth.push(" 1                      1111111       11111      1");
+                    labyrinth.push(" 1          111                                  1");
+                    labyrinth.push(" 1          11111                                1");
+                    labyrinth.push(" 1                      1111             11      1");
+                    labyrinth.push(" 1    1111                             111111    1");
+                    labyrinth.push(" 1     111111111           11111                 1");
+                    labyrinth.push(" 1                                               1");
+                    labyrinth.push(" 1                                               1");
+                    labyrinth.push(" 1            11               11                1");
+                    labyrinth.push(" 1         1111111           111111              1");
+                    labyrinth.push(" 1                             11        111     1");
+                    labyrinth.push(" 1                                     1111111   1");
+                    labyrinth.push(" 1      111111                            1111   1");
+                    labyrinth.push(" 1        111           1111111                  1");
+                    labyrinth.push(" 1      11111111          111                    1");
+                    labyrinth.push(" 1                                               1");
+                    labyrinth.push(" 1                                               1");
+                    labyrinth.push(" 111111111111111111111           11111111111111111");
+                    //              123456789012345678901234567890123456789012345678
+                    //                       1         2         3         4
+                    break;
+                case 8:
+                    //                       1         2         3         4
+                    //              123456789012345678901234567890123456789012345678
+                    labyrinth.push("                                                   ");
+                    labyrinth.push(" 111111111111111111111           111111111111111111");
+                    labyrinth.push(" 1                                          11    1");
+                    labyrinth.push(" 1                              111111      11    1");
+                    labyrinth.push(" 1      1111111111111               11      11    1");
+                    labyrinth.push(" 1            11                    11      11    1");
+                    labyrinth.push(" 1            11        11          11      11    1");
+                    labyrinth.push(" 1            11        11          11      11    1");
+                    labyrinth.push(" 1                      11          11            1");
+                    labyrinth.push(" 1                      11                        1");
+                    labyrinth.push(" 1            11111111111111111111111111          1");
+                    labyrinth.push(" 1    11                                          1");
+                    labyrinth.push(" 1    11                                          1");
+                    labyrinth.push(" 1    11               1111111111111111111111     1");
+                    labyrinth.push(" 1    11                           11             1");
+                    labyrinth.push(" 1    11                           11             1");
+                    labyrinth.push(" 1    1111111111         11        11             1");
+                    labyrinth.push(" 1    11                 11        1111111111     1");
+                    labyrinth.push(" 1    11                 11                       1");
+                    labyrinth.push(" 1    11                 11                       1");
+                    labyrinth.push(" 1             11111111111111111111111111         1");
+                    labyrinth.push(" 1                                                1");
+                    labyrinth.push(" 1        11                                      1");
+                    labyrinth.push(" 1        11         1111111111111111111111       1");
+                    labyrinth.push(" 1        11                                      1");
+                    labyrinth.push(" 111111111111111111111       1111111111111111111111");
+                    //              123456789012345678901234567890123456789012345678
+                    //                       1         2         3         4
+                    break;
+                case 9:
+                    //                       1         2         3         4
+                    //              123456789012345678901234567890123456789012345678
+                    labyrinth.push("                                                  ");
+                    labyrinth.push(" 1111111111111111111111        1111111111111111111");
+                    labyrinth.push(" 1                   11        11                1");
+                    labyrinth.push(" 1                   11        11                1");
+                    labyrinth.push(" 1                   11        11                1");
+                    labyrinth.push(" 1              1111111        1111111           1");
+                    labyrinth.push(" 1              11                  11           1");
+                    labyrinth.push(" 1              11                  11           1");
+                    labyrinth.push(" 1      1111111111                  11           1");
+                    labyrinth.push(" 1      11                          11           1");
+                    labyrinth.push(" 1      11             111111111111111           1");
+                    labyrinth.push(" 1      11             11                        1");
+                    labyrinth.push(" 1      11             11                        1");
+                    labyrinth.push(" 1      11             11                        1");
+                    labyrinth.push(" 1      11             11      11          11    1");
+                    labyrinth.push(" 1                             11          11    1");
+                    labyrinth.push(" 1                             11          11    1");
+                    labyrinth.push(" 1              11111111111111111          11    1");
+                    labyrinth.push(" 1             11                          11    1");
+                    labyrinth.push(" 1            11                     11111111    1");
+                    labyrinth.push(" 1            11                    11           1");
+                    labyrinth.push(" 1            111111111        1111111           1");
+                    labyrinth.push(" 1                   11        11                1");
+                    labyrinth.push(" 1                   11        11                1");
+                    labyrinth.push(" 1                   11        11                1");
+                    labyrinth.push(" 1111111111111111111111        1111111111111111111");
+                    //              123456789012345678901234567890123456789012345678
+                    //                       1         2         3         4
+                    break;
+                case 10:
+                    //                       1         2         3         4
+                    //              123456789012345678901234567890123456789012345678
+                    labyrinth.push("                                                  ");
+                    labyrinth.push(" 11111111111111111111111         11111111111111111");
+                    labyrinth.push(" 1             11                          11    1");
+                    labyrinth.push(" 1             11                 11       11    1");
+                    labyrinth.push(" 1             11                 11       11    1");
+                    labyrinth.push(" 1                                11       11    1");
+                    labyrinth.push(" 1111111111                       11       11    1");
+                    labyrinth.push(" 1                     1111111111111             1");
+                    labyrinth.push(" 1             11                                1");
+                    labyrinth.push(" 1             11                                1");
+                    labyrinth.push(" 1             11                     111111111111");
+                    labyrinth.push(" 1             11111111111111                    1");
+                    labyrinth.push(" 1                                               1");
+                    labyrinth.push(" 1                             11                1");
+                    labyrinth.push(" 1      11                     11                1");
+                    labyrinth.push(" 1      11                111111111111           1");
+                    labyrinth.push(" 1      1111111                11                1");
+                    labyrinth.push(" 1           11                11                1");
+                    labyrinth.push(" 1           11                                  1");
+                    labyrinth.push(" 1      1111111                                  1");
+                    labyrinth.push(" 1                                               1");
+                    labyrinth.push(" 1                                1111111111111111");
+                    labyrinth.push(" 1    11111       11111111111          11        1");
+                    labyrinth.push(" 1111111         11                    11        1");
+                    labyrinth.push(" 1               11                              1");
+                    labyrinth.push(" 1111111111111111111111        1111111111111111111");
+                    //              123456789012345678901234567890123456789012345678
+                    //                       1         2         3         4
+                    break;
             }
             var line_counter = 1;
             var pos_y = 0;
@@ -339,12 +554,12 @@ var scenes;
             labyrinth.forEach(function (map) {
                 var pos = 0;
                 var pos_x = 0;
+                var barrier;
+                var undestructible_barrier;
+                var destructible;
                 for (pos; pos < map.length; pos++) {
                     if (map.substr(pos, 1) == "1") {
-                        if (Math.random() <= 0.8)
-                            _this._labyrinth.push(new objects.Barrier(_this.assetManager, "barrier", pos_x, pos_y, true));
-                        else
-                            _this._labyrinth.push(new objects.Barrier(_this.assetManager, "barrier_undestructible", pos_x, pos_y, false));
+                        _this._labyrinth.push(new objects.Barrier(_this.assetManager, objects.Game.currentScene, pos_x, pos_y, Math.random() <= 0.8 ? true : false));
                     }
                     pos_x += tile_width;
                 }
@@ -352,8 +567,8 @@ var scenes;
                 pos_y += tile_height;
             });
         };
-        return PlaySceneScene;
+        return PlayScene;
     }(objects.Scene));
-    scenes.PlaySceneScene = PlaySceneScene;
+    scenes.PlayScene = PlayScene;
 })(scenes || (scenes = {}));
 //# sourceMappingURL=playscene.js.map

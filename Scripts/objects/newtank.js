@@ -63,16 +63,16 @@ var objects;
             _this.statusBackgroud = new objects.StatusBackground(_this.assetManager, _this.x, _this.y);
             _this.scoreStatus = new objects.Label("Score : " + _this.score, "14px", "Consolas", "#0000FF", _this.x + 20, _this.y - 20, false);
             // Checks the starting position on screen and applies the right rotation on the tank
-            if (_this.y <= 100) { // screen upper-left side check
+            if (_this.y <= 100) {
                 _this.rotation = 180;
             }
-            else if (_this.x <= 750 && _this.y > 100 && _this.y < 700) { // Screen upper-right side check
+            else if (_this.x <= 750 && _this.y > 100 && _this.y < 700) {
                 _this.rotation = 90;
             }
-            else if (_this.x > 750 && _this.y > 100 && _this.y < 700) { // Screen down-right side check
+            else if (_this.x > 750 && _this.y > 100 && _this.y < 700) {
                 _this.rotation = 270;
             }
-            else { // Screen down-left side check
+            else {
                 _this.rotation = 0;
             }
             _this.Start();
@@ -146,8 +146,8 @@ var objects;
             this.scoreStatus.updateCache("Score : " + this.score, this.x + 20, this.y - 20);
         };
         NewTank.prototype.MoveAutomatically = function () {
-            var pace = 8;
-            if (this.x <= 750 && this.y <= 400) { // screen upper-left side check
+            var pace = 5;
+            if (this.x <= 750 && this.y <= 400) {
                 if (this._direction == "up") {
                     this.rotation = 0;
                     this.y -= pace;
@@ -161,7 +161,7 @@ var objects;
                     this.y -= pace;
                 }
             }
-            else if (this.x > 750 && this.y <= 400) { // Screen upper-right side check
+            else if (this.x > 750 && this.y <= 400) {
                 if (this._direction == "down") {
                     this.rotation = 180;
                     this.y += pace;
@@ -175,7 +175,7 @@ var objects;
                     this.y -= pace;
                 }
             }
-            else if (this.x > 750 && this.y > 400) { // Screen down-right side check
+            else if (this.x > 750 && this.y > 400) {
                 if (this._direction == "down") {
                     this.rotation = 180;
                     this.y += pace;
@@ -189,7 +189,7 @@ var objects;
                     this.y += pace;
                 }
             }
-            else { // Screen down-left side check
+            else {
                 if (this._direction == "up") {
                     this.rotation = 0;
                     this.y -= pace;

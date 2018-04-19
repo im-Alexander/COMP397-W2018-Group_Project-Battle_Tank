@@ -7,7 +7,7 @@ module objects {
         // PUBLIC PROPERTIES
         /////////////////////////////////////////////////////////////////////////////
         public fuel : number ;
-        public health : number;
+        public health : number ;
         public fuel_ini : number = 100000;
         public health_ini : number = 10;
         public score : number ;
@@ -170,7 +170,8 @@ module objects {
         }
     
         public MoveAutomatically():void {
-            let pace = 8;
+            
+            let pace = 5;
             if( this.x <= 750 && this.y <= 400 ){  // screen upper-left side check
                 if(this._direction=="up"){
                     this.rotation =0;
@@ -220,11 +221,11 @@ module objects {
             this.CheckBounds(true);    
             // Keyboard Controls
         }
-
         public setFuel(value :number =5){
             super.setFuel(value);
             this.fuelStatusUpdate(this.fuel);
-        }
+          }
+      
         public fuelStatusUpdate(value:number):void{
             let percent = this.fuel /this.fuel_ini;
 
@@ -232,7 +233,7 @@ module objects {
             if(percent<0) percent=0;
             this.statusBackgroud.statusFuel.scaleX =percent;
         }
-
+        
         public setHealth(value :number = 10){
             super.setHealth(value);
             this.healthStatusUpdate(this.health);
@@ -243,7 +244,6 @@ module objects {
             if(percent<0) percent=0;
             this.statusBackgroud.statusHealth.scaleX =percent;
         }
-
         //public scoreStatusUpdate(value:number):void{}
    
         // check to see if some boundary has been passed

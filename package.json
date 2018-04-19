@@ -16,8 +16,7 @@
   },
   "homepage": "https://github.com/im-Alexander/COMP397-W2018-Group_Project-Battle_Tank#readme",
   "devDependencies": {
-    "@types/easeljs": "^1.0.0",
-    "typescript": "^2.8.1"
+    "@types/easeljs": "^1.0.0"
   },
   "dependencies": {
     "@types/preloadjs": "^0.6.32",

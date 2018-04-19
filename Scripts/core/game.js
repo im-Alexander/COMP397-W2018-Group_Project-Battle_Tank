@@ -17,6 +17,8 @@
         { id: "nextButton", src: "./Assets/images/buttons/nextButton.png" },
         { id: "backButton", src: "./Assets/images/buttons/replay.png" },
         { id: "pause_button", src: "./Assets/images/buttons/pause.png" },
+        { id: "credit_button", src: "./Assets/images/buttons/pause.png" },
+        { id: "help_button", src: "./Assets/images/buttons/pause.png" },
         { id: "bullet", src: "./Assets/images/bullets/bullet_small.png" },
         { id: "tank1", src: "./Assets/images/tanks/tank_green_1.png" },
         { id: "tank2", src: "./Assets/images/tanks/tank_blue_1.png" },
@@ -48,7 +50,8 @@
         { id: "pop_up_snd", src: "./Assets/audio/pop_up.ogg" },
         { id: "new_pop_up_snd", src: "./Assets/audio/new_pop_up.ogg" },
         { id: "round_end_snd", src: "./Assets/audio/round_end.ogg" },
-        { id: "tank_fire", src: "./Assets/audio/tank_fire_1.ogg" }
+        { id: "tank_fire", src: "./Assets/audio/tank_fire_1.ogg" },
+        { id: "start", src: "./Assets/audio/start.ogg" }
     ];
     // preloads assets
     function Init() {
@@ -66,6 +69,7 @@
         createjs.Ticker.on("tick", Update);
         objects.Game.stage = stage;
         objects.Game.currentScene = config.Scene.START;
+        objects.Game.scoreBoard = new managers.ScoreBoard();
         currentState = config.Scene.START;
         // keyboardManager = new managers.Keyboard();
         // objects.Game.keyboardManager = keyboardManager;
@@ -87,13 +91,13 @@
                 currentScene = new scenes.StartScene(assetManager);
                 break;
             case config.Scene.PLAY1:
-                currentScene = new scenes.PlaySceneScene(assetManager, 1);
+                currentScene = new scenes.PlayScene(assetManager, 1);
                 break;
             case config.Scene.PLAY2:
-                currentScene = new scenes.PlaySceneScene(assetManager, 2);
+                currentScene = new scenes.PlayScene(assetManager, 2);
                 break;
             case config.Scene.PLAY3:
-                currentScene = new scenes.PlaySceneScene(assetManager, 3);
+                currentScene = new scenes.PlayScene(assetManager, 3);
                 break;
             case config.Scene.OVER:
                 currentScene = new scenes.OverScene(assetManager);

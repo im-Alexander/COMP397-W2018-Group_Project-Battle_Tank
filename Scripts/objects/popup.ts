@@ -10,7 +10,6 @@ module objects {
         private cycle:number;
         private start: number;
         private timeLapse: number;
-        private Objects: objects.NewTank;
 
         // Constructor
         constructor(assetManager: createjs.LoadQueue, imageName:string="popUpOil", popUpType:string = "popUpOil") {
@@ -41,7 +40,7 @@ module objects {
             var d = new Date();
             var end = d.getTime();
 
-            //console.log( end - this.start )
+            console.log( end - this.start )
             this.counter++;  
             //console.log("Cycle : " + this.cycle + "  // Counter : "+ this.counter);
             // if(this.counter >= this.cycle){
@@ -96,11 +95,14 @@ module objects {
 
         }
 
-        public decreaseHealth(damage:number=3){
-            this.health-=damage;
-            //console.log("this.health : "+this.health);
-            if(this.health<=0) this.isColliding=true;
-            this.Objects.healthStatusUpdate(this.health);
+        public setHealth(value:number=-1){
+            this.health += value;
+            if(this.health<=0){
+                 this.isColliding=true;
+                 this.x=-100;
+                 this.y=-100;
+            }
+
         }
     }
 }

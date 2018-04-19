@@ -18,6 +18,7 @@ module scenes {
     // Private Mathods
     private _backButtonClick():void {
       objects.Game.currentScene = config.Scene.PLAY1;
+      objects.Game.scoreBoard.setScore(0,0);
     }
 
 

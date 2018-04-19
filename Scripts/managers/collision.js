@@ -44,8 +44,10 @@ var managers;
                     else if (object1.name.toUpperCase() == "POPUPLIFE") {
                         if (object2.fuel < 40000)
                             object2.fuel += 40000;
-                        else
+                        else {
                             object2.health++;
+                            object2.healthStatusUpdate(1);
+                        }
                         object1.isColliding = true; // In the next update the powerup will be not visible
                         object2.isColliding = false;
                     }
