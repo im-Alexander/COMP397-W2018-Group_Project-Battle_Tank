@@ -47,7 +47,6 @@ module objects {
 
     public setHealth(value:number=-1){
       this.health += value;
-      this.newTank.setHealth(this.health);
       this.scoreStatusUpdate(this.health);
     }
 

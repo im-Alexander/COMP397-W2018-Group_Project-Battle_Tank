@@ -48,7 +48,7 @@ module objects {
                 default:
                     barrier_destroyed1="./assets/images/barriers/brick_big_2.png";
                     barrier_destroyed2="./assets/images/barriers/brick_big_3.png";
-        }
+            }
             
             if(this.health==2){
               this.image = new createjs.Bitmap(barrier_destroyed1).image;
